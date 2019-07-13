@@ -1,0 +1,25 @@
+Plus :
+- choix warrioir/ mage/ arché...
+- version mobile
+- carte total
+
+prioritée normale :
+- map mieux desgnée
+- bien régler pause
+- jobs
+- casser un objet
+- arene de test
+- code de triches
+- bar de vie 
+- stack item
+- marché
+- épée
+- mage
+- site web
+- pièces d'or
+- messages description items
+- placer des tables de craft sur la map
+- bug popUp dialogue
+- inventaire (desing Paul)
+
+Important :

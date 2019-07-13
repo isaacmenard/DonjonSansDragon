@@ -1,0 +1,35 @@
+//0 créer une map dans /creaMap
+//1 créer un fichier "monde.js" avec le numero du monde (par exemple "monde4.js")
+//2 respecter ce modele (en changement  par le numero du monde):
+
+
+if (selectMap == 4) {
+    map = [
+        //code de la map attention, la map doit être carré et paire (il est conseillé de faire un 8x8)
+        //(ps rajouter virgule si bug une fois collé ici)
+    ]
+    setTimeout(() => {
+        //pour rajouter un élément sur la map
+        // addObject("Nom De L'objet","lien vers l'image de l'objet","position (en px) X","position (en px) Y")
+        
+        addObject("lampadaire", "img/light-post.png", -400, -400)
+
+
+
+
+        //Pour rajouter un méchant sur la map
+        // deltaTimeG = nombre de temps en millisecondes
+        // mechantCreation(positionX, positionY, Portée vue, vieMechant, id(si plusieurs mechant,un numero different pour chaque), vitesse (attaque, deplacement...), loot (--> [nom, img/nom.png]), Xp qu'il donne, dégat Attaque) 
+
+        deltaTimeG = 500;
+        intervalMechant = setInterval(mechant, deltaTimeG);
+        mechantCreation(-2, 3, 3, 1, 0, 500, ["S_Water01", "img/S_Water01.png"], 50, 1)
+
+
+        //Pour créer un pnj : 
+        //pnjCreation(position X,  position Y, lien de l'image du personnage, nom, dialogue)
+        //pour créer une question voir Isaac
+        pnjCreation(1,  2, "img/pnj1.png", "pnj", "Salut !")
+
+    }, 200);
+}

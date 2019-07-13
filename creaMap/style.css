@@ -1,0 +1,162 @@
+.perso, #arc {
+    width: 100px;
+    height: 100px;
+    transition: 1s;
+}
+#tableau{
+    transform: rotate(45deg);
+    margin-left: 200px;
+    margin-top: 200px;
+    margin-bottom: 200px;
+}
+#tableau div{
+    transform: rotate(-45deg);
+}
+html {
+    box-sizing: border-box;
+}
+div, body, p, a {
+    margin: 0px;
+    padding: 0px;
+}
+
+td,tr {
+    width: 100px;
+    height: 100px;
+}
+
+.palette {
+    width: 100px; /*def de la taille d'un carr�*/
+    background-size: 100%;
+    display: inline-block;
+    overflow: hidden;
+}
+
+
+.palette {
+    width: 100px;
+    height: 100px;
+    background-size : contain;
+    background-repeat: no-repeat;
+}
+
+.bois {
+    background-image: url("img/water-corner-top.png");
+}
+
+.terre {
+    background-image: url("img/water-left.png");
+}
+
+.sable {
+    background-image: url("img/water-right.png");
+}
+
+.roche {
+    background-image: url("img/water-top.png");
+}
+
+.herbe {
+    background-image: url("img/water-top-left.png");
+}
+
+.portailD {
+    background-image: url("img/water-top-right.png");
+}
+
+.inventaire {
+    position: fixed;
+    top: 90%;
+    text-align: center;
+    width: 100%;
+    height: 200px;
+}
+
+.vie {
+    width: 50px;
+    height: auto;
+    margin-left: 20px;
+}
+
+.caseInventaire {
+    width: 70px;
+    height: auto;
+}
+
+#vies {
+    display: inline-block;
+}
+
+#slot {
+    display: inline-block;
+}
+
+
+
+.murSolo {
+    background-image: url("img/grass.png");
+}
+
+.mur2Bas {
+    background-image: url("img/dirt.png");
+}
+
+.mur1TripleBas {
+    background-image: url("img/water.png");
+}
+
+.mur1TripleDroit {
+    background-image: url("img/cross-road.png");
+}
+
+.mur1TripleGauche {
+    background-image: url("img/road-bl.png");
+}
+
+.mur1TripleHaut {
+    background-image: url("img/road-br.png");
+}
+
+.mur1cote {
+    background-image: url("img/road-horizontal.png");
+}
+
+.mur2basDroit {
+    background-image: url("img/road-tl.png");
+}
+
+.mur2basGauche {
+    background-image: url("img/road-tr.png");
+}
+
+.mur2hautDroit {
+    background-image: url("img/road-vertical.png");
+}
+
+.mur2hautGauche {
+    background-image: url("img/water-bottom.png");
+}
+
+.mur3bas {
+    background-image: url("img/water-bottom-right.png");
+}
+
+.mur3droit {
+    background-image: url("img/water-bottom-left.png");
+    
+}
+
+.mur3gauche {
+    background-image: url("img/water-corner-bottom.png");
+    
+}
+
+.mur3haut {
+    background-image: url("img/water-corner-left.png");
+    transform: rotate(-90deg);
+}
+
+.mur0All {
+    background-image: url("img/water-corner-right.png");
+    transform: rotate(-90deg);
+}
