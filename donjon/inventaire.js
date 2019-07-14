@@ -402,8 +402,9 @@ function retirerInventaire(id, srcObj, classNameObj) {
 }
 
 function prendreInventaire(id) {
-    id = id.split("").slice(0,-4).join("")
-    console.log(id)
+    if(typeof(id) != "number" && id.split("").slice(-4).join("") == "More"){
+        id = id.split("").slice(0,-4).join("")
+    }
     slot[id - 1] = ""
     var result = slot.join('","')
     result = '["' + result + '"]'
