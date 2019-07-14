@@ -24,10 +24,7 @@ if (selectMap == 2) {
         addObject("arbre", "img/tree.png", -200, -266)
         addObject("arbre", "img/tree2.png", -80, 59)
         addObject("arbre", "img/tree.png", -380, 73)
-<<<<<<< HEAD
         addItem("wood","img/wood.png",0,0)
-=======
->>>>>>> 58f82a5c43abd9e65ba3bfdbc8945b13f43a94ea
         setTimeout(() => {
             pnjCreation(2, 2, "http://pixelartmaker.com/art/ec2897a64bc4d64.png", "pnj", ["Salut à toi, pourrais-tu m'apporter de la gelée bleu pour mon potage ?", "oui", "non", null, null, 1, 5])
         }, 100);

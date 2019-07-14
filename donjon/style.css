@@ -50,7 +50,24 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-<<<<<<< HEAD
+
+.deplacement{
+    position: fixed;
+    width: 5em;
+    height: 5em;
+    background-color: red;
+    bottom: 20%;
+    left: 10%;
+}
+.attaque{
+    position: fixed;
+    width: 5em;
+    height: 5em;
+    background-color: red;
+    bottom: 20%;
+    right:  10%;
+}
+
 .arbre{
     height: 125px;
     width: auto;
@@ -59,8 +76,6 @@ table {
     height: 325px;
     width: auto;
 }
-=======
->>>>>>> 58f82a5c43abd9e65ba3bfdbc8945b13f43a94ea
 .rep:hover{
     color:red;
 }

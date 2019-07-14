@@ -38,13 +38,8 @@ setTimeout(() => {
     }, 5000)
     addObject("lampadaire", "img/light-post.png", -400, -400)
     addObject("maison", "img/house1.png", -280, -282)
-<<<<<<< HEAD
     addObject("puit", "img/well.png", -300, -20)
     addObjectJob("wood","arbre2", "img/tree.png", -100, -350, "img/stump.png", -3, 3,5,25,"img/wood.png", 25)
-=======
-    addObject("arbre", "img/tree2.png", -100, -350)
-    addObject("puit", "img/well.png", -300, -20)
->>>>>>> 58f82a5c43abd9e65ba3bfdbc8945b13f43a94ea
     addObject("feuillage", "img/grass-prop.png", -380, 20)
     addObject("feuillage", "img/grass-prop.png", -380, 20)
     addObject("champi", "img/mushroom.png", -400, 2)

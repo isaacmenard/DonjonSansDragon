@@ -48,24 +48,20 @@ mondeTp()
 function tpA(direction){
     y = parseInt(positionMapGenerale.split(";")[0])
     x = parseInt(positionMapGenerale.split(";")[1])
-    if(direction == "haut"){
+    if(direction == "haut" && y-1 >= 0){
         tp = mapGenerale[y-1][x]
     }
-    else if(direction == "bas"){
+    else if(direction == "bas" && y+1  < mapGenerale.length){
         tp =mapGenerale[y+1][x]
     }
-    else if(direction == "gauche"){
+    else if(direction == "gauche" && x-1 >= 0){
         tp =mapGenerale[y][x-1]
     }
-    else if(direction == "droite"){
+    else if(direction == "droite" && x+1  < mapGenerale[y].length){
         tp =mapGenerale[y][x+1]
     }
     if(tp != null){
         if(mechantDead.length == mechantLoot.length){
-<<<<<<< HEAD
-=======
-            console.log("vous pouvez aller dans le monde"+tp)
->>>>>>> 58f82a5c43abd9e65ba3bfdbc8945b13f43a94ea
             arrowMap(direction)
         }
     }
@@ -74,19 +70,19 @@ function tpA(direction){
 function arrowMap(direction){
     if(direction == "haut"){
         document.getElementById("arrowMap").style.visibility = "visible"
-        document.getElementById("arrowMap").style.transform = "rotate(-90deg)"
+        document.getElementById("arrowMap").style.transform = "rotate(0deg)"
     }
     else if(direction == "bas"){
         document.getElementById("arrowMap").style.visibility = "visible"
-        document.getElementById("arrowMap").style.transform = "rotate(90deg)"
+        document.getElementById("arrowMap").style.transform = "rotate(180deg)"
     }
     else if(direction == "gauche"){
         document.getElementById("arrowMap").style.visibility = "visible"
-        document.getElementById("arrowMap").style.transform = "rotate(-180deg)"
+        document.getElementById("arrowMap").style.transform = "rotate(-90deg)"
     }
     else if(direction == "droite" && selectMap != 0){
         document.getElementById("arrowMap").style.visibility = "visible"
-        document.getElementById("arrowMap").style.transform = "rotate(0deg)"
+        document.getElementById("arrowMap").style.transform = "rotate(90deg)"
     }
 }
 function changementDeMap(){

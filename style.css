@@ -11,17 +11,16 @@ body {
     width: 100%;
     background-color: rgb(243, 243, 243);
 }
+.accueil{
+    text-align: center;
+}
 .play{
     font-family: 'Oswald', sans-serif;
     font-size: 30px;
     color: rgb(32, 32, 32);
-    background-image: url("hexagone.png");
     background-size: 70%;
-    height: 600px;
     background-repeat: no-repeat;
     background-position-x: 50%;
-    -webkit-transform: rotate(30deg);
-    transform: rotate(30deg);
     position: relative;
     top:-50px;
     background-position-y: 50%;
@@ -59,6 +58,7 @@ body {
 
 }
 .play p{
+    padding-top:50px;
     line-height: 1.5em; /* hauteur de ligne (identique) */
     white-space: normal;
 }
@@ -76,18 +76,32 @@ body {
     background-color: #f3c62f;
     width: 100%;
     padding-top:10px;
-    height: 600px;
+    height: 720px;
     display: inline-block;
+}
+.bar{
+    width: 100%;
+    height: 120px;
+    background-image: url(bar.png);
+    background-size: 100%;
 }
 a:hover{
     text-decoration: none;
+}
+.haut{
+    margin-top: 50px;
+    height: 350px;
+}
+.haut img{
+    width: 30%;
+    height: auto;
 }
 .cercle{
     width: 550px;
     height: auto;
     position: relative;
 }
-.accueil .droite,.accueil .gauche{
+.accueil .droite,.accueil .bas{
     overflow: hidden;
     text-align: center;
     padding: 1em;
@@ -105,7 +119,7 @@ a:hover{
 }
 .headerLink:hover{
     text-decoration: none;
-    color: rgb(112, 112, 112);
+    color: rgb(153, 152, 152);
 }
 .topXp .droite,.topXp .gauche,.topXp .milieu{
     overflow: hidden;
@@ -115,12 +129,6 @@ a:hover{
     height: 100%;
     display: inline-block;
 }
-<<<<<<< HEAD
-=======
-.topXp .milieu{
-    
-}
->>>>>>> 58f82a5c43abd9e65ba3bfdbc8945b13f43a94ea
 .topXp{
     position: relative;
     margin-top: 50px;

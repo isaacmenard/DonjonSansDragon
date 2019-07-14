@@ -80,7 +80,7 @@ header('Content-type: text/html; charset=UTF-8');
 
         </div>
     </div>
-    <img src="http://www.iconhot.com/icon/png/devine/256/arrow.png" id="arrowMap" onclick="changementDeMap()">
+    <img src="img/arrowMap.png" id="arrowMap" onclick="changementDeMap()">
     <div class="Menu">
         <div class="croix"
             onclick="if(menuOpen == 0){document.getElementsByClassName('Menu')[0].style.visibility = 'visible';menuOpen = 1}else{document.getElementsByClassName('Menu')[0].style.visibility = 'hidden';menuOpen = 0}">
@@ -112,8 +112,21 @@ header('Content-type: text/html; charset=UTF-8');
     <div id="dialogue">
 
     </div>
+    <div class="mobile" style="visibility:hidden">
+        <div class="deplacement">
+            <div class="fleche fH dep"></div>
+            <div class="fleche fB dep"></div>
+            <div class="fleche fG dep"></div>
+            <div class="fleche fD dep"></div>
+        </div>
 
-
+        <div class="attaque">
+            <div class="fleche fH att"></div>
+            <div class="fleche fB att"></div>
+            <div class="fleche fG att"></div>
+            <div class="fleche fD att"></div>
+        </div>
+    </div>
     <div class="inventaire">
         <div id="vies"> </div>
         <div id="slot"> </div>
@@ -144,7 +157,6 @@ if($dossier = opendir('./mondeSuptilites'))
 ?> <script src="mapcrea.js" charset="utf-8" data-turbolinks-track="reload"></script>
     <script src="mechant.js" data-turbolinks-track="reload"></script>
     <script src="mondeTp.js" data-turbolinks-track="reload"></script>
-
     <script src="pnj.js" charset="utf-8" data-turbolinks-track="reload"></script>
     <script src="script.js" charset="utf-8" data-turbolinks-track="reload"></script>
     <script src="inventaire.js" charset="utf-8" data-turbolinks-track="reload"></script>
