@@ -32,7 +32,7 @@ passage = 0
 
 if (navigator.userAgent.match(/(android|iphone|blackberry|symbian|symbianos|symbos|netfront|model-orange|javaplatform|iemobile|windows phone|samsung|htc|opera mobile|opera mobi|opera mini|presto|huawei|blazer|bolt|doris|fennec|gobrowser|iris|maemo browser|mib|cldc|minimo|semc-browser|skyfire|teashark|teleca|uzard|uzardweb|meego|nokia|bb10|playbook)/gi)) {
     window.location.replace('mobile.php')
-} 
+}
 //cree les pages de lien pour changer de monde
 var myWindow;
 setTimeout(() => {
@@ -47,8 +47,9 @@ Xaft = []
 Yaft = []
 LootJobs = []
 xpObjJob = []
-function destroy(objet){
-    idObj = parseInt(objet.id.split("").slice(0,-6))
+
+function destroy(objet) {
+    idObj = parseInt(objet.id.split("").slice(0, -6))
     console.log(idObj)
     aObj = XObj[idObj]
     bObj = YObj[idObj]
@@ -71,25 +72,27 @@ function destroy(objet){
         suiteObj()
     }
     //gauche
-    else if (aObj <= a+1 && a - aObj <= 1 && bObj >= b && bObj - b <= 1) {
+    else if (aObj <= a + 1 && a - aObj <= 1 && bObj >= b && bObj - b <= 1) {
         suiteObj()
     }
-    function suiteObj(){
-        if(objet.className.split(" ")[2] == "wood" && itemSelect == "W_Axe001.png"){
+
+    function suiteObj() {
+        if (objet.className.split(" ")[2] == "wood" && itemSelect == "W_Axe001.png") {
             objet.src = srcAfter
             objet.className = "objetJob " + srcAfter.split("/")[1].split(".")[0]
-            objet.style.marginLeft = Xaft[idObj]+"0px"
-            objet.style.marginTop = Yaft[idObj]+"0px"
+            objet.style.marginLeft = Xaft[idObj] + "0px"
+            objet.style.marginTop = Yaft[idObj] + "0px"
             addXp(xpObjJob[idObj])
             addItem(loot.split("/")[1].split(".")[0], loot, aObj, bObj)
-        }else if(objet.className.split(" ")[2] == undefined){
+        } else if (objet.className.split(" ")[2] == undefined) {
             alert("précisez le type d'objet (wood...)")
         }
     }
 }
 canBrokeWood = false
 compteurObjJobs = 0;
-function addObjectJob(classObj, nom, src, X, Y, srcAfter, XOff, YOff, Xafter, Yafter,loot,xp){
+
+function addObjectJob(classObj, nom, src, X, Y, srcAfter, XOff, YOff, Xafter, Yafter, loot, xp) {
     var objet = document.createElement("div");
     XObj.push(XOff)
     xpObjJob.push(xp)
@@ -99,15 +102,15 @@ function addObjectJob(classObj, nom, src, X, Y, srcAfter, XOff, YOff, Xafter, Ya
     Yaft.push(Yafter)
     srcAfterObj.push(srcAfter)
     objet.className = "parent" + nom + " objet "
-    objet.style.marginLeft = X+"px"
-    objet.style.marginTop = Y+"px"
+    objet.style.marginLeft = X + "px"
+    objet.style.marginTop = Y + "px"
     setTimeout(() => {
-        document.getElementById((((mapSize) - (mapSize / 2)-1)*-1) + " 0 " + (((mapSize) - (mapSize / 2)-1)*-1)).appendChild(objet);
+        document.getElementById((((mapSize) - (mapSize / 2) - 1) * -1) + " 0 " + (((mapSize) - (mapSize / 2) - 1) * -1)).appendChild(objet);
     }, 200);
     var objetEnfant = document.createElement("img");
-    objetEnfant.className =  "objetJob " + nom +" "+classObj
+    objetEnfant.className = "objetJob " + nom + " " + classObj
     objetEnfant.src = src;
-    objetEnfant.id = compteurObjJobs+"ObjJob"
+    objetEnfant.id = compteurObjJobs + "ObjJob"
     objetEnfant.onclick = function () {
         destroy(this)
     }
@@ -118,16 +121,17 @@ function addObjectJob(classObj, nom, src, X, Y, srcAfter, XOff, YOff, Xafter, Ya
 function addObject(nom, src, X, Y) {
     var objet = document.createElement("div");
     objet.className = "parent" + nom + " objet"
-    objet.style.marginLeft = X+"px"
-    objet.style.marginTop = Y+"px"
+    objet.style.marginLeft = X + "px"
+    objet.style.marginTop = Y + "px"
     setTimeout(() => {
-        document.getElementById((((mapSize) - (mapSize / 2)-1)*-1) + " 0 " + (((mapSize) - (mapSize / 2)-1)*-1)).appendChild(objet);
+        document.getElementById((((mapSize) - (mapSize / 2) - 1) * -1) + " 0 " + (((mapSize) - (mapSize / 2) - 1) * -1)).appendChild(objet);
     }, 200);
     var objetEnfant = document.createElement("img");
     objetEnfant.className = nom + " objectImg"
     objetEnfant.src = src;
     objet.appendChild(objetEnfant);
 }
+
 function suiteKey(number) {
     maj()
     idSelect = number + 1;
@@ -136,6 +140,7 @@ function suiteKey(number) {
     document.getElementsByClassName("caseInvParent")[number].style.width = "100px"
     document.getElementsByClassName("caseInvParent")[number].style.height = "100px"
 }
+
 function maj() {
     for (var i = 0; i < 9; i++) {
         document.getElementsByClassName("caseInventaire")[i].style.width = "70px"
@@ -143,7 +148,7 @@ function maj() {
         document.getElementsByClassName("caseInvParent")[i].style.height = "70px"
     }
 }
-document.addEventListener('keydown', function (e) {  
+document.addEventListener('keydown', function (e) {
     if (e.keyCode == 49) {
         suiteKey(0)
     }
@@ -172,7 +177,8 @@ document.addEventListener('keydown', function (e) {
         suiteKey(8)
     }
 })
-function cercleTpCrea(endroit){
+
+function cercleTpCrea(endroit) {
     var cercle = document.createElement("div")
     cercle.className = "cercleTp"
     document.getElementById(endroit).appendChild(cercle)
@@ -279,9 +285,15 @@ setTimeout(() => {
             }
         }
         if (itemSelect == "P_Medicine04.png") {
-            if (e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40 || e.keyCode == 37) {
+            if (e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40 || e.keyCode == 37 || e.keyCode == 32) {
                 prendreInventaire(idSelect)
                 perteDeVie(-2)
+            }
+        }
+        if (itemSelect == "ananas.png") {
+            if (e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40 || e.keyCode == 37 || e.keyCode == 32) {
+                prendreInventaire(idSelect)
+                perteDeVie(-1)
             }
         }
     });
@@ -306,7 +318,7 @@ function closeWinMonde() {
     // parent.removeChild(myWindow)
     deleteTheMap()
     setTimeout(() => {
-        Turbolinks.visit("index.php?directionNow="+directionNow, {
+        Turbolinks.visit("index.php?directionNow=" + directionNow, {
             action: 'replace'
         })
 
@@ -383,12 +395,12 @@ document.addEventListener('keydown', function (e) {
             perso.style.marginTop = "-30px"
             setTimeout(() => {
                 document.getElementById(a + " " + 0 + " " + (b)).appendChild(perso);
-                perso.style.marginTop = "25px" 
+                perso.style.marginTop = "25px"
                 setTimeout(() => {
-                    perso.style.marginTop = "0px" 
+                    perso.style.marginTop = "0px"
                 }, 1);
             }, 100);
-            
+
             b += 1;
             pnjDepartMonde1()
             if (document.getElementsByClassName("pnje")[0]) {
@@ -406,9 +418,9 @@ document.addEventListener('keydown', function (e) {
             perso.style.marginLeft = "-30px"
             setTimeout(() => {
                 document.getElementById(a + " " + 0 + " " + (b)).appendChild(perso);
-                perso.style.marginLeft = "25px" 
+                perso.style.marginLeft = "25px"
                 setTimeout(() => {
-                    perso.style.marginLeft = "0px" 
+                    perso.style.marginLeft = "0px"
                 }, 1);
             }, 100);
             a += 1;
@@ -428,9 +440,9 @@ document.addEventListener('keydown', function (e) {
             perso.style.marginTop = "30px"
             setTimeout(() => {
                 document.getElementById(a + " " + 0 + " " + (b)).appendChild(perso);
-                perso.style.marginTop = "-25px" 
+                perso.style.marginTop = "-25px"
                 setTimeout(() => {
-                    perso.style.marginTop = "0px" 
+                    perso.style.marginTop = "0px"
                 }, 1);
             }, 100);
             b -= 1;
@@ -451,9 +463,9 @@ document.addEventListener('keydown', function (e) {
             perso.style.marginLeft = "30px"
             setTimeout(() => {
                 document.getElementById(a + " " + 0 + " " + (b)).appendChild(perso);
-                perso.style.marginLeft = "-25px" 
+                perso.style.marginLeft = "-25px"
                 setTimeout(() => {
-                    perso.style.marginLeft = "0px" 
+                    perso.style.marginLeft = "0px"
                 }, 1);
             }, 100);
             a -= 1;
@@ -513,7 +525,7 @@ function repond(rep, id, number) {
     SuiteQuestion(rep, id, number)
 }
 var question2PassageAntiBug1 = false
-
+var question2PassageAntiBug2 = false
 function SuiteQuestion(rep, numberDemande, number) {
     switch (number) {
         case 1:
@@ -527,41 +539,65 @@ function SuiteQuestion(rep, numberDemande, number) {
                             dialogues("aaarg, au cas ou tu change d'avis, je penses qu'elles sont vers le nord de la carte,<br> utilises la fleche en haut à droite pour changer de monde !");
                             break;
                     }
-                    break;    
+                    break;
             }
             break;
-
-        case 5:
+        case 6:
             switch (numberDemande) {
                 case 1:
-                    switch (rep) {
-                        case "A":
-                            var gelee = chercheInv("S_Water01.png")
-                            if (gelee == false) {
-                                dialogues("Merci à toi, je t'attend ici !");
-                            } else {
-                                gelee = gelee.split(" ")
-                                if (question2PassageAntiBug1 == false) {
-                                    prendreInventaire(gelee[0])
-                                    addXp(300)
-                                    question2PassageAntiBug1 = true
-                                    dialogues("Mille fois Merci !!!!")
-                                }
-                                rep = null
-                                numberDemande = 2
-                                number = 5
-                            }
-                            break;
-                        case "B":
-                            dialogues("aaarg");
-                            break;
+                    var candy = chercheInv("cake.png")
+                    if (candy == false) {
+                        dialogues("Youuupiii !");
+                    } else {
+                        candy = candy.split(" ")
+                        if (question2PassageAntiBug2 == false) {
+                            prendreInventaire(candy[0])
+                            addXp(300)
+                            question2PassageAntiBug2 = true
+                            dialogues("ooooooooh trop coool ! <br> merci beaucoup !")
+                        }
+                        rep = null
+                        numberDemande = 2
+                        number = 6
+                        break;
                     }
                     break;
-                case 2:
-                    dialogues("Mille fois Merci !!!!")
+                    case 2:
+                        dialogues("ooooooooh trop coool ! <br> merci beaucoup !")
                     break;
             }
             break;
+            case 5:
+                switch (numberDemande) {
+                    case 1:
+                        switch (rep) {
+                            case "A":
+                                var gelee = chercheInv("S_Water01.png")
+                                if (gelee == false) {
+                                    dialogues("Merci à toi, je t'attend ici !");
+                                } else {
+                                    gelee = gelee.split(" ")
+                                    if (question2PassageAntiBug1 == false) {
+                                        prendreInventaire(gelee[0])
+                                        addXp(300)
+                                        question2PassageAntiBug1 = true
+                                        dialogues("Mille fois Merci !!!!")
+                                    }
+                                    rep = null
+                                    numberDemande = 2
+                                    number = 5
+                                }
+                                break;
+                            case "B":
+                                dialogues("aaarg");
+                                break;
+                        }
+                        break;
+                    case 2:
+                        dialogues("Mille fois Merci !!!!")
+                        break;
+                }
+                break;
     }
     majQuest(rep, numberDemande, number);
 }

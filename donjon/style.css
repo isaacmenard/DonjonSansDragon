@@ -113,6 +113,8 @@ body {
     width: 10%;
     height: 50%;
 }
+
+
 .bow,
 .mechant,
 .pnj,
@@ -327,6 +329,10 @@ body {
         background-image: url(img/tpDonjon.png);
         background-size: 100%;
     }
+    .bonbon, .candybrok{
+        width: 150px;
+        height: auto;
+    }
 #arrowMap{
     position: fixed;
     top: 5px;
@@ -406,6 +412,13 @@ body {
     z-index: 1;
 }
 
+.bigPnj{
+    width: 130px;
+    height: auto;
+    margin-top: -40px;
+    margin-left: -30px;
+    image-rendering: initial;
+}
 .vie {
     width: 70px;
     height: auto;

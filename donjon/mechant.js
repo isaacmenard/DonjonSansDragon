@@ -3,9 +3,9 @@ mechantLoot = []
 mechantXp = []
 mechantAttaques = []
 mechantVieOrigine = []
-function mechantCreation(am, bm, vue, vieMechant, id, deltaTime, loot, xp, attaque) {
+function mechantCreation(am, bm, vue, vieMechant, id, deltaTime, loot, xp, attaque,src) {
     var Imgmechant = document.createElement("img");
-    Imgmechant.src = "img/slime_bkeu.png"
+    Imgmechant.src = src
     Imgmechant.className = "mechant"
     var Divmechant = document.createElement("div");
     Divmechant.className = "TheMechant"
