@@ -5,6 +5,7 @@ dialo2 = 0
 idSelect = 1
 questionEnCours = false
 keys = 0
+tailleMapMin = (((mapSize / 2) - 1) * -1)
 mort = false;
 var test = 0;
 creationFleche = 0
@@ -104,9 +105,17 @@ function addObjectJob(classObj, nom, src, X, Y, srcAfter, XOff, YOff, Xafter, Ya
     objet.className = "parent" + nom + " objet "
     objet.style.marginLeft = X + "px"
     objet.style.marginTop = Y + "px"
-    setTimeout(() => {
-        document.getElementById((((mapSize) - (mapSize / 2) - 1) * -1) + " 0 " + (((mapSize) - (mapSize / 2) - 1) * -1)).appendChild(objet);
-    }, 200);
+    setTimeout(function ()  {
+        if(document.getElementById( tailleMapMin  + " 0 " + tailleMapMin )){
+            document.getElementById( tailleMapMin  + " 0 " + tailleMapMin ).appendChild(objet);
+        }
+        if(document.getElementById( tailleMapMin  + " 2 " + tailleMapMin )){
+            document.getElementById( tailleMapMin  + " 2 " + tailleMapMin ).appendChild(objet);
+        }
+        if(document.getElementById( tailleMapMin  + " 1 " + tailleMapMin )){
+            document.getElementById( tailleMapMin  + " 1 " + tailleMapMin ).appendChild(objet);
+        }
+    },200);
     var objetEnfant = document.createElement("img");
     objetEnfant.className = "objetJob " + nom + " " + classObj
     objetEnfant.src = src;
@@ -123,9 +132,17 @@ function addObject(nom, src, X, Y) {
     objet.className = "parent" + nom + " objet"
     objet.style.marginLeft = X + "px"
     objet.style.marginTop = Y + "px"
-    setTimeout(() => {
-        document.getElementById((((mapSize) - (mapSize / 2) - 1) * -1) + " 0 " + (((mapSize) - (mapSize / 2) - 1) * -1)).appendChild(objet);
-    }, 200);
+    setTimeout(function ()  {
+        if(document.getElementById( tailleMapMin  + " 0 " + tailleMapMin )){
+            document.getElementById( tailleMapMin  + " 0 " + tailleMapMin ).appendChild(objet);
+        }
+        if(document.getElementById( tailleMapMin  + " 2 " + tailleMapMin )){
+            document.getElementById( tailleMapMin  + " 2 " + tailleMapMin ).appendChild(objet);
+        }
+        if(document.getElementById( tailleMapMin  + " 1 " + tailleMapMin )){
+            document.getElementById( tailleMapMin  + " 1 " + tailleMapMin ).appendChild(objet);
+        }
+    },200);
     var objetEnfant = document.createElement("img");
     objetEnfant.className = nom + " objectImg"
     objetEnfant.src = src;
@@ -486,13 +503,14 @@ perso1 = document.getElementsByClassName("personnage")[0];
 if (document.getElementById(a + " 0 " + b)) {
     document.getElementById(a + " 0 " + b).appendChild(perso1);
 }
-document.location.href = "#" + (a) + " 0 " + (b) //point camera d�marrage (id des cases)
 
-
-function dialogues(leTexte) {
+function hideDialogue(){
     if (document.getElementsByClassName("pnje")[0]) {
         document.getElementById("dialogue").removeChild(document.getElementsByClassName("pnje")[0]);
     }
+}
+function dialogues(leTexte) {
+    hideDialogue()
     dialogue = document.createElement("div");
     dialogue.className = "pnje"
     document.getElementById("dialogue").appendChild(dialogue);
@@ -502,7 +520,9 @@ function dialogues(leTexte) {
     question.innerHTML += (leTexte);
     document.getElementsByClassName("pnje")[0].appendChild(question);
 }
-
+function ocean(){
+    document.getElementsByClassName("ocean")[0].style.visibility = "visible"
+}
 function question(question, repA, repB, repC, repD, suiteQuestion, number) {
     var textDialogue = question
     questionEnCours = true;
@@ -526,6 +546,7 @@ function repond(rep, id, number) {
 }
 var question2PassageAntiBug1 = false
 var question2PassageAntiBug2 = false
+
 function SuiteQuestion(rep, numberDemande, number) {
     switch (number) {
         case 1:
@@ -562,42 +583,68 @@ function SuiteQuestion(rep, numberDemande, number) {
                         break;
                     }
                     break;
-                    case 2:
-                        dialogues("ooooooooh trop coool ! <br> merci beaucoup !")
+                case 2:
+                    dialogues("ooooooooh trop coool ! <br> merci beaucoup !")
                     break;
             }
             break;
-            case 5:
-                switch (numberDemande) {
-                    case 1:
-                        switch (rep) {
-                            case "A":
-                                var gelee = chercheInv("S_Water01.png")
-                                if (gelee == false) {
-                                    dialogues("Merci à toi, je t'attend ici !");
-                                } else {
-                                    gelee = gelee.split(" ")
-                                    if (question2PassageAntiBug1 == false) {
-                                        prendreInventaire(gelee[0])
-                                        addXp(300)
-                                        question2PassageAntiBug1 = true
-                                        dialogues("Mille fois Merci !!!!")
-                                    }
-                                    rep = null
-                                    numberDemande = 2
-                                    number = 5
+        case 5:
+            switch (numberDemande) {
+                case 1:
+                    switch (rep) {
+                        case "A":
+                            var gelee = chercheInv("S_Water01.png")
+                            if (gelee == false) {
+                                dialogues("Merci à toi, je t'attend ici !");
+                            } else {
+                                gelee = gelee.split(" ")
+                                if (question2PassageAntiBug1 == false) {
+                                    prendreInventaire(gelee[0])
+                                    addXp(300)
+                                    question2PassageAntiBug1 = true
+                                    dialogues("Mille fois Merci !!!!")
                                 }
-                                break;
-                            case "B":
-                                dialogues("aaarg");
-                                break;
-                        }
-                        break;
-                    case 2:
-                        dialogues("Mille fois Merci !!!!")
-                        break;
-                }
-                break;
+                                rep = null
+                                numberDemande = 2
+                                number = 5
+                            }
+                            break;
+                        case "B":
+                            dialogues("aaarg");
+                            break;
+                    }
+                    break;
+                case 2:
+                    dialogues("Mille fois Merci !!!!")
+                    break;
+            }
+            break;
+            case 7:
+            switch (numberDemande) {
+                case 1:
+                    question("J'AI PERDU MON LLAMMA !!!<br> peut-tu mauder à le retrouver ??? je te donnerais une récompense si tu acceptes !", "ahh bahhhh", null, null, null, 2, 7)
+                    break;
+                case 2:
+                    question("Je pense qu'il est dans la citée sous marine ! VAS-Y", "ok ok !", null, null, null, 2, 7)
+                    break;
+            }
+            break;
+            case 8:
+            switch (numberDemande) {
+                case 1:
+                    question("Dans ce cas, bas-toi !", null, null, null, null, 1, 8)
+                    openWin('monde.php?map=42');closeWinMonde()
+                    break;
+            }
+            break;
+            case 9:
+            switch (numberDemande) {
+                case 1:
+                    dialogues("ok ^^")
+                    openWin('monde.php?map=40');closeWinMonde()
+                    break;
+            }
+            break;
     }
     majQuest(rep, numberDemande, number);
 }
@@ -629,3 +676,4 @@ function chercheInv(src) {
     }
     return returnObject
 }
+

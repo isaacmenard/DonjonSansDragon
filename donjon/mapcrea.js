@@ -1,9 +1,8 @@
-colision = []
 var $map = $('.table tbody');
 var mapPossition = {};
 var $tileTemplate = $('body>.tile').remove();
 var mapData = map;
- mapSize = Math.floor(Math.sqrt(mapData.length));
+mapSize = Math.floor(Math.sqrt(mapData.length));
 
 function getRow(y) {
 	if ($map.find('.row-' + y).length > 0) {
@@ -152,13 +151,13 @@ function init() {
 }
 
 function ShowTheItem() {
-	for(var i =0; i< document.getElementsByClassName("objet").length;i++){
+	for (var i = 0; i < document.getElementsByClassName("objet").length; i++) {
 		document.getElementsByClassName("objet")[i].style.opacity = "1"
 	}
 }
 
 function hideTheItem() {
-	for(var i =0; i< document.getElementsByClassName("objet").length;i++){
+	for (var i = 0; i < document.getElementsByClassName("objet").length; i++) {
 		document.getElementsByClassName("objet")[i].style.opacity = "0"
 	}
 }
@@ -193,11 +192,12 @@ function hideTheMap() {
 		if (!document.getElementsByClassName("showTile")[0]) {
 			document.getElementsByClassName("table")[0].style.opacity = "0"
 			clearInterval(intervalHideItem)
-			setTimeout(function (){
+			setTimeout(function () {
 				document.getElementsByClassName("tbody")[0].innerHTML = "";
-				if(document.getElementsByClassName("table")[0].childNodes[2]){
-				document.getElementsByClassName("table")[0].removeChild(document.getElementsByClassName("table")[0].childNodes[2])
-			}},1000);
+				if (document.getElementsByClassName("table")[0].childNodes[2]) {
+					document.getElementsByClassName("table")[0].removeChild(document.getElementsByClassName("table")[0].childNodes[2])
+				}
+			}, 1000);
 		}
 	};
 }
@@ -210,34 +210,45 @@ function deleteTheMap() {
 init();
 $(window).trigger('resize');
 var LaMap = false
-water = [110,106,71,72,73]
-duve = [19,20,21]
+water = [110, 106, 71, 72, 73, 123]
+duve = [19, 20, 21]
 setTimeout(function () {
 
-	for (var j = -3; j <= mapSize / 2; j++) {
+	for (var j = ((mapSize / 2) - 1) * -1; j <= mapSize; j++) {
 
-		for (var i = -3; i <= mapSize / 2; i++) {
-			for (var m = 0; m < water.length; m++) {
-				if (i == Math.round(mapSize / 2) && j == Math.round(mapSize / 2) && LaMap == false) {
-					LaMap = true
+		for (var i = ((mapSize / 2) - 1) * -1; i <= mapSize; i++) {
+			if (document.getElementById(i + " 0 " + j)) {
+				var canContinue = true
+				for (var lmnop = 0; lmnop < antiColision.length; lmnop++) {
+					if (document.getElementById(i + " 0 " + j).id == antiColision[lmnop]) {
+						canContinue = false
+					}
 				}
-				// alert(mapSize)
-				if (document.getElementById(i + " 0 " + j) && document.getElementById(i + " 0 " + j).getElementsByTagName('div')[0].getElementsByTagName('div')[0].className.split("-").pop() == water[m]) {
-					document.getElementById(i + " 0 " + j).id = i + " 2 " + j
-					document.getElementById(i + " 2 " + j).getElementsByTagName("div")[0].getElementsByTagName("div")[0].style.transform ="rotateZ(-45deg) rotateY(-60deg) translate3d(-27.6px, -35.8px, -42px)"
-				}
-			}
-			for (var k = 0; k < colision.length; k++) {
-				if (document.getElementById(i + " 0 " + j) && document.getElementById(i + " 0 " + j).id == colision[k]) {
-					document.getElementById(i + " 0 " + j).id = i + " 1 " + j
-				}
-			}
-			for (var m = 0; m < duve.length; m++) {
-				if (document.getElementById(i + " 0 " + j) && document.getElementById(i + " 0 " + j).getElementsByTagName('div')[0].getElementsByTagName('div')[0].className.split("-").pop() == duve[m]) {
-					document.getElementById(i + " 0 " + j).getElementsByTagName("div")[0].getElementsByTagName("div")[0].style.transform ="rotateZ(-45deg) rotateY(-60deg) translate3d(-64.6px, -80.8px, -44px)"
-					document.getElementById(i + " 0 " + j).getElementsByTagName("div")[0].getElementsByTagName("div")[0].style.marginLeft ="10px"
+				if (canContinue == true) {
+					for (var m = 0; m < water.length; m++) {
+						if (i == Math.round(mapSize / 2) && j == Math.round(mapSize / 2) && LaMap == false) {
+							LaMap = true
+						}
+						// alert(mapSize)
+						if (document.getElementById(i + " 0 " + j) && document.getElementById(i + " 0 " + j).getElementsByTagName('div')[0].getElementsByTagName('div')[0].className.split("-").pop() == water[m]) {
+							document.getElementById(i + " 0 " + j).id = i + " 2 " + j
+							document.getElementById(i + " 2 " + j).getElementsByTagName("div")[0].getElementsByTagName("div")[0].style.transform = "rotateZ(-45deg) rotateY(-60deg) translate3d(-27.6px, -35.8px, -42px)"
+						}
+					}
+					for (var k = 0; k < colision.length; k++) {
+						if (document.getElementById(i + " 0 " + j) && document.getElementById(i + " 0 " + j).id == colision[k]) {
+							document.getElementById(i + " 0 " + j).id = i + " 1 " + j
+						}
+					}
+					for (var m = 0; m < duve.length; m++) {
+						if (document.getElementById(i + " 0 " + j) && document.getElementById(i + " 0 " + j).getElementsByTagName('div')[0].getElementsByTagName('div')[0].className.split("-").pop() == duve[m]) {
+							document.getElementById(i + " 0 " + j).getElementsByTagName("div")[0].getElementsByTagName("div")[0].style.transform = "rotateZ(-45deg) rotateY(-60deg) translate3d(-64.6px, -80.8px, -44px)"
+							document.getElementById(i + " 0 " + j).getElementsByTagName("div")[0].getElementsByTagName("div")[0].style.marginLeft = "10px"
+						}
+					}
 				}
 			}
 		}
+
 	}
 }, 200)

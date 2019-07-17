@@ -10,11 +10,16 @@ header('Content-type: text/html; charset=UTF-8');
 
 <head>
     <meta http-equiv="Content-Type" content="text/html" ; charset=UTF-8\">
+    <script>stats = null;colision = [];antiColision = []</script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="turbolinks.js" data-turbolinks-eval="false"></script>
     <link rel="SHORTCUT ICON" href="img/logo.ico" />
     <link href="https://fonts.googleapis.com/css?family=Acme&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+    <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <div class="ocean">
+    <div id="particles-js"></div> <!-- stats - count particles --> <span class="js-count-particles"></span> 
+    </div>
     <?php 
 	session_start();
 
@@ -24,7 +29,8 @@ header('Content-type: text/html; charset=UTF-8');
 	   $requser = $bdd->prepare('SELECT * FROM membres WHERE id = '.$_SESSION['id'].'');
 	   $requser->execute(array($getid));
 	   $userinfo = $requser->fetch();
-		echo "<script>selectMap = ".$userinfo['monde'].";"; 
+        echo "<script>selectMap = ".$userinfo['monde'].";"; 
+        echo "pet=".$userinfo['pet'].";";
         echo "Lavie=".$userinfo['vie'].";";
         if(isset($_GET['directionNow'])){
             echo "directionUrl='".$_GET['directionNow']."';";
@@ -161,7 +167,7 @@ if($dossier = opendir('./mondeSuptilites'))
     <script src="script.js" charset="utf-8" data-turbolinks-track="reload"></script>
     <script src="inventaire.js" charset="utf-8" data-turbolinks-track="reload"></script>
     <script src="listePlan.js" charset="utf-8" data-turbolinks-track="reload"></script>
-
+    <script src="pet.js" charset="utf-8" data-turbolinks-track="reload"></script>
 
 
     <style>
