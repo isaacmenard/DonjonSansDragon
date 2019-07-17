@@ -105,17 +105,17 @@ function addObjectJob(classObj, nom, src, X, Y, srcAfter, XOff, YOff, Xafter, Ya
     objet.className = "parent" + nom + " objet "
     objet.style.marginLeft = X + "px"
     objet.style.marginTop = Y + "px"
-    setTimeout(function ()  {
-        if(document.getElementById( tailleMapMin  + " 0 " + tailleMapMin )){
-            document.getElementById( tailleMapMin  + " 0 " + tailleMapMin ).appendChild(objet);
+    setTimeout(function () {
+        if (document.getElementById(tailleMapMin + " 0 " + tailleMapMin)) {
+            document.getElementById(tailleMapMin + " 0 " + tailleMapMin).appendChild(objet);
         }
-        if(document.getElementById( tailleMapMin  + " 2 " + tailleMapMin )){
-            document.getElementById( tailleMapMin  + " 2 " + tailleMapMin ).appendChild(objet);
+        if (document.getElementById(tailleMapMin + " 2 " + tailleMapMin)) {
+            document.getElementById(tailleMapMin + " 2 " + tailleMapMin).appendChild(objet);
         }
-        if(document.getElementById( tailleMapMin  + " 1 " + tailleMapMin )){
-            document.getElementById( tailleMapMin  + " 1 " + tailleMapMin ).appendChild(objet);
+        if (document.getElementById(tailleMapMin + " 1 " + tailleMapMin)) {
+            document.getElementById(tailleMapMin + " 1 " + tailleMapMin).appendChild(objet);
         }
-    },200);
+    }, 200);
     var objetEnfant = document.createElement("img");
     objetEnfant.className = "objetJob " + nom + " " + classObj
     objetEnfant.src = src;
@@ -132,17 +132,17 @@ function addObject(nom, src, X, Y) {
     objet.className = "parent" + nom + " objet"
     objet.style.marginLeft = X + "px"
     objet.style.marginTop = Y + "px"
-    setTimeout(function ()  {
-        if(document.getElementById( tailleMapMin  + " 0 " + tailleMapMin )){
-            document.getElementById( tailleMapMin  + " 0 " + tailleMapMin ).appendChild(objet);
+    setTimeout(function () {
+        if (document.getElementById(tailleMapMin + " 0 " + tailleMapMin)) {
+            document.getElementById(tailleMapMin + " 0 " + tailleMapMin).appendChild(objet);
         }
-        if(document.getElementById( tailleMapMin  + " 2 " + tailleMapMin )){
-            document.getElementById( tailleMapMin  + " 2 " + tailleMapMin ).appendChild(objet);
+        if (document.getElementById(tailleMapMin + " 2 " + tailleMapMin)) {
+            document.getElementById(tailleMapMin + " 2 " + tailleMapMin).appendChild(objet);
         }
-        if(document.getElementById( tailleMapMin  + " 1 " + tailleMapMin )){
-            document.getElementById( tailleMapMin  + " 1 " + tailleMapMin ).appendChild(objet);
+        if (document.getElementById(tailleMapMin + " 1 " + tailleMapMin)) {
+            document.getElementById(tailleMapMin + " 1 " + tailleMapMin).appendChild(objet);
         }
-    },200);
+    }, 200);
     var objetEnfant = document.createElement("img");
     objetEnfant.className = nom + " objectImg"
     objetEnfant.src = src;
@@ -397,98 +397,156 @@ function ligne(numero, longueur) {
 
 perso.style.transitionDuration = "0.1s"
 //touches monter..
+lastDirection = null
 document.addEventListener('keydown', function (e) {
     //rmet d'�viter plusieurs deplacement d'un coup
     questionEnCours = false;
     stopPleaseM += 1;
-
-    if (e.keyCode == 90) {
-        move = true
-        if (document.getElementById(a + " " + 0 + " " + (b + 1)) && passage == 0) {
-            passage = 1
-            setTimeout(function () {
-                passage = 0
-            }, 100)
-            perso.style.marginTop = "-30px"
+    if (document.getElementsByClassName("ThePet")[0]) {
+        var petPlayer = document.getElementsByClassName("ThePet")[0]
+        petPlayer.style.transitionDuration = "0.1s"
+        if (lastDirection == "W") {
+            petPlayer.style.marginTop = "-30px"
             setTimeout(() => {
-                document.getElementById(a + " " + 0 + " " + (b)).appendChild(perso);
-                perso.style.marginTop = "25px"
+                document.getElementById(a + " " + 0 + " " + (b)).appendChild(petPlayer);
+                petPlayer.style.marginTop = "25px"
                 setTimeout(() => {
-                    perso.style.marginTop = "0px"
+                    petPlayer.style.marginTop = "0px"
+                    suiteFunctionP()
                 }, 1);
             }, 100);
+        }
+        if (lastDirection == "N") {
+            petPlayer.style.marginLeft = "-30px"
+            setTimeout(() => {
+                document.getElementById(a + " " + 0 + " " + (b)).appendChild(petPlayer);
+                petPlayer.style.marginLeft = "25px"
+                setTimeout(() => {
+                    petPlayer.style.marginLeft = "0px"
+                    suiteFunctionP()
+                }, 1);
+            }, 100);
+        }
+        if (lastDirection == "E") {
+            petPlayer.style.marginTop = "30px"
+            setTimeout(() => {
+                document.getElementById(a + " " + 0 + " " + (b)).appendChild(petPlayer);
+                petPlayer.style.marginTop = "-25px"
+                setTimeout(() => {
+                    petPlayer.style.marginTop = "0px"
+                    suiteFunctionP()
+                }, 1);
+            }, 100);
+        }
+        if (lastDirection == "S") {
+            petPlayer.style.marginLeft = "30px"
+            setTimeout(() => {
+                document.getElementById(a + " " + 0 + " " + (b)).appendChild(petPlayer);
+                petPlayer.style.marginLeft = "-25px"
+                setTimeout(() => {
+                    petPlayer.style.marginLeft = "0px"
+                    suiteFunctionP()
+                }, 1);
+            }, 100);
+        }
+        if (lastDirection == null) {
+            suiteFunctionP()
+        }
+    }else{suiteFunctionP()}
 
-            b += 1;
-            pnjDepartMonde1()
-            if (document.getElementsByClassName("pnje")[0]) {
-                document.getElementById("dialogue").removeChild(document.getElementsByClassName("pnje")[0]);
+    function suiteFunctionP() {
+        if (e.keyCode == 90) {
+            move = true
+            if (document.getElementById(a + " " + 0 + " " + (b + 1)) && passage == 0) {
+                passage = 1
+                setTimeout(function () {
+                    passage = 0
+                }, 100)
+                perso.style.marginTop = "-30px"
+                setTimeout(() => {
+                    document.getElementById(a + " " + 0 + " " + (b)).appendChild(perso);
+                    perso.style.marginTop = "25px"
+                    setTimeout(() => {
+                        perso.style.marginTop = "0px"
+                    }, 1);
+                }, 100);
+
+                b += 1;
+                pnjDepartMonde1()
+                lastDirection = "W"
+                if (document.getElementsByClassName("pnje")[0]) {
+                    document.getElementById("dialogue").removeChild(document.getElementsByClassName("pnje")[0]);
+                }
             }
         }
-    }
-    if (e.keyCode == 81) {
-        move = true
-        if (document.getElementById((a + 1) + " " + 0 + " " + b) && passage == 0) {
-            passage = 1
-            setTimeout(function () {
-                passage = 0
-            }, 100)
-            perso.style.marginLeft = "-30px"
-            setTimeout(() => {
-                document.getElementById(a + " " + 0 + " " + (b)).appendChild(perso);
-                perso.style.marginLeft = "25px"
+        if (e.keyCode == 81) {
+            move = true
+            if (document.getElementById((a + 1) + " " + 0 + " " + b) && passage == 0) {
+                passage = 1
+                setTimeout(function () {
+                    passage = 0
+                }, 100)
+                perso.style.marginLeft = "-30px"
                 setTimeout(() => {
-                    perso.style.marginLeft = "0px"
-                }, 1);
-            }, 100);
-            a += 1;
-            pnjDepartMonde1()
-            if (document.getElementsByClassName("pnje")[0]) {
-                document.getElementById("dialogue").removeChild(document.getElementsByClassName("pnje")[0]);
+                    document.getElementById(a + " " + 0 + " " + (b)).appendChild(perso);
+                    perso.style.marginLeft = "25px"
+                    setTimeout(() => {
+                        perso.style.marginLeft = "0px"
+                    }, 1);
+                }, 100);
+                a += 1;
+                pnjDepartMonde1()
+                lastDirection = "N"
+                if (document.getElementsByClassName("pnje")[0]) {
+                    document.getElementById("dialogue").removeChild(document.getElementsByClassName("pnje")[0]);
+                }
             }
         }
-    }
-    if (e.keyCode == 83) {
-        move = true
-        if (document.getElementById(a + " " + 0 + " " + (b - 1)) && passage == 0) {
-            passage = 1
-            setTimeout(function () {
-                passage = 0
-            }, 100)
-            perso.style.marginTop = "30px"
-            setTimeout(() => {
-                document.getElementById(a + " " + 0 + " " + (b)).appendChild(perso);
-                perso.style.marginTop = "-25px"
+        if (e.keyCode == 83) {
+            move = true
+            if (document.getElementById(a + " " + 0 + " " + (b - 1)) && passage == 0) {
+                passage = 1
+                setTimeout(function () {
+                    passage = 0
+                }, 100)
+                perso.style.marginTop = "30px"
                 setTimeout(() => {
-                    perso.style.marginTop = "0px"
-                }, 1);
-            }, 100);
-            b -= 1;
-            pnjDepartMonde1()
-            if (document.getElementsByClassName("pnje")[0]) {
-                document.getElementById("dialogue").removeChild(document.getElementsByClassName("pnje")[0]);
+                    document.getElementById(a + " " + 0 + " " + (b)).appendChild(perso);
+                    perso.style.marginTop = "-25px"
+                    setTimeout(() => {
+                        perso.style.marginTop = "0px"
+                    }, 1);
+                }, 100);
+                b -= 1;
+                pnjDepartMonde1()
+                lastDirection = "E"
+                if (document.getElementsByClassName("pnje")[0]) {
+                    document.getElementById("dialogue").removeChild(document.getElementsByClassName("pnje")[0]);
+                }
             }
         }
-    }
-    if (e.keyCode == 68) {
+        if (e.keyCode == 68) {
 
-        move = true
-        if (document.getElementById((a - 1) + " " + 0 + " " + b) && passage == 0) {
-            passage = 1
-            setTimeout(function () {
-                passage = 0
-            }, 100)
-            perso.style.marginLeft = "30px"
-            setTimeout(() => {
-                document.getElementById(a + " " + 0 + " " + (b)).appendChild(perso);
-                perso.style.marginLeft = "-25px"
+            move = true
+            if (document.getElementById((a - 1) + " " + 0 + " " + b) && passage == 0) {
+                passage = 1
+                setTimeout(function () {
+                    passage = 0
+                }, 100)
+                perso.style.marginLeft = "30px"
                 setTimeout(() => {
-                    perso.style.marginLeft = "0px"
-                }, 1);
-            }, 100);
-            a -= 1;
-            pnjDepartMonde1()
-            if (document.getElementsByClassName("pnje")[0]) {
-                document.getElementById("dialogue").removeChild(document.getElementsByClassName("pnje")[0]);
+                    document.getElementById(a + " " + 0 + " " + (b)).appendChild(perso);
+                    perso.style.marginLeft = "-25px"
+                    setTimeout(() => {
+                        perso.style.marginLeft = "0px"
+                    }, 1);
+                }, 100);
+                a -= 1;
+                pnjDepartMonde1()
+                lastDirection = "S"
+                if (document.getElementsByClassName("pnje")[0]) {
+                    document.getElementById("dialogue").removeChild(document.getElementsByClassName("pnje")[0]);
+                }
             }
         }
     }
@@ -504,11 +562,12 @@ if (document.getElementById(a + " 0 " + b)) {
     document.getElementById(a + " 0 " + b).appendChild(perso1);
 }
 
-function hideDialogue(){
+function hideDialogue() {
     if (document.getElementsByClassName("pnje")[0]) {
         document.getElementById("dialogue").removeChild(document.getElementsByClassName("pnje")[0]);
     }
 }
+
 function dialogues(leTexte) {
     hideDialogue()
     dialogue = document.createElement("div");
@@ -520,9 +579,11 @@ function dialogues(leTexte) {
     question.innerHTML += (leTexte);
     document.getElementsByClassName("pnje")[0].appendChild(question);
 }
-function ocean(){
+
+function ocean() {
     document.getElementsByClassName("ocean")[0].style.visibility = "visible"
 }
+
 function question(question, repA, repB, repC, repD, suiteQuestion, number) {
     var textDialogue = question
     questionEnCours = true;
@@ -619,29 +680,48 @@ function SuiteQuestion(rep, numberDemande, number) {
                     break;
             }
             break;
-            case 7:
+        case 7:
             switch (numberDemande) {
                 case 1:
                     question("J'AI PERDU MON LLAMMA !!!<br> peut-tu mauder à le retrouver ??? je te donnerais une récompense si tu acceptes !", "ahh bahhhh", null, null, null, 2, 7)
                     break;
                 case 2:
-                    question("Je pense qu'il est dans la citée sous marine ! VAS-Y", "ok ok !", null, null, null, 2, 7)
+                    if (pet[1] == "Llama") {
+                        question("Il est là ! Merci beaucoup !!!!", "Et la récompense ?", null, null, null, 3, 7)
+                    } else {
+                        question("Je pense qu'il est dans la citée sous marine ! VAS-Y", "ok ok !", null, null, null, 2, 7)
+                    }
+                    break;
+                case 3:
+                    question("Voici un bébé Llama ^^, prend bien soin de lui !", "euhhh merci !", null, null, null, 4, 7)
+                    addXp("500")
+                    removePet("Llama")
+                    addAPet("img/llama.png", "babyLlama", "babyLlama")
+                    rep = null
+                    numberDemande = 2
+                    number = 5
+                    break;
+                case 4:
+                    dialogues("^^")
                     break;
             }
             break;
-            case 8:
+        case 8:
             switch (numberDemande) {
                 case 1:
                     question("Dans ce cas, bas-toi !", null, null, null, null, 1, 8)
-                    openWin('monde.php?map=42');closeWinMonde()
+                    openWin('monde.php?map=42');
+                    closeWinMonde()
                     break;
             }
             break;
-            case 9:
+        case 9:
             switch (numberDemande) {
                 case 1:
                     dialogues("ok ^^")
-                    openWin('monde.php?map=40');closeWinMonde()
+                    addAPet("img/llama.png", "Llama", "Llama")
+                    openWin('monde.php?map=40');
+                    closeWinMonde()
                     break;
             }
             break;
@@ -676,4 +756,3 @@ function chercheInv(src) {
     }
     return returnObject
 }
-

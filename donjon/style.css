@@ -451,7 +451,9 @@ body {
     width: auto;
     height: auto;
 }
-
+.ThePet{
+    transition: 0;
+}
 .perso {
     position: absolute;
     width: 70px;
@@ -528,6 +530,13 @@ body {
     height: auto;
     margin-top: -90px;
     margin-left: -70px;
+    image-rendering: initial;
+}
+.babyLlama{
+    width: 70px;
+    height: auto;
+    margin-top: 0px;
+    margin-left: 40px;
     image-rendering: initial;
 }
 .voyante{
