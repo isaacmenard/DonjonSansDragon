@@ -91,6 +91,7 @@ function drop(ev) {
 }
 function mettreAJourInv(){
     miseAJourInv()
+    majPetClient()
     CaseInvFunction()
     suiteKey(idSelect-1)
     for (var i = 0; i < slot.length + 1; i++) {
@@ -100,10 +101,12 @@ function mettreAJourInv(){
     }
 }
 function CaseInvFunction() {
+    
     //gere les cases de l'inventaire
     document.getElementById("slot").innerHTML = ""
     document.getElementById("invMore").innerHTML = ""
     document.getElementsByClassName("droiteInventaireCraft")[0].innerHTML = ""
+    document.getElementsByClassName("petInventaire")[0].innerHTML = ""
     for (var i = 0; i < caseInv; i++) {
         var Parent = document.createElement("div");
         Parent.className = "caseInvParent"
@@ -183,6 +186,30 @@ function CaseInvFunction() {
     }
     for (var i = 0; i < 90; i++) {
         var Parent = document.createElement("div");
+        Parent.className = "casePetParentInv"
+        Parent.ondrop = function () {
+            drop(event)
+        }
+        Parent.ondragover = function () {
+            allowDrop(event)
+        }
+        document.getElementsByClassName("petInventaire")[0].appendChild(Parent);
+        var maDiv = document.createElement("img");
+        maDiv.className = "casePetInv";
+        maDiv.ondblclick = function () {
+            openWin("slot.php?slot=" + (this.id.split("").slice(0, -1)) + "&item=" + "")
+            retirerInventaire(parseInt(this.id.split("").slice(0, -1).join(""))+1, this.src, this.src.split("/").slice(-1).join("").split(".").shift())
+            closeWin()
+        }
+        maDiv.draggable = "true"
+        maDiv.ondragstart = function () {
+            drag(event)
+        }
+        maDiv.id = i + "P"
+        document.getElementsByClassName("casePetParentInv")[i].appendChild(maDiv)
+    }
+    for (var i = 0; i < 90; i++) {
+        var Parent = document.createElement("div");
         Parent.className = "caseInvParentCraft"
         Parent.ondrop = function () {
             drop(event)
@@ -227,6 +254,7 @@ function creationInventaire() {
     CaseInvFunction()
     setTimeout(() => {
         MiseAJourPlan()
+        majPetClient()
     }, 200);
     for (var i = 0; i < Lavie; i++) {
         maDiv = document.createElement("img");
@@ -305,6 +333,9 @@ function ajoutInventaire(classObjet, numero) {
         if (document.getElementsByClassName("caseInvCraft")[numero]) {
             document.getElementsByClassName("caseInvCraft")[numero].src = "img/" + classObjet + ".png";
         }
+        if (document.getElementsByClassName("casePetInv")[numero]) {
+            document.getElementsByClassName("casePetInv")[numero].src = "img/" + classObjet + ".png";
+        }
     } else {
         if (numero < 9) {
             document.getElementsByClassName("caseInventaire")[numero].style.visibility = "hidden";
@@ -316,6 +347,9 @@ function ajoutInventaire(classObjet, numero) {
         }
         if (document.getElementsByClassName("caseInvCraft")[numero]) {
             document.getElementsByClassName("caseInvCraft")[numero].style.visibility = "hidden";
+        }
+        if (document.getElementsByClassName("casePetInv")[numero]) {
+            document.getElementsByClassName("casePetInv")[numero].style.visibility = "hidden";
         }
     }
 }

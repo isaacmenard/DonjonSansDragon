@@ -561,7 +561,7 @@ body {
 
 .caseInventaire,
 .caseInvCraft,
-.casePlanCraftIn,
+.casePlanCraftIn,.casePet,.casePetInv,
 .validerCraft {
     width: 70px;
     height: auto;
@@ -587,7 +587,7 @@ body {
 }
 
 .caseInvParent,
-.casePlanCraftInParent,
+.casePlanCraftInParent,.casePetParent,.casePetParentInv,
 .caseInvParentMoreInv,
 .caseInvParentCraft,
 .casePlanParentCraft {
@@ -600,7 +600,7 @@ body {
 
 .caseInvParentMoreInv,
 .caseInventaireMoreInv,
-.casePlanCraftInParent,
+.casePlanCraftInParent,.casePetParent,.casePetParentInv,
 .caseInvParentCraft,
 .casePlanParentCraft {
     margin: 4px;
@@ -608,7 +608,6 @@ body {
     height: 100px;
     margin-right: 3px;
 }
-
 .caseInvParentMoreInv {
     padding: 10px;
 }
@@ -636,6 +635,7 @@ body {
 
 .Menu,
 .InvMore,
+.pet,
 .craft {
     color: white;
     font-family: 'Teko', sans-serif;
@@ -652,7 +652,7 @@ body {
     transition: 0.5s;
 }
 
-.InvMore,
+.InvMore,.pet,
 .craft {
     background-color: rgba(112, 112, 112, 0.356);
 }
@@ -696,7 +696,7 @@ body {
     height: 60px;
 }
 
-.gaucheInventaireCraft,
+.gaucheInventaireCraft,.gauchePet,.petInventaire,
 .droiteInventaireCraft {
     width: 45%;
     overflow: auto;
@@ -704,12 +704,40 @@ body {
     padding: 20px;
     display: inline-block;
 }
-
+.petImg{
+    display: flex; /* contexte sur le parent */
+}
+.petImgSrc{
+    margin: auto; /* eh oui, tout bêtement */
+    width: auto;
+    height: 200px;
+}
+.petInfoCanEat{
+    width: 100%;
+    height: 150px;
+}
+.casePet{
+    position: relative;
+    top: -30px;
+}
+.valider{
+    position: relative;
+        top: -50px;
+    image-rendering: crisp-edges;
+    width: 50px;
+    height: auto;
+}
 .gaucheInventaireCraft {
     overflow: hidden;
 }
 
 .planCraft {
+    height: 350px;
+    background-size: 100%;
+    background-image: url(img/cadrePlan.png);
+    background-repeat: no-repeat;
+}
+.petImg {
     height: 350px;
     background-size: 100%;
     background-image: url(img/cadrePlan.png);

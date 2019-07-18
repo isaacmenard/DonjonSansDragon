@@ -10,7 +10,11 @@ header('Content-type: text/html; charset=UTF-8');
 
 <head>
     <meta http-equiv="Content-Type" content="text/html" ; charset=UTF-8\">
-    <script>stats = null;colision = [];antiColision = []</script>
+    <script>
+        stats = null;
+        colision = [];
+        antiColision = []
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="turbolinks.js" data-turbolinks-eval="false"></script>
     <link rel="SHORTCUT ICON" href="img/logo.ico" />
@@ -18,7 +22,7 @@ header('Content-type: text/html; charset=UTF-8');
     <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
     <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <div class="ocean">
-    <div id="particles-js"></div> <!-- stats - count particles --> <span class="js-count-particles"></span> 
+        <div id="particles-js"></div> <!-- stats - count particles --> <span class="js-count-particles"></span>
     </div>
     <?php 
 	session_start();
@@ -83,6 +87,27 @@ header('Content-type: text/html; charset=UTF-8');
             </div>
         </div>
         <div class="droiteInventaireCraft">
+
+        </div>
+    </div>
+    <div class="pet">
+        <div class="croix" onclick="petInterface()">X</div>
+        <div class="gauchePet">
+            <div class="petImg">
+
+            </div>
+            <div class="petInfo">
+                <div class="petInfoCanEat">
+
+                </div>
+                <div class="progress progressPet">
+                    <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                        <a><strong id="1XpPet"></strong> xp / <strong id="2XpPet"></strong> xp | level <strong id="0XpPet"></strong></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="petInventaire">
 
         </div>
     </div>
@@ -165,9 +190,10 @@ if($dossier = opendir('./mondeSuptilites'))
     <script src="mondeTp.js" data-turbolinks-track="reload"></script>
     <script src="pnj.js" charset="utf-8" data-turbolinks-track="reload"></script>
     <script src="script.js" charset="utf-8" data-turbolinks-track="reload"></script>
+    <script src="pet.js" charset="utf-8" data-turbolinks-track="reload"></script>
     <script src="inventaire.js" charset="utf-8" data-turbolinks-track="reload"></script>
     <script src="listePlan.js" charset="utf-8" data-turbolinks-track="reload"></script>
-    <script src="pet.js" charset="utf-8" data-turbolinks-track="reload"></script>
+
 
 
     <style>

@@ -51,7 +51,6 @@ xpObjJob = []
 
 function destroy(objet) {
     idObj = parseInt(objet.id.split("").slice(0, -6))
-    console.log(idObj)
     aObj = XObj[idObj]
     bObj = YObj[idObj]
     loot = LootJobs[idObj]
@@ -402,6 +401,9 @@ document.addEventListener('keydown', function (e) {
     //rmet d'�viter plusieurs deplacement d'un coup
     questionEnCours = false;
     stopPleaseM += 1;
+    if (e.keyCode == 80) {
+        petInterface()
+    }
     if (document.getElementsByClassName("ThePet")[0]) {
         var petPlayer = document.getElementsByClassName("ThePet")[0]
         petPlayer.style.transitionDuration = "0.1s"
@@ -478,6 +480,8 @@ document.addEventListener('keydown', function (e) {
                     document.getElementById("dialogue").removeChild(document.getElementsByClassName("pnje")[0]);
                 }
             }
+            mondeTp()
+    item()
         }
         if (e.keyCode == 81) {
             move = true
@@ -501,6 +505,8 @@ document.addEventListener('keydown', function (e) {
                     document.getElementById("dialogue").removeChild(document.getElementsByClassName("pnje")[0]);
                 }
             }
+            mondeTp()
+    item()
         }
         if (e.keyCode == 83) {
             move = true
@@ -524,6 +530,8 @@ document.addEventListener('keydown', function (e) {
                     document.getElementById("dialogue").removeChild(document.getElementsByClassName("pnje")[0]);
                 }
             }
+            mondeTp()
+    item()
         }
         if (e.keyCode == 68) {
 
@@ -548,10 +556,10 @@ document.addEventListener('keydown', function (e) {
                     document.getElementById("dialogue").removeChild(document.getElementsByClassName("pnje")[0]);
                 }
             }
+            mondeTp()
+    item()
         }
     }
-    mondeTp()
-    item()
 });
 
 
@@ -696,7 +704,7 @@ function SuiteQuestion(rep, numberDemande, number) {
                     question("Voici un bébé Llama ^^, prend bien soin de lui !", "euhhh merci !", null, null, null, 4, 7)
                     addXp("500")
                     removePet("Llama")
-                    addAPet("img/llama.png", "babyLlama", "babyLlama")
+                    addAPet("img/llama.png", "babyLlama", "babyLlama", "I_C_Radish", "I_C_Watermellon", "I_C_Carrot", "I_C_Cheese")
                     rep = null
                     numberDemande = 2
                     number = 5
@@ -719,7 +727,7 @@ function SuiteQuestion(rep, numberDemande, number) {
             switch (numberDemande) {
                 case 1:
                     dialogues("ok ^^")
-                    addAPet("img/llama.png", "Llama", "Llama")
+                    addAPet("img/llama.png", "Llama", "Llama", "", "", "", "")
                     openWin('monde.php?map=40');
                     closeWinMonde()
                     break;
@@ -742,7 +750,6 @@ function majQuest(reponse, id, number) {
 }
 
 function chercheInv(src) {
-    console.log(src)
     var returnObject = false
     for (var i = 0; i < document.getElementsByClassName("caseInventaire").length; i++) {
         if (document.getElementsByClassName("caseInventaire")[i].src.split("/").slice(-1).join("/") == src) {
