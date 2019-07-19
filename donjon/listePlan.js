@@ -82,7 +82,6 @@ function placerCraft() {
     if (canCraft == true) {
         for (var i = 0; i < demandeCraft.length; i++) {
             var itemNeed = chercheInv(demandeCraft[i] + ".png")
-            console.log(parseInt(itemNeed.split(" ")[0].split("").slice(0, -4).join("")))
             prendreInventaire(parseInt(itemNeed.split(" ")[0].split("").slice(0, -4).join("")))
         }
         ajoutInventaire3(itemNew)

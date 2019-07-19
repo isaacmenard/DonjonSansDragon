@@ -100,8 +100,8 @@ header('Content-type: text/html; charset=UTF-8');
                 <div class="petInfoCanEat">
 
                 </div>
-                <div class="progress progressPet">
-                    <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress">
+                    <div class="progress-bar w-75 progressPet" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
                         <a><strong id="1XpPet"></strong> xp / <strong id="2XpPet"></strong> xp | level <strong id="0XpPet"></strong></a>
                     </div>
                 </div>
@@ -161,7 +161,7 @@ header('Content-type: text/html; charset=UTF-8');
     <div class="inventaire">
         <div id="vies"> </div>
         <div id="slot"> </div>
-        <div class="progress">
+        <div class="progress progressPet">
             <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
                 <a><strong id="1Xp"></strong> xp / <strong id="2Xp"></strong> xp | level <strong id="0Xp"></strong></a>
             </div>
