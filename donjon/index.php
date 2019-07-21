@@ -90,6 +90,14 @@ header('Content-type: text/html; charset=UTF-8');
 
         </div>
     </div>
+    <div class="shop">
+        <div class="croix" onclick="interfaceShop()">X</div>
+        <div class="gaucheInventaireShop">
+        </div>
+        <div class="droiteInventaireShop">
+
+        </div>
+    </div>
     <div class="pet">
         <div class="croix" onclick="petInterface()">X</div>
         <div class="gauchePet">
@@ -191,6 +199,7 @@ if($dossier = opendir('./mondeSuptilites'))
     <script src="pnj.js" charset="utf-8" data-turbolinks-track="reload"></script>
     <script src="script.js" charset="utf-8" data-turbolinks-track="reload"></script>
     <script src="pet.js" charset="utf-8" data-turbolinks-track="reload"></script>
+    <script src="shopList.js" charset="utf-8" data-turbolinks-track="reload"></script>
     <script src="inventaire.js" charset="utf-8" data-turbolinks-track="reload"></script>
     <script src="listePlan.js" charset="utf-8" data-turbolinks-track="reload"></script>
 

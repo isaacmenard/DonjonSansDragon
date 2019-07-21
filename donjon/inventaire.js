@@ -107,6 +107,7 @@ function CaseInvFunction() {
     document.getElementById("invMore").innerHTML = ""
     document.getElementsByClassName("droiteInventaireCraft")[0].innerHTML = ""
     document.getElementsByClassName("petInventaire")[0].innerHTML = ""
+    document.getElementsByClassName("droiteInventaireShop")[0].innerHTML = ""
     for (var i = 0; i < caseInv; i++) {
         var Parent = document.createElement("div");
         Parent.className = "caseInvParent"
@@ -210,6 +211,30 @@ function CaseInvFunction() {
     }
     for (var i = 0; i < 90; i++) {
         var Parent = document.createElement("div");
+        Parent.className = "caseShopParentInv"
+        Parent.ondrop = function () {
+            drop(event)
+        }
+        Parent.ondragover = function () {
+            allowDrop(event)
+        }
+        document.getElementsByClassName("droiteInventaireShop")[0].appendChild(Parent);
+        var maDiv = document.createElement("img");
+        maDiv.className = "caseShopInv";
+        maDiv.ondblclick = function () {
+            openWin("slot.php?slot=" + (this.id.split("").slice(0, -1)) + "&item=" + "")
+            retirerInventaire(parseInt(this.id.split("").slice(0, -1).join(""))+1, this.src, this.src.split("/").slice(-1).join("").split(".").shift())
+            closeWin()
+        }
+        maDiv.draggable = "true"
+        maDiv.ondragstart = function () {
+            drag(event)
+        }
+        maDiv.id = i + "S"
+        document.getElementsByClassName("caseShopParentInv")[i].appendChild(maDiv)
+    }
+    for (var i = 0; i < 90; i++) {
+        var Parent = document.createElement("div");
         Parent.className = "caseInvParentCraft"
         Parent.ondrop = function () {
             drop(event)
@@ -281,6 +306,7 @@ function addXp(numberXp) {
         xpJ[1] = xpJ[1] - xpJ[2]
         xpJ[2] = Math.round(xpJ[2] * 1.2)
         newLevel(xpJ[0])
+        MiseAJourPlan()
     }
     xpJ[0] = Math.round(xpJ[0])
     xpJ[1] = Math.round(xpJ[1])
@@ -336,6 +362,9 @@ function ajoutInventaire(classObjet, numero) {
         if (document.getElementsByClassName("casePetInv")[numero]) {
             document.getElementsByClassName("casePetInv")[numero].src = "img/" + classObjet + ".png";
         }
+        if (document.getElementsByClassName("caseShopInv")[numero]) {
+            document.getElementsByClassName("caseShopInv")[numero].src = "img/" + classObjet + ".png";
+        }
     } else {
         if (numero < 9) {
             document.getElementsByClassName("caseInventaire")[numero].style.visibility = "hidden";
@@ -350,6 +379,9 @@ function ajoutInventaire(classObjet, numero) {
         }
         if (document.getElementsByClassName("casePetInv")[numero]) {
             document.getElementsByClassName("casePetInv")[numero].style.visibility = "hidden";
+        }
+        if (document.getElementsByClassName("caseShopInv")[numero]) {
+            document.getElementsByClassName("caseShopInv")[numero].style.visibility = "hidden";
         }
     }
 }

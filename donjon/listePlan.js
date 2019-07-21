@@ -12,7 +12,7 @@ function MiseAJourPlan() {
         listePlan = [["cake", "200px;190px;ananas", "200px;300px;ananas", "90px;250px;candyItem"],"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
     } else if (xpJ[0] >= 5) {
         listePlan = [
-            ["cake", "200px;190px;ananas", "200px;300px;ananas", "90px;250px;candyItem"],["W_Axe001", "200px;90px;I_SilverBar", "50px;90px;I_SilverBar", "50px;350px;wood"], "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
+            ["cake", "200px;190px;ananas", "200px;300px;ananas", "90px;250px;candyItem"],["W_Axe001", "200px;90px;I_SilverBar", "50px;90px;I_SilverBar", "50px;350px;wood"], ["W_Spear008", "200px;90px;I_SilverBar", "50px;90px;I_SilverBar", "50px;350px;wood"], "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
         ]
     }
     document.getElementsByClassName("listePlanCraft")[0].innerHTML = ""
@@ -35,7 +35,7 @@ function MiseAJourPlan() {
     }
 }
 demandeCraft = []
-itemNew = null
+itemNewCraft = null
 function craft(idS) {
     if (listePlan[idS] != "") {
         demandeCraft = []
@@ -53,7 +53,7 @@ function craft(idS) {
                 maDiv.id = i + 1
                 maDiv.src = "img/" + listePlan[idS][i].split(";")[2] + ".png"
                 Parent.appendChild(maDiv)
-                itemNew = listePlan[idS][0]
+                itemNewCraft = listePlan[idS][0]
             }
         }
         var Parent = document.createElement("div");
@@ -84,7 +84,7 @@ function placerCraft() {
             var itemNeed = chercheInv(demandeCraft[i] + ".png")
             prendreInventaire(parseInt(itemNeed.split(" ")[0].split("").slice(0, -4).join("")))
         }
-        ajoutInventaire3(itemNew)
+        ajoutInventaire3(itemNewCraft)
         //pour vider la table
         viderCraft()
     }

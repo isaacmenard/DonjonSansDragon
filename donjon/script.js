@@ -77,7 +77,7 @@ function destroy(objet) {
     }
 
     function suiteObj() {
-        if (objet.className.split(" ")[2] == "wood" && itemSelect == "W_Axe001.png") {
+        if (objet.className.split(" ")[2] == "wood" && itemSelect == "W_Axe001.png" || objet.className.split(" ")[2] == "plant" && itemSelect == "W_Spear008.png") {
             objet.src = srcAfter
             objet.className = "objetJob " + srcAfter.split("/")[1].split(".")[0]
             objet.style.marginLeft = Xaft[idObj] + "0px"
@@ -404,6 +404,9 @@ document.addEventListener('keydown', function (e) {
     if (e.keyCode == 80) {
         petInterface()
     }
+    if (e.keyCode == 72) {
+        interfaceShop()
+    }
     if (document.getElementsByClassName("ThePet")[0]) {
         var petPlayer = document.getElementsByClassName("ThePet")[0]
         petPlayer.style.transitionDuration = "0.1s"
@@ -702,9 +705,9 @@ function SuiteQuestion(rep, numberDemande, number) {
                     break;
                 case 3:
                     question("Voici un bébé Llama ^^, prend bien soin de lui !", "euhhh merci !", null, null, null, 4, 7)
-                    addXp("500")
                     removePet("Llama")
                     addAPet("img/llama.png", "babyLlama", "babyLlama", "I_C_Radish", "I_C_Watermellon", "I_C_Carrot", "I_C_Cheese")
+                    addXp("500")
                     rep = null
                     numberDemande = 2
                     number = 5
