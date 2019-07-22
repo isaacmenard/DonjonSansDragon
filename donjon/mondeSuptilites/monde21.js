@@ -9,4 +9,7 @@ if (selectMap == 21) {
         51 ,	26 ,	26 ,	85 ,	85 ,	26 ,	27 ,	27 ,
         51 ,	51 ,	26 ,	26 ,	26 ,	27 ,	27 ,	27 
     ];
+    setTimeout(() => {
+        addObjectJob("none","fence", "img/flower.png", -60, -205, "img/hidden.png", -1, 4, 0,0,"img/fleure.png", 50)
+    }, 200);
 }

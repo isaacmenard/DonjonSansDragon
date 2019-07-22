@@ -77,7 +77,7 @@ function destroy(objet) {
     }
 
     function suiteObj() {
-        if (objet.className.split(" ")[2] == "wood" && itemSelect == "W_Axe001.png" || objet.className.split(" ")[2] == "plant" && itemSelect == "W_Spear008.png") {
+        if (objet.className.split(" ")[2] == "wood" && itemSelect == "W_Axe001.png" || objet.className.split(" ")[2] == "plant" && itemSelect == "W_Spear008.png" || objet.className.split(" ")[2] == "none") {
             objet.src = srcAfter
             objet.className = "objetJob " + srcAfter.split("/")[1].split(".")[0]
             objet.style.marginLeft = Xaft[idObj] + "0px"
@@ -457,7 +457,9 @@ document.addEventListener('keydown', function (e) {
         if (lastDirection == null) {
             suiteFunctionP()
         }
-    }else{suiteFunctionP()}
+    } else {
+        suiteFunctionP()
+    }
 
     function suiteFunctionP() {
         if (e.keyCode == 90) {
@@ -484,7 +486,7 @@ document.addEventListener('keydown', function (e) {
                 }
             }
             mondeTp()
-    item()
+            item()
         }
         if (e.keyCode == 81) {
             move = true
@@ -509,7 +511,7 @@ document.addEventListener('keydown', function (e) {
                 }
             }
             mondeTp()
-    item()
+            item()
         }
         if (e.keyCode == 83) {
             move = true
@@ -534,7 +536,7 @@ document.addEventListener('keydown', function (e) {
                 }
             }
             mondeTp()
-    item()
+            item()
         }
         if (e.keyCode == 68) {
 
@@ -560,7 +562,7 @@ document.addEventListener('keydown', function (e) {
                 }
             }
             mondeTp()
-    item()
+            item()
         }
     }
 });
@@ -618,6 +620,7 @@ function repond(rep, id, number) {
 }
 var question2PassageAntiBug1 = false
 var question2PassageAntiBug2 = false
+var question2PassageAntiBug3 = false
 
 function SuiteQuestion(rep, numberDemande, number) {
     switch (number) {
@@ -667,7 +670,7 @@ function SuiteQuestion(rep, numberDemande, number) {
                         case "A":
                             var gelee = chercheInv("S_Water01.png")
                             if (gelee == false) {
-                                dialogues("Merci à toi, je t'attend ici !");
+                                dialogues("Merci à toi, je t'attends ici !");
                             } else {
                                 gelee = gelee.split(" ")
                                 if (question2PassageAntiBug1 == false) {
@@ -694,7 +697,7 @@ function SuiteQuestion(rep, numberDemande, number) {
         case 7:
             switch (numberDemande) {
                 case 1:
-                    question("J'AI PERDU MON LLAMMA !!!<br> peut-tu mauder à le retrouver ??? je te donnerais une récompense si tu acceptes !", "ahh bahhhh", null, null, null, 2, 7)
+                    question("J'AI PERDU MON LLAMMA !!!<br> peux-tu m'aider à le retrouver ??? je te donnerais une récompense si tu acceptes !", "ahh bahhhh", null, null, null, 2, 7)
                     break;
                 case 2:
                     if (pet[1] == "Llama") {
@@ -733,6 +736,51 @@ function SuiteQuestion(rep, numberDemande, number) {
                     addAPet("img/llama.png", "Llama", "Llama", "", "", "", "")
                     openWin('monde.php?map=40');
                     closeWinMonde()
+                    break;
+            }
+            break;
+        case 10:
+            switch (numberDemande) {
+                case 1:
+                    question("Pourrais-tu me trouver un bouquet de fleurs pour la reine Seleine II ? !", "euhhhh Ok!", "Nan", null, null, 2, 10)
+                    break;
+                case 2:
+                    switch (rep) {
+                        case "A":
+                                var candy = chercheInv("fleure.png")
+                                if (candy == false) {
+                                    dialogues("très bien !");
+                                } else {
+                                    candy = candy.split(" ")
+                                    if (question2PassageAntiBug3 == false) {
+                                        prendreInventaire(candy[0])
+                                        addXp(300)
+                                        question2PassageAntiBug3 = true
+                                    }
+                                    rep = null
+                                    numberDemande = 4
+                                    number = 10
+                                    break;
+                                }
+                                break;
+                        case "B":
+                            dialogues("aaarg");
+                            break;
+                    }
+                    break;
+                case 4:
+                    dialogues("Je vais conquérir le coeur de la reine dès demain !<br> merci beaucoup !")
+                    break;
+            }
+            break;
+
+        case 11:
+            switch (numberDemande) {
+                case 1:
+                    setTimeout(() => {
+                        openWin('monde.php?map=14');
+                        closeWinMonde()
+                    }, 2000);
                     break;
             }
             break;

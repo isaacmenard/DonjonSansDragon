@@ -6,7 +6,7 @@ mapGenerale = [
     [[3,2,3],[19],[18],[0],[26],[25],[1]],
     [[27],[28],[29],[30]]
 ]
-mapSolo = [[40, 4, -3],[41, 1, -1],[43, 1, -1],[42, 0, -2],[44, -2, -2]]
+mapSolo = [[40, 4, -3],[41, 1, -1],[43, 1, -1],[42, 0, -2],[44, -2, -2],[51, -3, -3],[52, -3, -3]]
 positionMapGeneraleExist = false
 for(var i = 0;i < mapGenerale.length;i++){
     for(var j = 0; j < mapGenerale[i].length;j++){
