@@ -3,22 +3,36 @@ mapGenerale = [
     [[4],[15],[14],[20]],
     [[9],[10],[11],[24]],
     [[8],[23],[21],[2,1,1]],
-    [[3,2,3],[19],[18],[0],[26],[25],[1]],
+    [[3,2,3],[19],[18],[0]],
     [[27],[28],[29],[30]]
 ]
+leWorldSelect = []
+mapTutoriel = [[[26],[25],[1]]]
 mapSolo = [[40, 4, -3],[41, 1, -1],[43, 1, -1],[42, 0, -2],[44, -2, -2],[51, -3, -3],[52, -3, -3]]
 positionMapGeneraleExist = false
 for(var i = 0;i < mapGenerale.length;i++){
     for(var j = 0; j < mapGenerale[i].length;j++){
         if(mapGenerale[i][j][0] == selectMap){
             positionMapGenerale = (i+";"+j)
+            leWorldSelect = mapGenerale
             positionMapGeneraleExist = true
         }
     }
 }
+if(positionMapGeneraleExist == false){
+    for(var i = 0;i < mapTutoriel.length;i++){
+        for(var j = 0; j < mapTutoriel[i].length;j++){
+            if(mapTutoriel[i][j][0] == selectMap){
+                positionMapGenerale = (i+";"+j)
+                leWorldSelect = mapTutoriel
+                positionMapGeneraleExist = true
+            }
+        }
+    }
+}
 if(directionUrl == "null" && positionMapGeneraleExist == true||directionUrl == null && positionMapGeneraleExist == true){
-    a = mapGenerale[parseInt(positionMapGenerale.split(";")[0])][parseInt(positionMapGenerale.split(";")[1])][1]
-    b = mapGenerale[parseInt(positionMapGenerale.split(";")[0])][parseInt(positionMapGenerale.split(";")[1])][2]
+    a = leWorldSelect[parseInt(positionMapGenerale.split(";")[0])][parseInt(positionMapGenerale.split(";")[1])][1]
+    b = leWorldSelect[parseInt(positionMapGenerale.split(";")[0])][parseInt(positionMapGenerale.split(";")[1])][2]
     if(a == undefined){
         a = parseInt(((mapSize) - (mapSize / 2)-1)*-1)
         b = parseInt(((mapSize) - (mapSize / 2)-1)*-1)
@@ -67,17 +81,17 @@ function tpA(direction){
     if(positionMapGeneraleExist == true){
         y = parseInt(positionMapGenerale.split(";")[0])
         x = parseInt(positionMapGenerale.split(";")[1])
-        if(direction == "haut" && y-1 >= 0 && mapGenerale[y-1][x] != null){
-            tp = mapGenerale[y-1][x]
+        if(direction == "haut" && y-1 >= 0 && leWorldSelect[y-1][x] != null){
+            tp = leWorldSelect[y-1][x]
         }
-        else if(direction == "bas" && y+1  < mapGenerale.length && mapGenerale[y+1][x] != null){
-            tp =mapGenerale[y+1][x]
+        else if(direction == "bas" && y+1  < leWorldSelect.length && leWorldSelect[y+1][x] != null){
+            tp =leWorldSelect[y+1][x]
         }
-        else if(direction == "gauche" && x-1 >= 0 && mapGenerale[y][x-1] != null){
-            tp =mapGenerale[y][x-1]
+        else if(direction == "gauche" && x-1 >= 0 && leWorldSelect[y][x-1] != null){
+            tp =leWorldSelect[y][x-1]
         }
-        else if(direction == "droite" && x+1  < mapGenerale[y].length && mapGenerale[y][x+1] != null){
-            tp =mapGenerale[y][x+1]
+        else if(direction == "droite" && x+1  < leWorldSelect[y].length && leWorldSelect[y][x+1] != null){
+            tp =leWorldSelect[y][x+1]
         }
         if(tp != null){
             if(mechantDead.length == mechantLoot.length){

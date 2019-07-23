@@ -10,57 +10,56 @@
 ?>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"
-        content="donjon, donjon sans dragon, donjonsansdragon, rpg, rpg mmo, mmo, rpg en ligne, rpg online, en ligne, online, game, dungeon, dragon, donjon, dragon, without, isaac, menard, discord" />
-    <script src="https://kit.fontawesome.com/509db9971b.js"></script>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="style.css">
-    <title>Donjon Sans Dragon</title>
-    <link rel="SHORTCUT ICON" href="./donjon/img/logo.ico" />
-    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet"> 
-        <link href="https://fonts.googleapis.com/css?family=Dosis&display=swap" rel="stylesheet"> 
-        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> 
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Acme&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-    <link rel="stylesheet" href="./style.css">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"
+    content="donjon, donjon sans dragon, donjonsansdragon, rpg, rpg mmo, mmo, rpg en ligne, rpg online, en ligne, online, game, dungeon, dragon, donjon, dragon, without, isaac, menard, discord" />
+  <script src="https://kit.fontawesome.com/509db9971b.js"></script>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="style.css">
+  <title>Donjon Sans Dragon</title>
+  <link rel="SHORTCUT ICON" href="./donjon/img/logo.ico" />
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Dosis&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Acme&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
 
-    <body>
-        <p style=heigth:0;margin:0;padding:0;font-size:0px;>Donjon sans Dragon est un rpg en ligne. Pas besoins de
-            télécharger. Vous incarner un simple villagois qui finira par sauver le monde ! relèvras-tu le défi ?</p>
-        <?php include("particle/particle.php"); ?>
-        <div class="header">
-            <div class="middle">
-                <a href="index.php" class="headerLink">ACCUEIL</a>
-                <a href="connexion.php" class="headerLink">JOUER</a>
-                <a onclick="alert('indisponible pour le moment')" class="headerLink">WIKI</a>
-                <a href="https://discord.gg/djyRs56" style="z-index:20000" target="_blank"
-                    class="headerLink">DISCORD</a>
-            </div>
+  <body>
+    <p style=heigth:0;margin:0;padding:0;font-size:0px;>Donjon sans Dragon est un rpg en ligne. Pas besoins de
+      télécharger. Vous incarner un simple villagois qui finira par sauver le monde ! relèvras-tu le défi ?</p>
+    <?php include("particle/particle.php"); ?>
+    <div class="header">
+      <div class="middle">
+        <a href="index.php" class="headerLink">ACCUEIL</a>
+        <a href="connexion.php" class="headerLink">JOUER</a>
+        <a onclick="alert('indisponible pour le moment')" class="headerLink">WIKI</a>
+        <a href="https://discord.gg/djyRs56" style="z-index:20000" target="_blank" class="headerLink">DISCORD</a>
+      </div>
+    </div>
+    <div class="accueil">
+      <div class="haut">
+        <img class="cercle" src="logo.png">
+      </div>
+      <div class="bas">
+        <div class="play">
+          <p><a class="white">TOI AUSSI</a> <br><a class="black">rejoins les</a> <a
+              class="numberPlayers"><?php echo($nbligne['countid'] );?></a> <a class="black">autres
+              joueurs
+              ici :</a> <br>
+            <a href="connexion.php">JOUER</a> !<br>
+            <div class="paint">Donjon Sans Dragon</div>
+          </p>
         </div>
-        <div class="accueil">
-            <div class="haut">
-                <img class="cercle" src="logo.png">
-            </div>
-            <div class="bas">
-                <div class="play">
-                    <p><a class="white">TOI AUSSI</a> <br><a class="black">rejoins les</a> <a
-                            class="numberPlayers"><?php echo($nbligne['countid'] );?></a> <a class="black">autres
-                            joueurs
-                            ici :</a> <br>
-                        <a href="connexion.php">JOUER</a> !<br>
-                        <div class="paint">Donjon Sans Dragon</div>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="bar"></div>
-        <!-- 
+      </div>
+    </div>
+    <div class="bar"></div>
+    <!-- 
         <div id="cards">
             <figure class="card card--ice">
                 <div class="card__image-container">
@@ -178,66 +177,53 @@
         </div>
         <br><br><br><br>
         <div class="bar"></div> -->
-        <div class="topXp">
-            <div class="gauche">
+    <div class="topXp">
+      <div class="gauche">
 
-            </div>
-            <div class="milieu">
+      </div>
+      <div class="milieu">
 
-            </div>
-            <div class="droite">
+      </div>
+      <div class="droite">
 
-            </div>
-        </div>
+      </div>
+    </div>
 
-        <!-- <div>
+    <!-- <div>
             <div class="discord">
                 <iframe src="https://discordapp.com/widget?id=587358801523376156&theme=dark" width="100%" height="500"
                     allowtransparency="true" frameborder="0"></iframe>
             </div>
         </div> -->
-        <div class="footer">
-          <div class="background">
-            <div class="footericons">
-              <div class="backendicons">
-                <i class="fab fa-instagram"></i>
-                <div class="barrefooter"></div>
-                <i class="fab fa-twitter"></i></div></br>
-              </div>
-              <div class="footertitle">
-                  <p class="avatars">AVATARS</p>
-                  <p class="discord">DISCORD</p>
-                  <p class="contact1">CONTACT</p>
-                  <p class="skins">SKINS</p>
-                </div>
-                 <div class="footertext1">
-                  <p>Bucheron</p>
-                  <p>Archer</p>
-                  <p>Et d'autres qui vont venir</p>
-                  </div>
-              <div class="barrefootertext">
-
-              </div>
-                  <div class="footertext2">
-                      <a class="liendiscord"href="https://discord.gg/mmT8uP8"><p>https://discord.gg/mmT8uP8</p></a>
-                  </div>
-                  <div class="barrefootertext2">
-                  </div>
-                  <div class="footertext3">
-                      <p>donjonsansdragon@hotmail.com</p>
-                  </div>
-                  <div class="barrefootertext3">
-                  </div>
-                  <div class="footertext4">
-                    <p>Le skin vert</p>
-                    <p>Le skin bleu</p>
-                  </div>
-                  <div class="barrefootertext4">
-                  </div>
-                  <div class="logofooter"></div>
-            </div>
-         </div>
+    <div class="footer">
+      <div class="background">
+        <div class="footericons">
+          <div class="backendicons">
+            <i class="fab fa-instagram"></i>
+            <div class="barrefooter"></div>
+            <i class="fab fa-twitter"></i>
+          </div></br>
         </div>
-    </body>
+        <br>
+        <div class="part part1">
+          <p class="footertitle avatars">AVATARS</p>
+          <p>Bucheron</p>
+          <p>Archer</p>
+          <p>Et d'autres qui vont venir</p>
+
+        </div>
+        <div class="barrefootertext">
+        </div>
+        <div class="part part2">
+          <p class="footertitle discord">DISCORD</p>
+          <a class="liendiscord" href="https://discord.gg/mmT8uP8">
+            <p>https://discord.gg/mmT8uP8</p>
+          </a>
+        </div>
+        <div class="logofooter"></div>
+      </div>
+    </div>
+    </div>
+  </body>
 
 </html>

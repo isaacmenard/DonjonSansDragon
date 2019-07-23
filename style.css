@@ -379,9 +379,17 @@ h1, h2, h3, h4, h5 {
 .footer {
   position: relative;
   top: -5px;
+  padding: 5%;
   background-color: black;
 }
-
+.part{
+  display: inline-block;
+  position: relative;
+  height: 100%;
+  width: 19%;
+  font-size: 1.2em;
+  color: rgb(94, 94, 94);
+}
 .footericons {
   display: inline-block;
   font-size: 40px;
@@ -407,14 +415,6 @@ h1, h2, h3, h4, h5 {
   top: 7px;
 }
 
-.barrefooter2 {
-  position: relative;
-  display: inline-block;
-  width: 1px;
-  height: 41px;
-  background-color: #3e3e3f;
-  top: 7px;
-}
 
 .fa-instagram{
   color: #3e3e3f;
@@ -439,20 +439,7 @@ h1, h2, h3, h4, h5 {
   display: inline-block;
   width: 1px;
   height: 33px;
-  margin-top:  20px;
-  background-color: #FFF;
-  top: 7px;
 }
-
-.barrefooter2 {
-  position: relative;
-  display: inline-block;
-  width: 1px;
-  height: 41px;
-  background-color: #FFF;
-  top: 7px;
-}
-
 .fa-instagram{
   color: #FFF;
   margin-left: 170px;
@@ -465,7 +452,6 @@ h1, h2, h3, h4, h5 {
 }
 
 .footertext1 {
-  color: #FFF;
   margin-left: 170px;
   font-size: 11.5px;
 }
@@ -474,9 +460,7 @@ h1, h2, h3, h4, h5 {
   display: inline-block;
   width: 1px;
   height: 250px;
-  margin-left: 390px;
-  background-color: #FFF;
-  margin-top: -117px;
+  background-color: rgb(44, 44, 44);
 }
 
 .discord {
@@ -492,7 +476,6 @@ h1, h2, h3, h4, h5 {
 }
 
 .liendiscord {
-      color: #FFF;
       font-size: 11.5px;
       text-decoration: none;
 }
@@ -508,7 +491,7 @@ h1, h2, h3, h4, h5 {
   width: 1px;
   height: 250px;
   margin-left: 635px;
-  background-color: #FFF;
+  background-color: rgb(44, 44, 44);
   margin-top: -67px;
 }
 
@@ -531,7 +514,7 @@ h1, h2, h3, h4, h5 {
   width: 1px;
   height: 250px;
   margin-left: 935px;
-  background-color: #FFF;
+  background-color: rgb(44, 44, 44);
   margin-top: -67px;
 }
 

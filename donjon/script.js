@@ -84,9 +84,7 @@ function destroy(objet) {
             objet.style.marginTop = Yaft[idObj] + "0px"
             addXp(xpObjJob[idObj])
             addItem(loot.split("/")[1].split(".")[0], loot, aObj, bObj)
-        } else if (objet.className.split(" ")[2] == undefined) {
-            alert("précisez le type d'objet (wood...)")
-        }
+        } 
     }
 }
 canBrokeWood = false
@@ -345,28 +343,29 @@ function closeWinMonde() {
 //perd des points de vie suite a la fonction attaque mechant
 function perteDeVie(NombreEnMoins) {
     Lavie = Lavie - NombreEnMoins
-    openWin("vie.php?vie=" + (Lavie))
-    if (Lavie <= 0 && mort == false) {
-        openWin("vie.php?vie=" + 4)
-        alert("gameOver")
-        closeWin()
-        setTimeout(openWin("monde.php?map=1"), 1000);
-        setTimeout(closeWinMonde, 2000);
-        mort = true
-    } else {
-        if (NombreEnMoins > 0) {
-            if (document.getElementById("vie" + (Lavie))) {
-                document.getElementById("vies").removeChild(document.getElementById("vie" + (Lavie)));
-            } else if (document.getElementById("vie" + (Lavie - 1))) {
-                (document.getElementById("vies").removeChild(document.getElementById("vie" + (Lavie - 1))))
-            }
+    if (mort == false) {
+        openWin("vie.php?vie=" + (Lavie))
+        if (Lavie <= 0) {
+            document.getElementById("vies").removeChild(document.getElementById("vie" + (Lavie)));
+            openWin("vie.php?vie=" + 4)
+            setTimeout(openWin("monde.php?map=0"), 1000);
+            closeWinMonde()
+            mort = true
         } else {
-            for (var i = 0; i < NombreEnMoins * -1; i++) {
-                maDiv = document.createElement("img");
-                maDiv.src = "img/coeur.png";
-                maDiv.className = "vie";
-                maDiv.id = "vie" + document.getElementsByClassName("vie").length;
-                document.getElementById("vies").appendChild(maDiv);
+            if (NombreEnMoins > 0) {
+                if (document.getElementById("vie" + (Lavie))) {
+                    document.getElementById("vies").removeChild(document.getElementById("vie" + (Lavie)));
+                } else if (document.getElementById("vie" + (Lavie - 1))) {
+                    (document.getElementById("vies").removeChild(document.getElementById("vie" + (Lavie - 1))))
+                }
+            } else {
+                for (var i = 0; i < NombreEnMoins * -1; i++) {
+                    maDiv = document.createElement("img");
+                    maDiv.src = "img/coeur.png";
+                    maDiv.className = "vie";
+                    maDiv.id = "vie" + document.getElementsByClassName("vie").length;
+                    document.getElementById("vies").appendChild(maDiv);
+                }
             }
         }
     }
@@ -708,7 +707,6 @@ function SuiteQuestion(rep, numberDemande, number) {
                     break;
                 case 3:
                     question("Voici un bébé Llama ^^, prend bien soin de lui !", "euhhh merci !", null, null, null, 4, 7)
-                    removePet("Llama")
                     addAPet("img/llama.png", "babyLlama", "babyLlama", "I_C_Radish", "I_C_Watermellon", "I_C_Carrot", "I_C_Cheese")
                     addXp("500")
                     rep = null
@@ -747,24 +745,26 @@ function SuiteQuestion(rep, numberDemande, number) {
                 case 2:
                     switch (rep) {
                         case "A":
-                                var candy = chercheInv("fleure.png")
-                                if (candy == false) {
-                                    dialogues("très bien !");
-                                } else {
-                                    candy = candy.split(" ")
-                                    if (question2PassageAntiBug3 == false) {
-                                        prendreInventaire(candy[0])
-                                        addXp(300)
-                                        question2PassageAntiBug3 = true
-                                    }
-                                    rep = null
-                                    numberDemande = 4
-                                    number = 10
-                                    break;
+                            var candy = chercheInv("fleure.png")
+                            if (candy == false) {
+                                dialogues("très bien !");
+                            } else {
+                                candy = candy.split(" ")
+                                if (question2PassageAntiBug3 == false) {
+                                    prendreInventaire(candy[0])
+                                    addXp(300)
+                                    question2PassageAntiBug3 = true
                                 }
+                                rep = null
+                                numberDemande = 4
+                                number = 10
                                 break;
+                            }
+                            break;
                         case "B":
-                            dialogues("aaarg");
+                            dialogues("GARRRRRDE !");
+                            openWin('monde.php?map=52');
+                            closeWinMonde()
                             break;
                     }
                     break;
