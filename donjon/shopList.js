@@ -1,89 +1,83 @@
+listeAchat = [
+    [10, "W_Axe001"], "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
+]
+MiseAJourShop()
+
 function MiseAJourShop() {
-    shopDispo = [["img/W_Axe001.png", 10]]
-    document.getElementsByClassName("listePlanShop")[0].innerHTML = ""
-    for (var i = 0; i < listePlan.length; i++) {
+    document.getElementsByClassName("listeAchatShop")[0].innerHTML = ""
+    for (var i = 0; i < listeAchat.length; i++) {
         var Parent = document.createElement("div");
-        Parent.className = "casePlanParentShop"
-        document.getElementsByClassName("listePlanShop")[0].appendChild(Parent);
+        Parent.className = "caseAchatParentShop"
+        document.getElementsByClassName("listeAchatShop")[0].appendChild(Parent);
         var maDiv = document.createElement("img");
-        if (listePlan[i] != "") {
-            maDiv.src = "img/" + listePlan[i][0] + ".png"
+        if (listeAchat[i] != "") {
+            maDiv.src = "img/" + listeAchat[i][1] + ".png"
         } else {
             maDiv.style.visibility = "hidden"
         }
-        maDiv.className = "caseInvPlan " + listePlan[i][0];
+        maDiv.className = "caseAchatShop " + listeAchat[i][1];
         maDiv.onclick = function () {
-            craft(this.id.split("").slice(0, -5).join(""))
+            shoping(this.id.split("").slice(0, -6).join(""))
         }
-        maDiv.id = (i) + "CPlan"
-        document.getElementsByClassName("casePlanParentCraft")[i].appendChild(maDiv)
+        maDiv.id = (i) + "SAchat"
+        document.getElementsByClassName("caseAchatParentShop")[i].appendChild(maDiv)
     }
 }
-// demandeCraft = []
-// itemNewCraft = null
-// function craft(idS) {
-//     if (listePlan[idS] != "") {
-//         demandeCraft = []
-//         document.getElementsByClassName("planCraft")[0].innerHTML = ""
-//         for (var i = 1; i < listePlan.length; i++) {
-//             if (listePlan[idS][i]) {
-//                 demandeCraft.push(listePlan[idS][i].split(";")[2])
-//                 var Parent = document.createElement("div");
-//                 Parent.className = "casePlanCraftInParent"
-//                 Parent.style.top = listePlan[idS][i].split(";")[0]
-//                 Parent.style.left = listePlan[idS][i].split(";")[1]
-//                 document.getElementsByClassName("planCraft")[0].appendChild(Parent);
-//                 var maDiv = document.createElement("img");
-//                 maDiv.className = "casePlanCraftIn nonPossede";
-//                 maDiv.id = i + 1
-//                 maDiv.src = "img/" + listePlan[idS][i].split(";")[2] + ".png"
-//                 Parent.appendChild(maDiv)
-//                 itemNewCraft = listePlan[idS][0]
-//             }
-//         }
-//         var Parent = document.createElement("div");
-//         Parent.className = "validerCraftParent"
-//         document.getElementsByClassName("planCraft")[0].appendChild(Parent);
-//         var maDiv = document.createElement("img");
-//         maDiv.className = "validerCraft";
-//         maDiv.onclick = function () {
-//             placerCraft()
-//         }
-//         maDiv.src = "https://www.onlygfx.com/wp-content/uploads/2017/09/grunge-arrow-2-1-1024x823.png"
-//         Parent.appendChild(maDiv)
-//     }
-// }
 
-// function placerCraft() {
-//     canCraft = true
-//     for (var i = 0; i < demandeCraft.length; i++) {
-//         var itemNeed = chercheInv(demandeCraft[i] + ".png")
-//         if (itemNeed == false) {
-//             canCraft = false
-//         } else {
-//             document.getElementsByClassName("casePlanCraftIn")[i].className = "casePlanCraftIn"
-//         }
-//     }
-//     if (canCraft == true) {
-//         for (var i = 0; i < demandeCraft.length; i++) {
-//             var itemNeed = chercheInv(demandeCraft[i] + ".png")
-//             prendreInventaire(parseInt(itemNeed.split(" ")[0].split("").slice(0, -4).join("")))
-//         }
-//         ajoutInventaire3(itemNewCraft)
-//         //pour vider la table
-//         viderCraft()
-//     }
-// }
+function shoping(id) {
+    viderShop()
 
-// function viderCraft() {
-//     demandeCraft = []
-//     document.getElementsByClassName("planCraft")[0].innerHTML = ""
-//     demandeCraft = ""    
-// }
+    var piece = document.createElement("img")
+    piece.src = "img/coin.png"
+    piece.className = "coin imgShop"
+    var objet = document.createElement("img")
+    objet.src = "img/" + listeAchat[id][1] + ".png"
+    objet.className = "objetDuShop imgShop"
+    var fleche = document.createElement("img")
+    fleche.src = "img/arrowMap.png"
+    fleche.className = "flecheShop imgShop"
+    var fois = document.createElement("img")
+    fois.src = "img/X.png"
+    fois.className = "fois imgShop"
+    var prix = document.createElement("a")
+    prix.className = "prix fois imgShop"
+    prix.innerHTML = listeAchat[id][0]
+    var divMoney = document.createElement("div")
+    divMoney.className = ("divMoney")
 
+    divMoney.appendChild(piece)
+    divMoney.appendChild(fois)
+    divMoney.appendChild(prix)
+    divMoney.appendChild(fleche)
+    divMoney.appendChild(objet)
 
+    if (money >= listeAchat[id][0]) {
+        var Parent = document.createElement("div");
+        Parent.className = "validerCraftParent"
+        document.getElementsByClassName("listePlanShop")[0].appendChild(Parent);
+        var maDiv = document.createElement("img");
+        maDiv.className = "validerCraft";
+        maDiv.onclick = function () {
+            AchatShop(id)
+        }
+        maDiv.src = "https://www.onlygfx.com/wp-content/uploads/2017/09/grunge-arrow-2-1-1024x823.png"
+        Parent.appendChild(maDiv)
+    }
+    document.getElementsByClassName("listePlanShop")[0].appendChild(divMoney)
+}
+function AchatShop(id){
+    money -= listeAchat[id][0]
+    ajoutInventaire3(listeAchat[id][1])
+    miseAJourMoney()
+    viderShop()
+}
 
-
+function viderShop() {
+    document.getElementsByClassName("listePlanShop")[0].innerHTML = ""
+}
+function miseAJourMoney(){
+    openWin("money.php?money="+money)
+}
 shopInterfaceOpen = false
 
 function interfaceShop() {

@@ -104,19 +104,19 @@ function tpA(direction){
 function arrowMap(direction){
     if(direction == "haut"){
         document.getElementById("arrowMap").style.visibility = "visible"
-        document.getElementById("arrowMap").style.transform = "rotate(0deg)"
+        document.getElementById("arrowMap").style.transform = "rotate(-90deg)"
     }
     else if(direction == "bas"){
         document.getElementById("arrowMap").style.visibility = "visible"
-        document.getElementById("arrowMap").style.transform = "rotate(180deg)"
+        document.getElementById("arrowMap").style.transform = "rotate(90deg)"
     }
     else if(direction == "gauche"){
         document.getElementById("arrowMap").style.visibility = "visible"
-        document.getElementById("arrowMap").style.transform = "rotate(-90deg)"
+        document.getElementById("arrowMap").style.transform = "rotate(-180deg)"
     }
     else if(direction == "droite" && selectMap != 0){
         document.getElementById("arrowMap").style.visibility = "visible"
-        document.getElementById("arrowMap").style.transform = "rotate(90deg)"
+        document.getElementById("arrowMap").style.transform = "rotate(0deg)"
     }
 }
 function changementDeMap(){

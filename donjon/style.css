@@ -569,13 +569,28 @@ body {
 }
 
 .caseInvCraft,
-.caseInvPlan,
+.caseInvPlan,.caseAchatShop,
 .casePlanCraftIn {
     margin-top: 10px;
     width: 90px;
     height: 90px;
 }
-
+.divMoney{
+    padding: 30px;
+}
+.imgShop{
+    height: 80px;
+    width: auto;
+    margin:20px;
+}
+.fois{
+    height: 40px;
+    width: auto;
+    margin:5px;
+}
+.coin{
+    margin-left: 30px;
+}
 .casePlanCraftInParent {
     position: absolute;
 }
@@ -590,7 +605,7 @@ body {
 .casePlanCraftInParent,.casePetParent,.casePetParentInv,
 .caseInvParentMoreInv,
 .caseInvParentCraft,
-.casePlanParentCraft {
+.casePlanParentCraft,.caseAchatParentShop {
     height: 70px;
     padding: 3px;
     background-image: url("img/caseInv.png");
@@ -602,7 +617,7 @@ body {
 .caseInventaireMoreInv,.caseShopParentInv,
 .casePlanCraftInParent,.casePetParent,.casePetParentInv,
 .caseInvParentCraft,
-.casePlanParentCraft {
+.casePlanParentCraft,.caseAchatParentShop {
     margin: 4px;
     width: 100px;
     height: 100px;
@@ -765,7 +780,10 @@ body {
     overflow: auto;
     height: calc(100% - 350px);
 }
-
+.listeAchatShop,.listePlanShop{
+    overflow: auto;
+    height: 49%;
+}
 .titreMenu {
     font-size: 50px;
 }

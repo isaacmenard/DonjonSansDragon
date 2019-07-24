@@ -35,6 +35,7 @@ header('Content-type: text/html; charset=UTF-8');
 	   $userinfo = $requser->fetch();
         echo "<script>selectMap = ".$userinfo['monde'].";"; 
         echo "pet=".$userinfo['pet'].";";
+        echo "money=".$userinfo['money'].";";
         echo "Lavie=".$userinfo['vie'].";";
         if(isset($_GET['directionNow'])){
             echo "directionUrl='".$_GET['directionNow']."';";
@@ -93,6 +94,12 @@ header('Content-type: text/html; charset=UTF-8');
     <div class="shop">
         <div class="croix" onclick="interfaceShop()">X</div>
         <div class="gaucheInventaireShop">
+            <div class="listePlanShop">
+
+            </div>
+            <div class="listeAchatShop">
+
+            </div>
         </div>
         <div class="droiteInventaireShop">
 
@@ -109,8 +116,10 @@ header('Content-type: text/html; charset=UTF-8');
 
                 </div>
                 <div class="progress">
-                    <div class="progress-bar w-75 progressPet" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                        <a><strong id="1XpPet"></strong> xp / <strong id="2XpPet"></strong> xp | level <strong id="0XpPet"></strong></a>
+                    <div class="progress-bar w-75 progressPet" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                        aria-valuemax="100">
+                        <a><strong id="1XpPet"></strong> xp / <strong id="2XpPet"></strong> xp | level <strong
+                                id="0XpPet"></strong></a>
                     </div>
                 </div>
             </div>
