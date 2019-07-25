@@ -4,15 +4,10 @@ Plus :
 - carte total
 
 prioritée normale :
-- bien régler pause
 - jobs
-- bar de vie 
 - stack item
-- marché
 - épée
 - mage
-- pièces d'or
 - messages description items
-- placer des tables de craft sur la map
 
 Important :

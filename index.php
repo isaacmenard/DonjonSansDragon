@@ -39,7 +39,7 @@
         <a href="index.php" class="headerLink">ACCUEIL</a>
         <a href="connexion.php" class="headerLink">JOUER</a>
         <a onclick="alert('indisponible pour le moment')" class="headerLink">WIKI</a>
-        <a href="https://discord.gg/djyRs56" style="z-index:20000" target="_blank" class="headerLink">DISCORD</a>
+        <a href="https://discord.gg/mmT8uP8" style="z-index:20000" target="_blank" class="headerLink">DISCORD</a>
       </div>
     </div>
     <div class="accueil">

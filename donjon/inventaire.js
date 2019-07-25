@@ -281,13 +281,6 @@ function creationInventaire() {
         MiseAJourPlan()
         majPetClient()
     }, 200);
-    for (var i = 0; i < Lavie; i++) {
-        maDiv = document.createElement("img");
-        maDiv.src = "img/coeur.png";
-        maDiv.className = "vie";
-        maDiv.id = "vie" + i
-        document.getElementById("vies").appendChild(maDiv);
-    }
 }
 
 function ouvert(id) {
@@ -322,7 +315,7 @@ function newLevel(level) {
     alert("GG ! tu passes level " + level)
 }
 setXp()
-
+setVie()
 function setXp() {
     xpJ[0] = parseInt(xpJ[0])
     xpJ[1] = parseInt(xpJ[1])
@@ -330,7 +323,13 @@ function setXp() {
     document.getElementById("0Xp").innerHTML = xpJ[0];
     document.getElementById("1Xp").innerHTML = xpJ[1];
     document.getElementById("2Xp").innerHTML = xpJ[2];
-    document.getElementsByClassName("progress-bar")[0].style.width = xpJ[1] * 100 / xpJ[2] + "%"
+    document.getElementsByClassName("progressXp")[1].style.width = xpJ[1] * 100 / xpJ[2] + "%"
+}
+
+function setVie() {
+    document.getElementById("1Vie").innerHTML = Lavie;
+    document.getElementById("2Vie").innerHTML = vieMax;
+    document.getElementsByClassName("progressVie")[0].style.width = Lavie * 100 / vieMax + "%"
 }
 
 function getAPlace() {

@@ -10,6 +10,6 @@ if (selectMap == 3) {
     setTimeout(() => {
         deltaTimeG = 500;
         intervalMechant = setInterval(mechant, deltaTimeG);
-        mechantCreation(3, -2, 3, 1, 0, 500, ["S_Water01", "img/S_Water01.png"], 50, 1,"img/slime_bkeu.png")
+        mechantCreation(3, -2, 3, 1, 0, 500, ["S_Water01", "img/S_Water01.png"], 50, 19,"img/slime_bkeu.png")
     }, 200);
 }

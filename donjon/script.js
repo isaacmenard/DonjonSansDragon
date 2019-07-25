@@ -84,7 +84,7 @@ function destroy(objet) {
             objet.style.marginTop = Yaft[idObj] + "0px"
             addXp(xpObjJob[idObj])
             addItem(loot.split("/")[1].split(".")[0], loot, aObj, bObj)
-        } 
+        }
     }
 }
 canBrokeWood = false
@@ -151,6 +151,7 @@ function suiteKey(number) {
     idSelect = number + 1;
     itemSelect = document.getElementsByClassName("caseInventaire")[number].src.split("/").slice(-1).join("/")
     document.getElementsByClassName("caseInventaire")[number].style.width = "100px"
+    document.getElementsByClassName("caseInventaire")[number].style.height = "100px"
     document.getElementsByClassName("caseInvParent")[number].style.width = "100px"
     document.getElementsByClassName("caseInvParent")[number].style.height = "100px"
 }
@@ -158,6 +159,7 @@ function suiteKey(number) {
 function maj() {
     for (var i = 0; i < 9; i++) {
         document.getElementsByClassName("caseInventaire")[i].style.width = "70px"
+        document.getElementsByClassName("caseInventaire")[i].style.height = "70px"
         document.getElementsByClassName("caseInvParent")[i].style.width = "70px"
         document.getElementsByClassName("caseInvParent")[i].style.height = "70px"
     }
@@ -200,6 +202,7 @@ function cercleTpCrea(endroit) {
 setTimeout(() => {
     itemSelect = document.getElementsByClassName("caseInventaire")[0].src.split("/").slice(-1).join("/")
     document.getElementsByClassName("caseInventaire")[0].style.width = "100px"
+    document.getElementsByClassName("caseInventaire")[0].style.height = "100px"
     document.getElementsByClassName("caseInvParent")[0].style.width = "100px"
     document.getElementsByClassName("caseInvParent")[0].style.height = "100px"
     degatArc = 9
@@ -301,13 +304,13 @@ setTimeout(() => {
         if (itemSelect == "P_Medicine04.png") {
             if (e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40 || e.keyCode == 37 || e.keyCode == 32) {
                 prendreInventaire(idSelect)
-                perteDeVie(-2)
+                perteDeVie(-20)
             }
         }
         if (itemSelect == "ananas.png") {
             if (e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40 || e.keyCode == 37 || e.keyCode == 32) {
                 prendreInventaire(idSelect)
-                perteDeVie(-1)
+                perteDeVie(-10)
             }
         }
     });
@@ -339,37 +342,26 @@ function closeWinMonde() {
     }, 1000);
 
 }
-
+vieMax = 100
 //perd des points de vie suite a la fonction attaque mechant
 function perteDeVie(NombreEnMoins) {
     Lavie = Lavie - NombreEnMoins
+    if(Lavie > vieMax){
+        Lavie = vieMax
+    }
     if (mort == false) {
         openWin("vie.php?vie=" + (Lavie))
         if (Lavie <= 0) {
-            document.getElementById("vies").removeChild(document.getElementById("vie" + (Lavie)));
-            openWin("vie.php?vie=" + 4)
+            document.getElementsByClassName("progressVie")[0].style.width = 0
+            openWin("vie.php?vie=" + vieMax)
             setTimeout(openWin("monde.php?map=0"), 1000);
             closeWinMonde()
             mort = true
         } else {
-            if (NombreEnMoins > 0) {
-                if (document.getElementById("vie" + (Lavie))) {
-                    document.getElementById("vies").removeChild(document.getElementById("vie" + (Lavie)));
-                } else if (document.getElementById("vie" + (Lavie - 1))) {
-                    (document.getElementById("vies").removeChild(document.getElementById("vie" + (Lavie - 1))))
-                }
-            } else {
-                for (var i = 0; i < NombreEnMoins * -1; i++) {
-                    maDiv = document.createElement("img");
-                    maDiv.src = "img/coeur.png";
-                    maDiv.className = "vie";
-                    maDiv.id = "vie" + document.getElementsByClassName("vie").length;
-                    document.getElementById("vies").appendChild(maDiv);
-                }
-            }
+            openWin("vie.php?vie=" + Lavie)
+            setVie()
         }
     }
-    setTimeout(closeWin, 1000)
 }
 
 
@@ -404,7 +396,10 @@ document.addEventListener('keydown', function (e) {
         petInterface()
     }
     if (e.keyCode == 72) {
-        interfaceShop()
+        interfaceShop("achat")
+    }
+    if (e.keyCode == 74) {
+        interfaceShop("vente")
     }
     if (document.getElementsByClassName("ThePet")[0]) {
         var petPlayer = document.getElementsByClassName("ThePet")[0]
