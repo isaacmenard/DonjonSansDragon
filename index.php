@@ -16,11 +16,11 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
   <link href="css/mdb.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"
     content="donjon, donjon sans dragon, donjonsansdragon, rpg, rpg mmo, mmo, rpg en ligne, rpg online, en ligne, online, game, dungeon, dragon, donjon, dragon, without, isaac, menard, discord" />
-  <script src="https://kit.fontawesome.com/509db9971b.js"></script>
   
   <link rel="stylesheet" href="style.css">
   <title>Donjon Sans Dragon</title>
@@ -191,7 +191,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="page-footer font-small cyan darken-3">
+    <footer class="page-footer font-small">
 
       <!-- Footer Elements -->
       <div class="container">
@@ -211,21 +211,13 @@
               <a class="tw-ic">
                 <i class="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
               </a>
-              <!-- Google +-->
-              <a class="gplus-ic">
-                <i class="fab fa-google-plus-g fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
-              </a>
-              <!--Linkedin -->
-              <a class="li-ic">
-                <i class="fab fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
-              </a>
               <!--Instagram-->
               <a class="ins-ic">
                 <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
               </a>
-              <!--Pinterest-->
-              <a class="pin-ic">
-                <i class="fab fa-pinterest fa-lg white-text fa-2x"> </i>
+              <!--discord-->
+              <a class="ic" href="https://discord.gg/mmT8uP8">
+              <i class="fab fa fa-discord fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
               </a>
             </div>
           </div>

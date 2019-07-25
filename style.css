@@ -5,8 +5,8 @@ body {
 .header{
     position: relative;
     text-align: center;
-    height: 10em; /* hauteur du parent */
-    line-height: 10em; /* hauteur de ligne (identique) */
+    height: 8em; /* hauteur du parent */
+    line-height: 8em; /* hauteur de ligne (identique) */
     white-space: nowrap; /* interdiction de passer à la ligne */
     width: 100%;
     background-color: rgb(243, 243, 243);
@@ -64,6 +64,12 @@ body {
 }
 .discord{
     position: relative;
+}
+footer{
+  background-color: #f3c62f;
+}
+.footer-copyright{
+  background-color :rgb(49, 49, 49) !important;;
 }
 .numberPlayers{
     color: rgb(231, 71, 71) !important;;
