@@ -10,21 +10,22 @@
 ?>
 
 <head>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"
     content="donjon, donjon sans dragon, donjonsansdragon, rpg, rpg mmo, mmo, rpg en ligne, rpg online, en ligne, online, game, dungeon, dragon, donjon, dragon, without, isaac, menard, discord" />
   <script src="https://kit.fontawesome.com/509db9971b.js"></script>
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+  
   <link rel="stylesheet" href="style.css">
   <title>Donjon Sans Dragon</title>
   <link rel="SHORTCUT ICON" href="./donjon/img/logo.ico" />
-  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Dosis&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Acme&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="stylesheet" href="./style.css">
 </head>
 
@@ -48,8 +49,8 @@
       </div>
       <div class="bas">
         <div class="play">
-          <p><a class="white">TOI AUSSI</a> <br><a class="black">rejoins les</a> <a
-              class="numberPlayers"><?php echo($nbligne['countid'] );?></a> <a class="black">autres
+          <p><a class="whiteTitle">TOI AUSSI</a> <br><a class="blackTitle">rejoins les</a> <a
+              class="numberPlayers"><?php echo($nbligne['countid'] );?></a> <a class="blackTitle">autres
               joueurs
               ici :</a> <br>
             <a href="connexion.php">JOUER</a> !<br>
@@ -189,41 +190,61 @@
       </div>
     </div>
 
-    <!-- <div>
-            <div class="discord">
-                <iframe src="https://discordapp.com/widget?id=587358801523376156&theme=dark" width="100%" height="500"
-                    allowtransparency="true" frameborder="0"></iframe>
+    <!-- Footer -->
+    <footer class="page-footer font-small cyan darken-3">
+
+      <!-- Footer Elements -->
+      <div class="container">
+
+        <!-- Grid row-->
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-md-12 py-5">
+            <div class="mb-5 flex-center">
+
+              <!-- Facebook -->
+              <a class="fb-ic">
+                <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+              </a>
+              <!-- Twitter -->
+              <a class="tw-ic">
+                <i class="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+              </a>
+              <!-- Google +-->
+              <a class="gplus-ic">
+                <i class="fab fa-google-plus-g fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+              </a>
+              <!--Linkedin -->
+              <a class="li-ic">
+                <i class="fab fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+              </a>
+              <!--Instagram-->
+              <a class="ins-ic">
+                <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+              </a>
+              <!--Pinterest-->
+              <a class="pin-ic">
+                <i class="fab fa-pinterest fa-lg white-text fa-2x"> </i>
+              </a>
             </div>
-        </div> -->
-    <div class="footer">
-      <div class="background">
-        <div class="footericons">
-          <div class="backendicons">
-            <i class="fab fa-instagram"></i>
-            <div class="barrefooter"></div>
-            <i class="fab fa-twitter"></i>
-          </div></br>
-        </div>
-        <br>
-        <div class="part part1">
-          <p class="footertitle avatars">AVATARS</p>
-          <p>Bucheron</p>
-          <p>Archer</p>
-          <p>Et d'autres qui vont venir</p>
+          </div>
+          <!-- Grid column -->
 
         </div>
-        <div class="barrefootertext">
-        </div>
-        <div class="part part2">
-          <p class="footertitle discord">DISCORD</p>
-          <a class="liendiscord" href="https://discord.gg/mmT8uP8">
-            <p>https://discord.gg/mmT8uP8</p>
-          </a>
-        </div>
-        <div class="logofooter"></div>
+        <!-- Grid row-->
+
       </div>
-    </div>
-    </div>
+      <!-- Footer Elements -->
+
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3">Tout droit à  
+        <strong> menardisaac@gmail.com</strong>
+      </div>
+      <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
   </body>
 
 </html>

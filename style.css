@@ -31,21 +31,21 @@ body {
 .play a:hover{
     color : rgb(230, 36, 36);
 }
-.play .black{
+.play .blackTitle{
     font-size: 50px;
-    color: rgb(49, 49, 49);
+    color: rgb(49, 49, 49) !important;;
 }
-.play .black:hover{
+.play .blackTitle:hover{
     font-size: 51px;
-    color: rgb(49, 49, 49);
+    color: rgb(49, 49, 49) !important;;
 }
-.play .white{
+.play .whiteTitle{
     font-size: 50px;
-    color: rgb(243, 243, 243);
+    color: rgb(243, 243, 243) !important;;
 }
-.play .white:hover{
+.play .whiteTitle:hover{
     font-size: 51px;
-    color: rgb(243, 243, 243);
+    color: rgb(243, 243, 243) !important;;
 }
 
 .entonnoire{
@@ -66,11 +66,11 @@ body {
     position: relative;
 }
 .numberPlayers{
-    color: rgb(231, 71, 71);
-    font-size: 55px;
+    color: rgb(231, 71, 71) !important;;
+    font-size: 55px !important;;
 }
 .numberPlayers:hover{
-    color: rgb(255, 255, 255);
+    color: rgb(219, 25, 25) !important;;
 }
 .accueil{
     background-color: #f3c62f;
@@ -138,51 +138,6 @@ a:hover{
     height: 600px;
     display: inline-block;
 }
-
-.footer {
-    position: relative;
-    top: -5px;
-    background-color: black;
-}
-
-.footericons {
-    display: inline-block;
-    font-size: 40px;
-    word-spacing: 20px;
-}
-
-.fa-facebook-f {
-    color: #3e3e3f;
-}
-
-.fa-twitter{
-    display: inline-block;
-    font-size: 41px;
-    color: #f3c62f;
-}
-
-.barrefooter {
-    position: relative;
-    display: inline-block;
-    width: 1px;
-    height: 41px;
-    background-color: #3e3e3f;
-    top: 7px;
-}
-
-.barrefooter2 {
-    position: relative;
-    display: inline-block;
-    width: 1px;
-    height: 41px;
-    background-color: #3e3e3f;
-    top: 7px;
-}
-
-.fa-instagram{
-    color: #3e3e3f;
-}
-
 
 
 
@@ -375,159 +330,3 @@ h1, h2, h3, h4, h5 {
 }
 
 
-
-.footer {
-  position: relative;
-  top: -5px;
-  padding: 5%;
-  background-color: black;
-}
-.part{
-  display: inline-block;
-  position: relative;
-  height: 100%;
-  width: 19%;
-  font-size: 1.2em;
-  color: rgb(94, 94, 94);
-}
-.footericons {
-  display: inline-block;
-  font-size: 40px;
-  word-spacing: 20px;
-}
-
-.fa-facebook-f {
-  color: #3e3e3f;
-}
-
-.fa-twitter{
-  display: inline-block;
-  font-size: 41px;
-  color: #f3c62f;
-}
-
-.barrefooter {
-  position: relative;
-  display: inline-block;
-  width: 1px;
-  height: 41px;
-  background-color: #3e3e3f;
-  top: 7px;
-}
-
-
-.fa-instagram{
-  color: #3e3e3f;
-}
-
-.footericons {
-  margin-top: 20px;
-  display: inline-block;
-  font-size: 32px;
-  word-spacing: 20px;
-}
-
-
-.fa-twitter{
-  display: inline-block;
-  font-size: 33px;
-  color: #f3c62f;
-}
-
-.barrefooter {
-  position: relative;
-  display: inline-block;
-  width: 1px;
-  height: 33px;
-}
-.fa-instagram{
-  color: #FFF;
-  margin-left: 170px;
-}
-
-.avatars {
-  color: #f3c62f; 
-  font-size: 17px;
-  margin-left: 170px;
-}
-
-.footertext1 {
-  margin-left: 170px;
-  font-size: 11.5px;
-}
-
-.barrefootertext {
-  display: inline-block;
-  width: 1px;
-  height: 250px;
-  background-color: rgb(44, 44, 44);
-}
-
-.discord {
-  margin-top: -40px;
-  color: #f3c62f; 
-  font-size: 17px;
-  margin-left: 480px;
-}
-
-.footertext2 {
-  margin-left: 420px;
-  margin-top: -225px;
-}
-
-.liendiscord {
-      font-size: 11.5px;
-      text-decoration: none;
-}
-
-.background {
-  background-color: #000000;
-  width: 100%;
-  height: 600px;
-}
-
-.barrefootertext2 {
-  display: inline-block;
-  width: 1px;
-  height: 250px;
-  margin-left: 635px;
-  background-color: rgb(44, 44, 44);
-  margin-top: -67px;
-}
-
-.contact1 {
-      margin-top: -40px;
-      color: #f3c62f; 
-      font-size: 17px;
-      margin-left: 740px;
-}
-
-.footertext3 {
-  color: #FFF;
-  margin-left: 680px;
-  font-size: 11.5px;
-  margin-top: -220px;
-}
-
-.barrefootertext3 {
-  display: inline-block;
-  width: 1px;
-  height: 250px;
-  margin-left: 935px;
-  background-color: rgb(44, 44, 44);
-  margin-top: -67px;
-}
-
-.skins {
-  margin-top: -40px;
-  color: #f3c62f; 
-  font-size: 17px;
-  margin-left: 1030px;
-}
-
-.footertext4 {
-  color: #FFF;
-  margin-left: 1030px;
-  font-size: 11.5px;
-  margin-top: -220px;
-}
