@@ -8,6 +8,7 @@ listeVente = [
 
 document.getElementsByClassName("money")[0].innerHTML = money
 function MiseAJourShop(typeShop) {
+    viderShop()
     document.getElementsByClassName("listeAchatShop")[0].innerHTML = ""
     if (typeShop == "achat") {
         for (var i = 0; i < listeAchat.length; i++) {
