@@ -63,8 +63,8 @@ if ('POST' == $_SERVER['REQUEST_METHOD']) {
                 $stmt = $bdd->prepare('UPDATE membres SET mot_de_passe = :new_hash WHERE id = :id');
                 $stmt->execute(['id' => $row['id'], 'new_hash' => password_hash($_POST['password'], $password_options['algo'], $password_options['options'])]);
             }
-            header('Location: accueil.php');
-            echo "<script>window.location.replace('accueil.php');</script><p>connexion</p>";
+            header('Location: donjon');
+            echo "<script>window.location.replace('donjon');</script><p>connexion</p>";
             exit;
         } else {
             $fail = TRUE;

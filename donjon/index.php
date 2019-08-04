@@ -3,7 +3,6 @@ mb_internal_encoding('UTF-8');
 setlocale(LC_CTYPE, 'fr_FR.UTF-8');
 header('Content-type: text/html; charset=UTF-8'); 
 ?>
-
 <!DOCTYPE html>
 
 <html>
@@ -53,6 +52,24 @@ header('Content-type: text/html; charset=UTF-8');
 		echo "</script>";
 		
 	?>
+    <?php
+  $temps_session = 360;
+  $temps_actuel = date("U");
+
+$update_ip = $bdd->prepare('UPDATE membres SET time = ? WHERE login = ?');
+$update_ip->execute(array($temps_actuel,$userinfo['login']));
+  $session_delete_time = $temps_actuel - $temps_session;
+  $del_ip = $bdd->prepare('UPDATE membres SET time = -1 WHERE time < ?');
+    $del_ip->execute(array($session_delete_time));
+  $show_user_nbr = $bdd->query('SELECT * FROM membres WHERE time != -1');
+  while ($user_nbr = $show_user_nbr->fetch())
+  if($user_nbr['login'] != $userinfo['login']){
+{
+?>
+
+ <script>setTimeout(function () {addPlayer(<?php echo $user_nbr['position'] ?>,'<?php echo $user_nbr['login'] ?>')},200)</script> 
+
+<?php }} ?>
     <title>Donjon sans Dragon</title>
     <div href="#personnage"></div>
     <link rel="stylesheet" href="style.css">

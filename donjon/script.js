@@ -316,7 +316,21 @@ setTimeout(() => {
     });
 }, 500);
 
-
+function addPlayer(pos, pseudo){
+    var parent = document.createElement("div")
+    parent.className = "Thepnj persoOnline"
+    document.getElementById(pos).appendChild(parent)
+    var div = document.createElement("img")
+    div.src = "img/srill_face.png"
+    div.className = "perso P"+pseudo
+    parent.appendChild(div)
+}
+function removeAllPlayers(){
+    for(var i = 0; i < document.getElementsByClassName("persoOnline").length;i++){
+        document.getElementsByClassName("persoOnline")[i].innerHTML = ""
+        document.getElementsByClassName("persoOnline")[i].className = ""
+    }
+}
 function openWin(lien) {
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", lien, true);

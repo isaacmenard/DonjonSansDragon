@@ -10,21 +10,13 @@ leWorldSelect = []
 mapTutoriel = [[[26],[25],[1]]]
 mapSolo = [[40, 4, -3],[41, 1, -1],[43, 1, -1],[42, 0, -2],[44, -2, -2],[51, -3, -3],[52, -3, -3]]
 positionMapGeneraleExist = false
-for(var i = 0;i < mapGenerale.length;i++){
-    for(var j = 0; j < mapGenerale[i].length;j++){
-        if(mapGenerale[i][j][0] == selectMap){
-            positionMapGenerale = (i+";"+j)
-            leWorldSelect = mapGenerale
-            positionMapGeneraleExist = true
-        }
-    }
-}
-if(positionMapGeneraleExist == false){
-    for(var i = 0;i < mapTutoriel.length;i++){
-        for(var j = 0; j < mapTutoriel[i].length;j++){
-            if(mapTutoriel[i][j][0] == selectMap){
+listeMapDiff = [mapGenerale,mapTutoriel]
+for(var x = 0;x<listeMapDiff.length;x++){
+    for(var i = 0;i < listeMapDiff[x].length;i++){
+        for(var j = 0; j < listeMapDiff[x][i].length;j++){
+            if(listeMapDiff[x][i][j][0] == selectMap){
                 positionMapGenerale = (i+";"+j)
-                leWorldSelect = mapTutoriel
+                leWorldSelect = listeMapDiff[x]
                 positionMapGeneraleExist = true
             }
         }

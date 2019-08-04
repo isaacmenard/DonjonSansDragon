@@ -16,17 +16,18 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
   <link href="css/mdb.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz&display=swap" rel="stylesheet"> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css"
+    integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"
     content="donjon, donjon sans dragon, donjonsansdragon, rpg, rpg mmo, mmo, rpg en ligne, rpg online, en ligne, online, game, dungeon, dragon, donjon, dragon, without, isaac, menard, discord" />
-  
-  <link rel="stylesheet" href="style.css">
+
   <title>Donjon Sans Dragon</title>
   <link rel="SHORTCUT ICON" href="./donjon/img/logo.ico" />
   <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -59,7 +60,6 @@
         </div>
       </div>
     </div>
-    <div class="bar"></div>
     <!-- 
         <div id="cards">
             <figure class="card card--ice">
@@ -178,6 +178,18 @@
         </div>
         <br><br><br><br>
         <div class="bar"></div> -->
+    <div class="article">
+      <div class="gauche">
+        <img src="mapExemple.PNG">
+      </div>
+      <div class="milieu">
+        <h1>Donjon Sans Dragon</h1><br>
+        C'est un RPG MMO où vous pouvez incarner un simple villagois qui finira par sauver le monde !
+      </div>
+      <div class="droite">
+      <img src="slime_bkeu.PNG">
+      </div>
+    </div>
     <div class="topXp">
       <div class="gauche">
 
@@ -217,7 +229,7 @@
               </a>
               <!--discord-->
               <a class="ic" href="https://discord.gg/mmT8uP8">
-              <i class="fab fa fa-discord fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
+                <i class="fab fa fa-discord fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
               </a>
             </div>
           </div>
@@ -230,7 +242,7 @@
       <!-- Footer Elements -->
 
       <!-- Copyright -->
-      <div class="footer-copyright text-center py-3">Tout droit à  
+      <div class="footer-copyright text-center py-3">Tout droit à
         <strong> menardisaac@gmail.com</strong>
       </div>
       <!-- Copyright -->
