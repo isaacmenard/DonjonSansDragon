@@ -316,6 +316,28 @@ setTimeout(() => {
     });
 }, 500);
 
+setInterval(() => {
+    removeAllPlayers()
+    openWin('joueursAutres.php')
+    listPlayers = listPlayers.split("$$$$")
+    listePlayerPos = []
+    listePlayerName = []
+    for(var i = 0; i < listPlayers.length;i++){
+        listPlayers[i] = listPlayers[i].split("'").join("").split("").slice(1,-1).join("")
+        listePlayerPos.push(listPlayers[i])
+        i++
+    }
+    for(var i = 1; i < listPlayers.length+1;i++){
+        listePlayerName.push(listPlayers[i])
+        i++
+    }
+    listePlayerPos.pop()
+    listePlayerName.pop()
+    for(var i=0; i < listePlayerName.length;i++){
+        addPlayer(listePlayerPos[i],listePlayerName[i])
+    }
+}, 1000);
+
 function addPlayer(pos, pseudo){
     var parent = document.createElement("div")
     parent.className = "Thepnj persoOnline"
@@ -331,10 +353,16 @@ function removeAllPlayers(){
         document.getElementsByClassName("persoOnline")[i].className = ""
     }
 }
+listPlayers = ""
 function openWin(lien) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", lien, true);
-    xhttp.send();
+    var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                listPlayers = this.responseText
+            }
+        };
+        xmlhttp.open("GET", lien, true);
+        xmlhttp.send();
 }
 
 function closeWin() {
@@ -572,6 +600,7 @@ document.addEventListener('keydown', function (e) {
             mondeTp()
             item()
         }
+        openWin("position.php?pos='"+(a + " 0 " + b)+"'")
     }
 });
 

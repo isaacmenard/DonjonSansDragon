@@ -184,13 +184,13 @@
       </div>
       <div class="milieu">
         <h1>Donjon Sans Dragon</h1><br>
-        C'est un RPG MMO où vous pouvez incarner un simple villagois qui finira par sauver le monde !
+        C'est un RPG MMO <strong>FREE to PLAY</strong> où vous pouvez incarner un simple villageois qui finira par sauver le monde !
       </div>
       <div class="droite">
-      <img src="slime_bkeu.PNG">
+      <img src="slime_bkeu.png">
       </div>
     </div>
-    <div class="topXp">
+    <!-- <div class="topXp">
       <div class="gauche">
 
       </div>
@@ -200,7 +200,7 @@
       <div class="droite">
 
       </div>
-    </div>
+    </div> -->
 
     <!-- Footer -->
     <footer class="page-footer font-small">

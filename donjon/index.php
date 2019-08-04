@@ -48,26 +48,26 @@ header('Content-type: text/html; charset=UTF-8');
 		else{
 			echo "quete=[];";
 		}
-		echo "xpJ=".$userinfo['xp'].";";
+		echo "xpJ=".$userinfo['xp'].";listePlayerPos=[];listePlayerName=[]";
 		echo "</script>";
 		
 	?>
     <?php
-  $temps_session = 360;
+  $temps_session = 3600;
   $temps_actuel = date("U");
 
 $update_ip = $bdd->prepare('UPDATE membres SET time = ? WHERE login = ?');
 $update_ip->execute(array($temps_actuel,$userinfo['login']));
-  $session_delete_time = $temps_actuel - $temps_session;
-  $del_ip = $bdd->prepare('UPDATE membres SET time = -1 WHERE time < ?');
-    $del_ip->execute(array($session_delete_time));
-  $show_user_nbr = $bdd->query('SELECT * FROM membres WHERE time != -1');
-  while ($user_nbr = $show_user_nbr->fetch())
-  if($user_nbr['login'] != $userinfo['login']){
+$session_delete_time = $temps_actuel - $temps_session;
+$del_ip = $bdd->prepare('UPDATE membres SET time = -1 WHERE time < ?');
+$del_ip->execute(array($session_delete_time));
+$show_user_nbr = $bdd->query('SELECT * FROM membres WHERE time != -1 AND monde = "'.$userinfo['monde'].'"');
+while ($user_nbr = $show_user_nbr->fetch())
+if($user_nbr['login'] != $userinfo['login']){
 {
 ?>
 
- <script>setTimeout(function () {addPlayer(<?php echo $user_nbr['position'] ?>,'<?php echo $user_nbr['login'] ?>')},200)</script> 
+ <script>setTimeout(function () {listePlayerPos.push(<?php echo $user_nbr['position'] ?>);listePlayerName.push('<?php echo $user_nbr['login'] ?>')},200)</script> 
 
 <?php }} ?>
     <title>Donjon sans Dragon</title>
@@ -77,6 +77,7 @@ $update_ip->execute(array($temps_actuel,$userinfo['login']));
 </head>
 
 <body>
+<p id="textAjax"></p>
     <table class="table">
         <tbody class="tbody">
         </tbody>
