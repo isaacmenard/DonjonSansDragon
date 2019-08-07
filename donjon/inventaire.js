@@ -278,7 +278,6 @@ function CaseInvFunction() {
 function creationInventaire() {
     CaseInvFunction()
     setTimeout(() => {
-        MiseAJourPlan()
         majPetClient()
     }, 200);
 }
@@ -299,7 +298,6 @@ function addXp(numberXp) {
         xpJ[1] = xpJ[1] - xpJ[2]
         xpJ[2] = Math.round(xpJ[2] * 1.2)
         newLevel(xpJ[0])
-        MiseAJourPlan()
     }
     xpJ[0] = Math.round(xpJ[0])
     xpJ[1] = Math.round(xpJ[1])
@@ -427,11 +425,6 @@ function miseAJourInv() {
     openWin("slot.php?item="+result)
     setTimeout(closeWin, 1000)
 }
-document.addEventListener('keydown', function (e) {
-    if (e.keyCode == 67) {
-        tableDeCraft()
-    }
-});
 tableDeCraftOpen = false
 document.getElementsByClassName("craft")[0].style.visibility = "hidden"
 

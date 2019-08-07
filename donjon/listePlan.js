@@ -1,20 +1,5 @@
-function MiseAJourPlan() {
-    listePlan = ""
-    if (xpJ[0] == 0) {
-        listePlan = [["cake", "200px;190px;ananas", "200px;300px;ananas", "90px;250px;candyItem"], "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
-    } else if (xpJ[0] == 1) {
-        listePlan = [["cake", "200px;190px;ananas", "200px;300px;ananas", "90px;250px;candyItem"],"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
-    } else if (xpJ[0] == 2) {
-        listePlan = [["cake", "200px;190px;ananas", "200px;300px;ananas", "90px;250px;candyItem"],"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
-    } else if (xpJ[0] == 3) {
-        listePlan = [["cake", "200px;190px;ananas", "200px;300px;ananas", "90px;250px;candyItem"],"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
-    } else if (xpJ[0] == 4) {
-        listePlan = [["cake", "200px;190px;ananas", "200px;300px;ananas", "90px;250px;candyItem"],"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
-    } else if (xpJ[0] >= 5) {
-        listePlan = [
-            ["cake", "200px;190px;ananas", "200px;300px;ananas", "90px;250px;candyItem"],["W_Axe001", "200px;90px;I_SilverBar", "50px;90px;I_SilverBar", "50px;350px;wood"], ["W_Spear008", "200px;90px;I_SilverBar", "50px;90px;I_SilverBar", "50px;350px;wood"], "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
-        ]
-    }
+function MiseAJourPlan(listePlans) {
+    listePlan = listePlans
     document.getElementsByClassName("listePlanCraft")[0].innerHTML = ""
     for (var i = 0; i < listePlan.length; i++) {
         var Parent = document.createElement("div");

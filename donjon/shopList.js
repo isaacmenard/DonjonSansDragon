@@ -1,11 +1,3 @@
-listeAchat = [
-    [10, "W_Axe001"],
-    [10, "W_Spear008"],"" ,[8, "wood"],[8, "I_SilverBar"],"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
-]
-listeVente = [
-    [6, "S_Water01"],[6, "wood"],[6, "I_SilverBar"],"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
-]
-
 document.getElementsByClassName("money")[0].innerHTML = money
 function MiseAJourShop(typeShop) {
     viderShop()

@@ -507,8 +507,8 @@ document.addEventListener('keydown', function (e) {
         if (lastDirection == null) {
             suiteFunctionP()
         }
-        if(document.getElementsByClassName("ThePet").length > 1){
-            for(var i = 1;i <document.getElementsByClassName("ThePet").length;i++){
+        if (document.getElementsByClassName("ThePet").length > 1) {
+            for (var i = 1; i < document.getElementsByClassName("ThePet").length; i++) {
                 document.getElementsByClassName("ThePet")[i].innerHTML == ""
             }
         }
@@ -843,39 +843,53 @@ function SuiteQuestion(rep, numberDemande, number) {
                     break;
             }
             break;
-            case 12:
+        case 12:
+            var candy = chercheInv("I_C_Radish.png")
+            if (candy == false || numberDemande >= 5) {
+
+            } else {
+                candy = candy.split(" ")
+                if (question2PassageAntiBug2 == false) {
+                    prendreInventaire(candy[0])
+                    addXp(400)
+                    money += 20
+                    miseAJourMoney()
+                    question2PassageAntiBug2 = true
+                }
+                rep = null
+                numberDemande = 5
+                number = 12
+                break;
+            }
             switch (numberDemande) {
                 case 1:
-                    question("Dans un premier temps va au niveau du stand de fabrication Pour construire une houe", "ok", null,null,null,2,12)
+                    question("Dans un premier temps va au niveau du stand de fabrication Pour construire une houe", "ok", null, null, null, 2, 12)
                     break;
-                    case 2:
-                    question("Après va acheter les ingrédients nécéssaires plus bas, un jeune homme en vend", "ok", "attend, j'ai oublié ce que tu as dit juste avant",null,null,3,12)
+                case 2:
+                    question("Après va acheter les ingrédients nécéssaires plus bas, un jeune homme en vend", "ok", "attend, j'ai oublié ce que tu as dit juste avant", null, null, 3, 12)
                     break;
-                    case 3:
+                case 3:
                     switch (rep) {
                         case "A":
-                            question("Pour finir, sélectionne la houe dans ta barre d'inventaire et cliques sur les pousses du champs à ma gauche et rapporte moi un radis", "ok !", "attend, j'ai oublié ce que tu as dis juste avant",null,null,4,12)
+                            question("Pour finir, sélectionne la houe dans ta barre d'inventaire et cliques sur les pousses du champs à ma gauche et rapporte moi un radis", "ok !", "attend, j'ai oublié ce que tu as dis juste avant", null, null, 4, 12)
                             break;
                         case "B":
-                                question("Après va acheter les ingrédients nécéssaires plus bas, un jeune homme en vend", "ok", "attend, j'ai oublié ce que tu as dit juste avant",null,null,3,12)
-                            rep = null
-                                numberDemande = 2
-                                number = 12
+                            question("Dans un premier temps va au niveau du stand de fabrication Pour construire une houe", "ok", null, null, null, 2, 12)
                             break;
                     }
                     break;
-                    case 4:
+                case 4:
                     switch (rep) {
                         case "A":
-                            question("Allez juste un radis", "attend, j'ai oublié ce que tu as dis juste avant", null,null,null,3,12)
+                            question("Allez juste un radis", "attend, j'ai oublié ce que tu as dis juste avant", null, null, null, 3, 12)
                             break;
                         case "B":
-                                question("Pour finir, sélectionne la houe dans ta barre d'inventaire et cliques sur les pousses du champs à ma gauche et rapporte moi un radis", "ok !", "attend, j'ai oublié ce que tu as dis juste avant",null,null,4,12)
-                            rep = null
-                                numberDemande = 3
-                                number = 12
+                            question("Après va acheter les ingrédients nécéssaires plus bas, un jeune homme en vend", "ok", "attend, j'ai oublié ce que tu as dit juste avant", null, null, 3, 12)
                             break;
                     }
+                    break;
+                case 5:
+                    dialogues("Bravo à toi jeune maître des radis ! tu peux maintenant essayer avec des arbres si tu as une hache, ou toutes sortes de choses sur ton chemin !")
                     break;
             }
             break;

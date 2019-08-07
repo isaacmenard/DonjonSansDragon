@@ -68,7 +68,7 @@ function pnjCreation(aPnj, bPnj, src, name, dialogue,vue) {
                 }
             }
         }
-    }, 200);
+    }, 1000);
 
 }
 
