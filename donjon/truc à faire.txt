@@ -9,5 +9,7 @@ prioritée normale :
 - épée
 - mage
 - messages description items
+- bug llama déplacements
+- rajouter plus d'arcs
 
 Important :

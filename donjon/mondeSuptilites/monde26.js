@@ -15,7 +15,7 @@ if (selectMap == 26) {
         var creaTionMondeTp = setInterval(() => {
             if (mechantAm.length == mechantDead.length) {
                 cercleTpCrea("3 0 -2")
-                pnjCreation(3, -2, "", "hidden", "fin du tutoriel<p class='rep' onclick='openWin(\"monde.php?map=0\");closeWinMonde()'>Pour commencer l'aventure, clique ici ! </p>")
+                pnjCreation(3, -2, "", "hidden", "fin du tutoriel<p class='rep' onclick='openWin(\"monde.php?map=0\");closeWinMonde()'>Pour commencer l'aventure, clique ici ! </p>",0)
                 clearInterval(creaTionMondeTp)
             }
         }, 1000);

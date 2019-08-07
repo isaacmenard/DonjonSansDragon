@@ -1,19 +1,19 @@
 function pnjDepartMonde1() {
-    if (selectMap == 0) {
-        if ((a + " " + 0 + " " + b) == "1 0 1" || (a + " " + 0 + " " + b) == "0 0 1") {
-            var compteur = 0
-            //si il a une clef   
-            if (chercheInv("key.png") != false) {
-                setTimeout(() => {
-                    window.location.replace('fin.php')
-                }, 100);
-                prendreInventaire(chercheInv("key.png").split(" ").slice(0, 1).join(""))
-            } else {
-                dialogues("il vous faut une clef pour passer")
-            }
+    // if (selectMap == 0) {
+    //     if ((a + " " + 0 + " " + b) == "1 0 1" || (a + " " + 0 + " " + b) == "0 0 1") {
+    //         var compteur = 0
+    //         //si il a une clef   
+    //         if (chercheInv("key.png") != false) {
+    //             setTimeout(() => {
+    //                 window.location.replace('fin.php')
+    //             }, 100);
+    //             prendreInventaire(chercheInv("key.png").split(" ").slice(0, 1).join(""))
+    //         } else {
+    //             dialogues("il vous faut une clef pour passer")
+    //         }
 
-        }
-    }
+    //     }
+    // }
 }
 move = false
 passe = false
@@ -47,6 +47,7 @@ setTimeout(() => {
     addObject("nenuphares", "img/water-lily1.png", -180, 100)
     addObject("nenuphares", "img/water-lily1.png", -170, 110)
     addObject("fence", "img/fence2.png", -100, -20)
+    pnjCreation(-2, 2, "img/road-sign2.png", "pnj", "AllowCity<br> ------>",0)
     colision = ["1 0 2", "1 0 3", "0 0 3", "0 0 2"] //penser � ajouter 1 en hauteur
     pnjCreation(4, 4, "img/pnj1.png", "pnj", ["Bernard L'air Mite : Bienvenue, jeune soldat ! pourrais tu m'aider à retrouver mes clefs ?", "oui", "non",null,null,1,1])
 }, 200);

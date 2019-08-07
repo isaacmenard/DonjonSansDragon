@@ -322,47 +322,61 @@ setInterval(() => {
     listPlayers = listPlayers.split("$$$$")
     listePlayerPos = []
     listePlayerName = []
-    for(var i = 0; i < listPlayers.length;i++){
-        listPlayers[i] = listPlayers[i].split("'").join("").split("").slice(1,-1).join("")
+    for (var i = 0; i < listPlayers.length; i++) {
+        listPlayers[i] = listPlayers[i].split("'").join("").split("").slice(1, -1).join("")
         listePlayerPos.push(listPlayers[i])
         i++
     }
-    for(var i = 1; i < listPlayers.length+1;i++){
+    for (var i = 1; i < listPlayers.length + 1; i++) {
         listePlayerName.push(listPlayers[i])
         i++
     }
     listePlayerPos.pop()
     listePlayerName.pop()
-    for(var i=0; i < listePlayerName.length;i++){
-        addPlayer(listePlayerPos[i],listePlayerName[i])
+    for (var i = 0; i < listePlayerName.length; i++) {
+        addPlayer(listePlayerPos[i], listePlayerName[i])
     }
 }, 1000);
 
-function addPlayer(pos, pseudo){
+function addPlayer(pos, pseudo) {
     var parent = document.createElement("div")
     parent.className = "Thepnj persoOnline"
     document.getElementById(pos).appendChild(parent)
     var div = document.createElement("img")
     div.src = "img/srill_face.png"
-    div.className = "perso P"+pseudo
+    div.className = "perso P" + pseudo
+    parent.appendChild(div)
+    var div = document.createElement("div")
+    div.className = "pseudo"
+    div.innerHTML = pseudo
     parent.appendChild(div)
 }
-function removeAllPlayers(){
-    for(var i = 0; i < document.getElementsByClassName("persoOnline").length;i++){
-        document.getElementsByClassName("persoOnline")[i].innerHTML = ""
-        document.getElementsByClassName("persoOnline")[i].className = ""
+
+function removeAllPlayers() {
+    var listePersoADelete = []
+    for (var i = 0; i < document.getElementsByClassName("persoOnline").length; i++) {
+        listePersoADelete.push(document.getElementsByClassName("persoOnline")[i])
     }
+    setTimeout(() => {
+        for (var i = 0; i < listePersoADelete.length; i++) {
+            listePersoADelete[i].innerHTML = ""
+            listePersoADelete[i].className = ""
+        }
+    }, 200);
 }
 listPlayers = ""
+
 function openWin(lien) {
     var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (lien == "joueursAutres.php") {
                 listPlayers = this.responseText
             }
-        };
-        xmlhttp.open("GET", lien, true);
-        xmlhttp.send();
+        }
+    };
+    xmlhttp.open("GET", lien, true);
+    xmlhttp.send();
 }
 
 function closeWin() {
@@ -388,7 +402,7 @@ vieMax = 100
 //perd des points de vie suite a la fonction attaque mechant
 function perteDeVie(NombreEnMoins) {
     Lavie = Lavie - NombreEnMoins
-    if(Lavie > vieMax){
+    if (Lavie > vieMax) {
         Lavie = vieMax
     }
     if (mort == false) {
@@ -492,6 +506,11 @@ document.addEventListener('keydown', function (e) {
         }
         if (lastDirection == null) {
             suiteFunctionP()
+        }
+        if(document.getElementsByClassName("ThePet").length > 1){
+            for(var i = 1;i <document.getElementsByClassName("ThePet").length;i++){
+                document.getElementsByClassName("ThePet")[i].innerHTML == ""
+            }
         }
     } else {
         suiteFunctionP()
@@ -600,12 +619,14 @@ document.addEventListener('keydown', function (e) {
             mondeTp()
             item()
         }
-        openWin("position.php?pos='"+(a + " 0 " + b)+"'")
+        openWin("position.php?pos='" + (a + " 0 " + b) + "'")
     }
 });
 
 
-
+setTimeout(() => {
+    openWin("position.php?pos='" + (a + " 0 " + b) + "'")
+}, 200);
 //l� ou le perso commence
 perso1 = document.getElementsByClassName("personnage")[0];
 if (document.getElementById(a + " 0 " + b)) {
@@ -822,8 +843,45 @@ function SuiteQuestion(rep, numberDemande, number) {
                     break;
             }
             break;
+            case 12:
+            switch (numberDemande) {
+                case 1:
+                    question("Dans un premier temps va au niveau du stand de fabrication Pour construire une houe", "ok", null,null,null,2,12)
+                    break;
+                    case 2:
+                    question("Après va acheter les ingrédients nécéssaires plus bas, un jeune homme en vend", "ok", "attend, j'ai oublié ce que tu as dit juste avant",null,null,3,12)
+                    break;
+                    case 3:
+                    switch (rep) {
+                        case "A":
+                            question("Pour finir, sélectionne la houe dans ta barre d'inventaire et cliques sur les pousses du champs à ma gauche et rapporte moi un radis", "ok !", "attend, j'ai oublié ce que tu as dis juste avant",null,null,4,12)
+                            break;
+                        case "B":
+                                question("Après va acheter les ingrédients nécéssaires plus bas, un jeune homme en vend", "ok", "attend, j'ai oublié ce que tu as dit juste avant",null,null,3,12)
+                            rep = null
+                                numberDemande = 2
+                                number = 12
+                            break;
+                    }
+                    break;
+                    case 4:
+                    switch (rep) {
+                        case "A":
+                            question("Allez juste un radis", "attend, j'ai oublié ce que tu as dis juste avant", null,null,null,3,12)
+                            break;
+                        case "B":
+                                question("Pour finir, sélectionne la houe dans ta barre d'inventaire et cliques sur les pousses du champs à ma gauche et rapporte moi un radis", "ok !", "attend, j'ai oublié ce que tu as dis juste avant",null,null,4,12)
+                            rep = null
+                                numberDemande = 3
+                                number = 12
+                            break;
+                    }
+                    break;
+            }
+            break;
     }
-    majQuest(rep, numberDemande, number);
+
+    majQuest(rep, numberDemande, number)
 }
 
 function majQuest(reponse, id, number) {

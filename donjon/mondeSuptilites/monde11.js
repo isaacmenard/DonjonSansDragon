@@ -11,6 +11,6 @@ if (selectMap == 11) {
     ];
     window.onload = function (){
         cercleTpCrea("1 0 1")
-        pnjCreation(1, 1, "", "hidden", "Veux-tu aller dans le monde des nuages ?<p class='rep' onclick='openWin(\"monde.php?map=40\");closeWinMonde()'> oui </p><p class='rep'> non </p>")
+        pnjCreation(1, 1, "", "hidden", "Veux-tu aller dans le monde des nuages ?<p class='rep' onclick='openWin(\"monde.php?map=40\");closeWinMonde()'> oui </p><p class='rep'> non </p>",0)
     }
 }

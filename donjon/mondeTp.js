@@ -2,9 +2,9 @@ tp = null
 mapGenerale = [
     [[4],[15],[14],[20]],
     [[9],[10],[11],[24]],
-    [[8],[23],[21],[2,1,1]],
-    [[3,2,3],[19],[18],[0]],
-    [[27],[28],[29],[30]]
+    [[8],[23],[21],[2,1,1],[49],[50]],
+    [[3,2,3],[19],[18],[0],[46],[45]],
+    [[27],[28],[29],[30],[47],[48]]
 ]
 leWorldSelect = []
 mapTutoriel = [[[26],[25],[1]]]
@@ -106,7 +106,7 @@ function arrowMap(direction){
         document.getElementById("arrowMap").style.visibility = "visible"
         document.getElementById("arrowMap").style.transform = "rotate(-180deg)"
     }
-    else if(direction == "droite" && selectMap != 0){
+    else if(direction == "droite"){
         document.getElementById("arrowMap").style.visibility = "visible"
         document.getElementById("arrowMap").style.transform = "rotate(0deg)"
     }

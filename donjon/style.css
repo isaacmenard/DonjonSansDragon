@@ -335,12 +335,12 @@ body {
     font-family: 'Oswald', sans-serif;
 }
 
-.perso {
+
+.pseudo{
     position: absolute;
-    width: 35px;
-    height: 35px;
-    z-index: 10000;
-    transform: rotateZ(-45deg) rotateY(-60deg) translate3d(-175px, -90px, -120px);
+    font-size: 30px;
+    color: rgb(240, 239, 168);
+    transform: rotateZ(-45deg) rotateY(-60deg) translate3d(-375px, -164px, -240px);
 }
 
 .question {

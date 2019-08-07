@@ -2,7 +2,7 @@
 pnjArr = 0
 dialo = 0
 //question : tableau; dialogue : string;
-function pnjCreation(aPnj, bPnj, src, name, dialogue) {
+function pnjCreation(aPnj, bPnj, src, name, dialogue,vue) {
     dialo = 0
     if (pnjArr == 0) {
         pnj = document.createElement("div");
@@ -12,20 +12,23 @@ function pnjCreation(aPnj, bPnj, src, name, dialogue) {
         pnj2.className = name
         pnj2.src = src
         pnj.appendChild(pnj2);
+        if(vue == undefined){
+            vue = 1
+        }
     }
     var cyclePnj = setInterval(function (){
         if (questionEnCours != true) {
             //bas
-            if (aPnj <= a && a - aPnj <= 1 && bPnj <= b && b - bPnj <= 1) {
+            if (aPnj <= a && a - aPnj <= vue && bPnj <= b && b - bPnj <= vue) {
                 LancementQuestion()
             }
             //haut
-            else if (aPnj > a && aPnj - a < 1 && bPnj >= b && bPnj - b <= 1) {
+            else if (aPnj > a && aPnj - a < vue && bPnj >= b && bPnj - b <= vue) {
                 LancementQuestion()
             }
     
             //droite
-            else if (aPnj >= a && aPnj - a <= 1 && bPnj <= b && b - bPnj <= 1) {
+            else if (aPnj >= a && aPnj - a <= vue && bPnj <= b && b - bPnj <= vue) {
                 LancementQuestion()
             }
             //centre
@@ -33,7 +36,7 @@ function pnjCreation(aPnj, bPnj, src, name, dialogue) {
                 LancementQuestion()
             }
             //gauche
-            else if (aPnj <= a+1 && a - aPnj <= 1 && bPnj >= b && bPnj - b <= 1) {
+            else if (aPnj <= a+vue && a - aPnj <= vue && bPnj >= b && bPnj - b <= vue) {
                 LancementQuestion()
             }
     

@@ -173,6 +173,7 @@ if($user_nbr['login'] != $userinfo['login']){
         </div>
     </div>
     <div class="personnage" id="personnage">
+        <div class="pseudo" style="color:white">YOU</div>
         <img src="img/srill_face.png" class="perso" />
     </div>
     <div id="dialogue">
