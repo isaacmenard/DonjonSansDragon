@@ -252,3 +252,37 @@ setTimeout(function () {
 
 	}
 }, 200)
+
+
+
+function ajoutMapDb(idMap){
+	var existeMap = false
+	for(var i = 0 ; i < listeMap.length;i++){
+		if(listeMap[i] == idMap){
+			existeMap = true
+		}
+	}
+	if(existeMap == false){
+		openWin("ajoutMapDb.php?map="+idMap)
+	}
+}
+function modifAMap(idMap,quoi,enQuoi){
+	openWin("modifMapDb.php?map="+idMap+"&quoi="+quoi+"&enQuoi="+convertirUnDoubleTableau(enQuoi))
+}
+objetsMap = ""
+function recupMapDb(idMap,quoi){
+	var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+			objetsMap = this.responseText
+        }
+	};
+    xmlhttp.open("GET", "recupMapDb.php?map="+idMap+"&quoi="+quoi, true);
+    xmlhttp.send();
+}
+function convertirUnDoubleTableau(xMap){
+	for(var i = 0 ; i < xMap.length;i++){
+		xMap[i] = '["'+xMap[i].join('","')+'"]'
+	}
+	return '['+xMap.join(',')+']'
+}

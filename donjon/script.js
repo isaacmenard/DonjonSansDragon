@@ -48,48 +48,111 @@ Xaft = []
 Yaft = []
 LootJobs = []
 xpObjJob = []
+setTimeout(() => {
+    destroy(null)
+}, 200);
+
+
+dejaPose = false
 
 function destroy(objet) {
-    idObj = parseInt(objet.id.split("").slice(0, -6))
-    aObj = XObj[idObj]
-    bObj = YObj[idObj]
-    loot = LootJobs[idObj]
-    srcAfter = srcAfterObj[idObj]
-    if (aObj <= a && a - aObj <= 1 && bObj <= b && b - bObj <= 1) {
-        suiteObj()
-    }
-    //haut
-    else if (aObj > a && aObj - a < 1 && bObj >= b && bObj - b <= 1) {
-        suiteObj()
-    }
+    if (objet == null) {
+        setInterval(() => {
+            recupMapDb(selectMap, "objetsMap")
+            setTimeout(() => {
+                objetsMap = objetsMap.replace(/'/g, '"');
+                objetsMap = JSON.parse(objetsMap);
+                for (var i = 0; i < objetsMap.length; i++) {
+                    //ici modifier temps entre objet jobs
+                    if ((parseInt(objetsMap[i][1]) / 1000) + 60 < Date.now()/1000) {
+                        objet = document.getElementsByClassName("objetJob")[objetsMap[i][0]]
+                        objetsMap.splice(i, 1)
+                        modifAMap(selectMap, "objetsMap", objetsMap)
+                        if (dejaPose == true) {
+                            console.log("start")
+                            idObj = parseInt(objet.id.split("").slice(0, -6))
+                            objet.src = srcs[idObj]
+                            objet.className = "objetJob " + noms[idObj] + " " + classObjs[idObj]
+                            objet.style.marginLeft =  "0px"
+                            objet.style.marginTop = "0px"
+                            objet.onclick = function (){ destroy(this)}
+                        }
+                    } else {
+                        objet = document.getElementsByClassName("objetJob")[objetsMap[i][0]]
+                        idObj = parseInt(objet.id.split("").slice(0, -6))
 
-    //droite
-    else if (aObj >= a && aObj - a <= 1 && bObj <= b && b - bObj <= 1) {
-        suiteObj()
-    }
-    //centre
-    else if (aObj == a && b == bObj) {
-        suiteObj()
-    }
-    //gauche
-    else if (aObj <= a + 1 && a - aObj <= 1 && bObj >= b && bObj - b <= 1) {
-        suiteObj()
-    }
+                        objet.src = srcAfterObj[idObj]
+                        objet.className = "objetJob " + srcAfterObj[idObj].split("/")[1].split(".")[0]
+                        objet.style.marginLeft = Xaft[idObj] + "0px"
+                        objet.style.marginTop = Yaft[idObj] + "0px"
+                    }
+                }
+                dejaPose = true
+            }, 500);
+        }, 1000);
+    } else {
+        idObj = parseInt(objet.id.split("").slice(0, -6))
+        aObj = XObj[idObj]
+        bObj = YObj[idObj]
+        loot = LootJobs[idObj]
+        srcAfter = srcAfterObj[idObj]
+        if (aObj <= a && a - aObj <= 1 && bObj <= b && b - bObj <= 1) {
+            suiteObj()
+        }
+        //haut
+        else if (aObj > a && aObj - a < 1 && bObj >= b && bObj - b <= 1) {
+            suiteObj()
+        }
 
-    function suiteObj() {
-        if (objet.className.split(" ")[2] == "wood" && itemSelect == "W_Axe001.png" || objet.className.split(" ")[2] == "plant" && itemSelect == "W_Spear008.png" || objet.className.split(" ")[2] == "none") {
-            objet.src = srcAfter
-            objet.className = "objetJob " + srcAfter.split("/")[1].split(".")[0]
-            objet.style.marginLeft = Xaft[idObj] + "0px"
-            objet.style.marginTop = Yaft[idObj] + "0px"
-            addXp(xpObjJob[idObj])
-            addItem(loot.split("/")[1].split(".")[0], loot, aObj, bObj)
+        //droite
+        else if (aObj >= a && aObj - a <= 1 && bObj <= b && b - bObj <= 1) {
+            suiteObj()
+        }
+        //centre
+        else if (aObj == a && b == bObj) {
+            suiteObj()
+        }
+        //gauche
+        else if (aObj <= a + 1 && a - aObj <= 1 && bObj >= b && bObj - b <= 1) {
+            suiteObj()
+        }
+
+        function suiteObj() {
+            if (objet.className.split(" ")[2] == "wood" && itemSelect == "W_Axe001.png" || objet.className.split(" ")[2] == "plant" && itemSelect == "W_Spear008.png" || objet.className.split(" ")[2] == "none") {
+                objet.src = srcAfter
+                objet.onclick = ""
+                objet.className = "objetJob " + srcAfter.split("/")[1].split(".")[0]
+                objet.style.marginLeft = Xaft[idObj] + "0px"
+                objet.style.marginTop = Yaft[idObj] + "0px"
+                addXp(xpObjJob[idObj])
+                addItem(loot.split("/")[1].split(".")[0], loot, aObj, bObj)
+                ajoutMapDb(selectMap)
+                recupMapDb(selectMap, "objetsMap")
+                setTimeout(() => {
+                    var objetAAdd = ""
+                    for (var i = 0; i < document.getElementsByClassName("objetJob").length; i++) {
+                        if (document.getElementsByClassName("objetJob")[i] == objet) {
+                            objetAAdd = i
+                        }
+                    }
+                    if (objetsMap != "") {
+                        objetsMap = objetsMap.replace(/'/g, '"');
+                        objetsMap = JSON.parse(objetsMap);
+                        objetsMap.push([objetAAdd, Date.now()])
+                    } else {
+                        objetsMap = [
+                            [objetAAdd, Date.now()]
+                        ]
+                    }
+                    modifAMap(selectMap, "objetsMap", objetsMap)
+                }, 200);
+            }
         }
     }
 }
 canBrokeWood = false
 compteurObjJobs = 0;
-
+classObjs = []; noms = []; srcs = []; Xs = []; Ys = []; srcAfters = []; XOffs = []; YOffs = []; Xafters = []; Yafters = []; loots = []; xps = [];
 function addObjectJob(classObj, nom, src, X, Y, srcAfter, XOff, YOff, Xafter, Yafter, loot, xp) {
     var objet = document.createElement("div");
     XObj.push(XOff)
@@ -98,8 +161,21 @@ function addObjectJob(classObj, nom, src, X, Y, srcAfter, XOff, YOff, Xafter, Ya
     YObj.push(YOff)
     Xaft.push(Xafter)
     Yaft.push(Yafter)
+
+    classObjs.push(classObj)
+    noms.push(nom)
+    srcs.push(src)
+    Xs.push(X)
+    Ys.push(Y)
+    srcAfters.push(srcAfter)
+    XOffs.push(XOff)
+    YOffs.push(YOff)
+    Xafters.push(Xafter)
+    Yafters.push(Yafter)
+    loots.push(loot)
+    xps.push(xp)
     srcAfterObj.push(srcAfter)
-    objet.className = "parent" + nom + " objet "
+    objet.className = "parent" + nom + " objet objetJobParent"
     objet.style.marginLeft = X + "px"
     objet.style.marginTop = Y + "px"
     setTimeout(function () {
@@ -337,6 +413,7 @@ setInterval(() => {
         addPlayer(listePlayerPos[i], listePlayerName[i])
     }
 }, 1000);
+
 
 function addPlayer(pos, pseudo) {
     var parent = document.createElement("div")

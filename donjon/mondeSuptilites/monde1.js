@@ -24,6 +24,6 @@ setTimeout(() => {
     addObject("crate", "img/barrel.png", -100, 195)
     addObject("crate", "img/crate.png", -210, -158)
     colision = ["1 0 1","1 0 3"]
-    pnjCreation(1, 1, "http://pixelartmaker.com/art/ba727526b3c3125.png", "pnj", "Hey, je suis le chevalier noir, je vais t'apprendre les bases du jeu, va à gauche et clique sur la flèche en haut à droite de ton écran")
+    pnjCreation(1, 1, "http://pixelartmaker.com/art/ba727526b3c3125.png", "pnj", "Hey, je suis le chevalier noir, je vais t'apprendre les bases du jeu, va dans le coin à gauche et clique sur la flèche en haut à droite de ton écran")
 }, 200);
 }

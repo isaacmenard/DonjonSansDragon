@@ -6,10 +6,9 @@ Plus :
 prioritée normale :
 - jobs
 - stack item
-- épée
-- mage
 - messages description items
 - bug llama déplacements
 - rajouter plus d'arcs
+- tchat
 
 Important :

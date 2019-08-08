@@ -48,14 +48,13 @@ header('Content-type: text/html; charset=UTF-8');
 		else{
 			echo "quete=[];";
 		}
-		echo "xpJ=".$userinfo['xp'].";listePlayerPos=[];listePlayerName=[]";
+		echo "xpJ=".$userinfo['xp'].";listePlayerPos=[];listePlayerName=[];listeMap=[]";
 		echo "</script>";
 		
 	?>
     <?php
   $temps_session = 3600;
   $temps_actuel = date("U");
-
 $update_ip = $bdd->prepare('UPDATE membres SET time = ? WHERE login = ?');
 $update_ip->execute(array($temps_actuel,$userinfo['login']));
 $session_delete_time = $temps_actuel - $temps_session;
@@ -69,7 +68,16 @@ if($user_nbr['login'] != $userinfo['login']){
 
  <script>setTimeout(function () {listePlayerPos.push(<?php echo $user_nbr['position'] ?>);listePlayerName.push('<?php echo $user_nbr['login'] ?>')},200)</script> 
 
-<?php }} ?>
+<?php }} 
+
+
+$show_map_nbr = $bdd->query('SELECT * FROM map');
+while ($map_nbr = $show_map_nbr->fetch()){
+?>
+
+ <script>setTimeout(function () {listeMap.push(<?php echo $map_nbr['idClient'] ?>)},200)</script> 
+
+<?php } ?>
     <title>Donjon sans Dragon</title>
     <div href="#personnage"></div>
     <link rel="stylesheet" href="style.css">

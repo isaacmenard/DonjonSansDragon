@@ -77,7 +77,7 @@ function shoping(id) {
         maDiv.onclick = function () {
             AchatShop(id)
         }
-        maDiv.src = "https://www.onlygfx.com/wp-content/uploads/2017/09/grunge-arrow-2-1-1024x823.png"
+        maDiv.src = "img/valider.png"
         Parent.appendChild(maDiv)
     }
     document.getElementsByClassName("listePlanShop")[0].appendChild(divMoney)
@@ -118,7 +118,7 @@ function vente(id) {
         maDiv.onclick = function () {
             venteShop(id)
         }
-        maDiv.src = "https://www.onlygfx.com/wp-content/uploads/2017/09/grunge-arrow-2-1-1024x823.png"
+        maDiv.src = "img/valider.png"
         Parent.appendChild(maDiv)
     }
     document.getElementsByClassName("listePlanShop")[0].appendChild(divMoney)

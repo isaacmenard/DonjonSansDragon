@@ -49,7 +49,7 @@ function craft(idS) {
         maDiv.onclick = function () {
             placerCraft()
         }
-        maDiv.src = "https://www.onlygfx.com/wp-content/uploads/2017/09/grunge-arrow-2-1-1024x823.png"
+        maDiv.src = "img/valider.png"
         Parent.appendChild(maDiv)
     }
 }
