@@ -129,11 +129,14 @@ q:after {
     content: none;
 }
 
-.objetJob:hover {
+.objetJob:hover,.mechant:hover {
     -webkit-filter: drop-shadow(3px 3px 0 yellow) drop-shadow(-3px -3px 0 yellow);
     filter: drop-shadow(3px 3px 0 yellow) drop-shadow(-3px -3px 0 yellow);
 }
-
+.bordRed{
+    -webkit-filter: drop-shadow(3px 3px 0 red) drop-shadow(-3px -3px 0 red);
+    filter: drop-shadow(3px 3px 0 red) drop-shadow(-3px -3px 0 red);
+}
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -165,7 +168,18 @@ table {
     height: 325px;
     width: auto;
 }
-
+.infoCombat{
+    margin: 20px;
+    width: 15%;
+    font-size: 14px;
+    text-align: center;
+    font-family: 'Work Sans', sans-serif;
+    height: auto;
+    padding: 20px;
+    color: white;
+    background-color: #181818;
+    border-radius: 10px;
+}
 .rep:hover {
     color: red;
 }
@@ -502,7 +516,32 @@ body {
     width: auto;
     z-index: 0;
 }
-
+.ordreTourCase{
+    width: 100%;;
+    color: white;
+    font-family: 'Teko', sans-serif;
+    margin: 5px;
+    height: 5em; /* hauteur du parent */
+    line-height: 5em; /* hauteur de ligne (identique) */
+    white-space: nowrap; /* interdiction de passer à la ligne */
+    text-align: center;
+    border-radius : 10px;
+    border-radius : 10px;
+    background-color: #181818;
+}
+.ordreTour{
+    overflow: auto;
+    visibility: hidden;
+    padding: 10px;
+    position: absolute;
+    margin-top: 40px;
+    min-height: 100px;
+    max-height: 80%;
+    width: 15%;
+    right: 5px;;
+    border-radius : 10px;
+    background-color: #18181841;
+}
 #tableDeco {
     height: 2048px;
 
@@ -1062,7 +1101,9 @@ body {
     background-size: 20%;
     background-position: 50% 50%;
 }
-
+.particles-js-canvas-el{
+    position: fixed !important;
+}
 /* ---- stats.js ---- */
 .count-particles {
     background: #000022;

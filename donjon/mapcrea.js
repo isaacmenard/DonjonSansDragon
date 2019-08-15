@@ -224,6 +224,9 @@ setTimeout(function () {
 						canContinue = false
 					}
 				}
+				if(mapCombat == true){
+					document.getElementById(i + " 0 " + j).onclick = function () {placerPersonnage(this)}
+				}
 				if (canContinue == true) {
 					for (var m = 0; m < water.length; m++) {
 						if (i == Math.round(mapSize / 2) && j == Math.round(mapSize / 2) && LaMap == false) {
@@ -238,6 +241,8 @@ setTimeout(function () {
 					for (var k = 0; k < colision.length; k++) {
 						if (document.getElementById(i + " 0 " + j) && document.getElementById(i + " 0 " + j).id == colision[k]) {
 							document.getElementById(i + " 0 " + j).id = i + " 1 " + j
+						}if(mapCombat == true){
+							document.getElementById(i + " 0 " + j).style.visibility = 'hidden'
 						}
 					}
 					for (var m = 0; m < duve.length; m++) {
@@ -255,34 +260,72 @@ setTimeout(function () {
 
 
 
-function ajoutMapDb(idMap){
+function ajoutMapDb(idMap) {
 	var existeMap = false
-	for(var i = 0 ; i < listeMap.length;i++){
-		if(listeMap[i] == idMap){
+	for (var i = 0; i < listeMap.length; i++) {
+		if (listeMap[i] == idMap) {
 			existeMap = true
 		}
 	}
-	if(existeMap == false){
-		openWin("ajoutMapDb.php?map="+idMap)
+	if (existeMap == false) {
+		openWin("ajoutMapDb.php?map=" + idMap)
 	}
 }
-function modifAMap(idMap,quoi,enQuoi){
-	openWin("modifMapDb.php?map="+idMap+"&quoi="+quoi+"&enQuoi="+convertirUnDoubleTableau(enQuoi))
-}
-objetsMap = ""
-function recupMapDb(idMap,quoi){
+
+function ajoutMapDbCombat(idMap, idPlayer,listeMechants) {
 	var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-			objetsMap = this.responseText
-        }
+	xmlhttp.onreadystatechange = function () {
+		if (this.readyState == 4 && this.status == 200) {
+			var idMapCombatOff = this.responseText
+			if (idMapCombatOff != "") {
+				idMapCombatOff = idMapCombatOff.replace(/'/g, '"');
+				idMapCombatOff = JSON.parse(idMapCombatOff);
+				idMapCombatOff.push(pseudoPlayer)
+				idMapCombatOff = idMapCombatOff.join("','")
+				var xmlhttps = new XMLHttpRequest();
+				xmlhttps.open("GET", "modifPlayerDb.php?idPlayer=" + idPlayer+ "&enQuoi=\"['" + idMapCombatOff+"']\"&quoi=listeJoueurs", true);
+				xmlhttps.send();
+				var xmlhttps = new XMLHttpRequest();
+				xmlhttps.open("GET", "modifPlayerDb.php?idPlayer=" + idPlayer+ "&enQuoi=\"['" + idMapCombatOff+"']\"&quoi=listeJoueursPlacement", true);
+				xmlhttps.send();
+			}
+		}
 	};
-    xmlhttp.open("GET", "recupMapDb.php?map="+idMap+"&quoi="+quoi, true);
-    xmlhttp.send();
+	xmlhttp.open("GET", "ajoutCombat.php?map=" + idMap + "&idPlayer=" + idPlayer+ "&qui=['" + pseudoPlayer+"']&mechants="+listeMechants, true);
+	xmlhttp.send();
 }
-function convertirUnDoubleTableau(xMap){
-	for(var i = 0 ; i < xMap.length;i++){
-		xMap[i] = '["'+xMap[i].join('","')+'"]'
+
+function modifAMap(idMap, quoi, enQuoi) {
+	openWin("modifMapDb.php?map=" + idMap + "&quoi=" + quoi + "&enQuoi=" + convertirUnDoubleTableau(enQuoi))
+}
+
+objetsMap = ""
+mechantsMap = ""
+itemsMap = ""
+function recupMapDb(idMap, quoi) {
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function () {
+		if (this.readyState == 4 && this.status == 200) {
+			if(quoi == "objetsMap"){
+				objetsMap = this.responseText
+			}else if(quoi == "mechantsMap"){
+				mechantsMap = this.responseText
+				if(mechantsMap != ""){
+					mechantsMap = mechantsMap.replace(/'/g, '"');
+					mechantsMap = JSON.parse(mechantsMap);
+				}
+			}else if(quoi == "itemsMap"){
+				itemsMap = this.responseText
+			}
+		}
+	};
+	xmlhttp.open("GET", "recupMapDb.php?map=" + idMap + "&quoi=" + quoi, true);
+	xmlhttp.send();
+}
+
+function convertirUnDoubleTableau(xMap) {
+	for (var i = 0; i < xMap.length; i++) {
+		xMap[i] = '["' + xMap[i].join('","') + '"]'
 	}
-	return '['+xMap.join(',')+']'
+	return '[' + xMap.join(',') + ']'
 }

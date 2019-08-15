@@ -25,23 +25,16 @@ header('Content-type: text/html; charset=UTF-8');
     </div>
     <?php 
 	session_start();
-
 	include("../include.php");
-    if(isset($_SESSION['id'])) {
-        $requser = $bdd->prepare("SELECT * FROM membres WHERE id = ?");
-        $requser->execute(array($_SESSION['id']));
-        $user = $requser->fetch();
-    }else{
-        header('Location: ../connexion.php');
-    }
+        $idPlayer = $_GET['idPlayer'];
 	   $getid = intval(isset($_GET['id']));
 	   $requser = $bdd->prepare('SELECT * FROM membres WHERE id = '.$_SESSION['id'].'');
 	   $requser->execute(array($getid));
 	   $userinfo = $requser->fetch();
         echo "<script>selectMap = ".$userinfo['monde'].";"; 
-        echo "pet=".$userinfo['pet'].";";
-        echo "pseudoPlayer='".$userinfo['login']."';;mapCombat=false;";
-        echo "money=".$userinfo['money'].";";
+        echo "pet='';mapCombat=true;";
+        echo "pseudoPlayer='".$userinfo['login']."';idPlayerCombat=".$idPlayer;
+        echo ";money=".$userinfo['money'].";";
         echo "Lavie=".$userinfo['vie'].";";
         if(isset($_GET['directionNow'])){
             echo "directionUrl='".$_GET['directionNow']."';";
@@ -60,32 +53,39 @@ header('Content-type: text/html; charset=UTF-8');
 		
 	?>
     <?php
-    $nb_modifs = $bdd->exec('UPDATE membres SET combat = null WHERE login = "'.$userinfo['login'].'"' );
-  $temps_session = 3600;
-  $temps_actuel = date("U");
-$update_ip = $bdd->prepare('UPDATE membres SET time = ? WHERE login = ?');
-$update_ip->execute(array($temps_actuel,$userinfo['login']));
-$session_delete_time = $temps_actuel - $temps_session;
-$del_ip = $bdd->prepare('UPDATE membres SET time = -1 WHERE time < ?');
-$del_ip->execute(array($session_delete_time));
-$show_user_nbr = $bdd->query('SELECT * FROM membres WHERE time != -1 AND monde = "'.$userinfo['monde'].'"');
-while ($user_nbr = $show_user_nbr->fetch())
-if($user_nbr['login'] != $userinfo['login']){
-{
+    $nb_modifs = $bdd->exec('UPDATE membres SET combat = '.$idPlayer.' WHERE login = "'.$userinfo['login'].'"' );
+    $nb_modifs = $bdd->exec('UPDATE membres SET position = "null" WHERE login = "'.$userinfo['login'].'"' );
+    $temps_session = 3600;
+    $temps_actuel = date("U");
+    $update_ip = $bdd->prepare('UPDATE membres SET time = ? WHERE login = ?');
+    $update_ip->execute(array(-1,$userinfo['login']));
+    $show_user_nbr = $bdd->query('SELECT * FROM membres WHERE combat = '.$idPlayer);
+    while ($user_nbr = $show_user_nbr->fetch())
+    if($user_nbr['login'] != $userinfo['login']){
+    {
 ?>
 
- <script>setTimeout(function () {listePlayerPos.push(<?php echo $user_nbr['position'] ?>);listePlayerName.push('<?php echo $user_nbr['login'] ?>')},200)</script> 
+    <script>
+        setTimeout(function () {
+            listePlayerPos.push( <?php echo $user_nbr['position'] ?> );
+            listePlayerName.push('<?php echo $user_nbr['login'] ?>')
+        }, 200)
+    </script>
 
-<?php }} 
+    <?php }} 
 
 
 $show_map_nbr = $bdd->query('SELECT * FROM map');
 while ($map_nbr = $show_map_nbr->fetch()){
 ?>
 
- <script>setTimeout(function () {listeMap.push(<?php echo $map_nbr['idClient'] ?>)},200)</script> 
+    <script>
+        setTimeout(function () {
+            listeMap.push( <?php echo $map_nbr['idClient'] ?> )
+        }, 200)
+    </script>
 
-<?php } ?>
+    <?php } ?>
     <title>Donjon sans Dragon</title>
     <div href="#personnage"></div>
     <link rel="stylesheet" href="style.css">
@@ -93,12 +93,15 @@ while ($map_nbr = $show_map_nbr->fetch()){
 </head>
 
 <body>
-<p id="textAjax"></p>
+    <p id="textAjax"></p>
     <table class="table">
         <tbody class="tbody">
         </tbody>
 
     </table>
+    <div class="infoCombat">
+        
+    </div>
     <div class="tile hide">
         <div></div>
     </div>
@@ -150,8 +153,8 @@ while ($map_nbr = $show_map_nbr->fetch()){
 
                 </div>
                 <div class="progress">
-                    <div class="progress-bar w-75 progressPet  progressXp" role="progressbar" aria-valuenow="75" aria-valuemin="0"
-                        aria-valuemax="100">
+                    <div class="progress-bar w-75 progressPet  progressXp" role="progressbar" aria-valuenow="75"
+                        aria-valuemin="0" aria-valuemax="100">
                         <a><strong id="1XpPet"></strong> xp / <strong id="2XpPet"></strong> xp | level <strong
                                 id="0XpPet"></strong></a>
                     </div>
@@ -161,6 +164,8 @@ while ($map_nbr = $show_map_nbr->fetch()){
         <div class="petInventaire">
 
         </div>
+    </div>
+    <div class="ordreTour">
     </div>
     <img src="img/arrowMap.png" id="arrowMap" onclick="changementDeMap()">
     <div class="Menu">
@@ -215,12 +220,14 @@ while ($map_nbr = $show_map_nbr->fetch()){
         <div id="slot"> </div>
         <div id="money"><img src="img/coin.png" class="coinInv"><a class="money"></a> </div>
         <div class="progress">
-            <div class="progress-bar w-75 progressVie" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                <a><strong id="1Vie"></strong>  / <strong id="2Vie"></strong> | vie </a>
+            <div class="progress-bar w-75 progressVie" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                aria-valuemax="100">
+                <a><strong id="1Vie"></strong> / <strong id="2Vie"></strong> | vie </a>
             </div>
         </div>
         <div class="progress">
-            <div class="progress-bar w-75 progressXp" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar w-75 progressXp" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                aria-valuemax="100">
                 <a><strong id="1Xp"></strong> xp / <strong id="2Xp"></strong> xp | level <strong id="0Xp"></strong></a>
             </div>
         </div>

@@ -7,6 +7,9 @@ questionEnCours = false
 keys = 0
 tailleMapMin = (((mapSize / 2) - 1) * -1)
 mort = false;
+posListeCombat = 0
+listeDesMechants = []
+listeDesNomMechants = []
 var test = 0;
 creationFleche = 0
 mechantAm = new Array()
@@ -30,6 +33,171 @@ checkkey = 0
 compteurFleche = 0
 dialo = 0
 passage = 0
+
+
+
+
+
+
+
+
+
+
+listeJoueursCombat = []
+
+//l� ou le perso commence
+if (mapCombat == true) {
+    document.getElementsByClassName("inventaire")[0].style.visibility = 'visible'
+    document.getElementsByClassName("infoCombat")[0].innerHTML = "Ordre des tours"
+
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            listeJoueurs = this.responseText
+            listeJoueurs = listeJoueurs.replace(/'/g, '"');
+            listeJoueurs = JSON.parse(listeJoueurs);
+            listeJoueursCombat = listeJoueurs
+        }
+    };
+    xmlhttp.open("GET", "listePlayerCombat.php?idPlayer=" + idPlayerCombat, true);
+    xmlhttp.send();
+    document.getElementsByClassName("inventaire")[0].style.visibility = 'hidden'
+    document.getElementsByClassName("personnage")[0].style.visibility = 'hidden'
+    document.getElementsByClassName("infoCombat")[0].innerHTML = "Pour Commencer, placez votre personnage sur la carte."
+} else {
+    perso1 = document.getElementsByClassName("personnage")[0];
+    if (document.getElementById(a + " 0 " + b)) {
+        document.getElementById(a + " 0 " + b).appendChild(perso1);
+    }
+    setTimeout(() => {
+        openWin("position.php?pos='" + (a + " 0 " + b) + "'")
+    }, 200);
+}
+avancer = true
+
+function placerPersonnage(laCase) {
+    if (avancer == true) {
+        perso1 = document.getElementsByClassName("personnage")[0];
+        if (laCase.id.split(" ")[1] == 0) {
+            laCase.appendChild(perso1);
+            perso1.style.visibility = 'visible'
+            openWin("position.php?pos='" + (laCase.id) + "'")
+            a = laCase.id.split(" ")[0]
+            b = laCase.id.split(" ")[2]
+            document.getElementsByClassName("infoCombat")[0].innerHTML = "Pour Commencer, placez votre personnage sur la carte.<br><br><strong style='color:red;font-size : 16px;' onclick='placerPersonnageValide()'>Valider</strong>"
+        } else {
+            document.getElementsByClassName("infoCombat")[0].innerHTML = "Pour Commencer, placez votre personnage sur la carte.<br> merci de placer le personnage sur la terre ferme"
+        }
+    }
+}
+placerPersonnageValideVar = false
+var listeTour = []
+function placerPersonnageValide() {
+    if (placerPersonnageValideVar == false) {
+        avancer = false
+        placerPersonnageValideVar = true
+        for (var i = 0; i < listeJoueursCombat.length; i++) {
+            if (listeJoueursCombat[i] == pseudoPlayer) {
+                delete listeJoueursCombat[i];
+            }
+        }
+        var xmlhttps = new XMLHttpRequest();
+        xmlhttps.open("GET", "modifPlayerDb.php?idPlayer=" + idPlayerCombat + "&enQuoi=\"['" + listeJoueursCombat + "']\"&quoi=listeJoueursPlacement", true);
+        xmlhttps.send();
+        var attendreAutrePlayers = setInterval(() => {
+            var xmlhttpz = new XMLHttpRequest();
+            xmlhttpz.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    listeJoueursAttente = this.responseText
+                    if (listeJoueursAttente != "['']") {
+                        document.getElementsByClassName("infoCombat")[0].innerHTML = "En attente des autres joueurs"
+                    } else {
+                        clearInterval(attendreAutrePlayers)
+                        suite()
+                    }
+                }
+            };
+            xmlhttpz.open("GET", "avoirInfoCombat.php?idPlayer=" + idPlayerCombat + "&quoi=" + "listeJoueursPlacement", true);
+            xmlhttpz.send();
+        }, 1000);
+
+        function suite() {
+            //generation tour aléatoire
+            document.getElementsByClassName("infoCombat")[0].innerHTML = "Ordre des tours"
+            //si il n'existe pas déjà
+            var xmlhttpz = new XMLHttpRequest();
+            xmlhttpz.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    listeTourDb = this.responseText
+                    if (listeTourDb == "") {
+                        //ajoute la liste des participants
+                        listeTour = listePlayerName
+                        for (var i = 0; i < listeDesNomMechants.length; i++) {
+                            listeTour.push(listeDesNomMechants[i])
+                        }
+                        listeTour.push(pseudoPlayer)
+                        //melange la liste
+                        listeTour = shuffle(listeTour)
+                        //on envoie à la DB
+                        var xmlhttpa = new XMLHttpRequest();
+                        xmlhttpa.open("GET", "modifPlayerDb.php?idPlayer=" + idPlayerCombat + "&enQuoi=\"['" + listeTour.join("','") + "']\"&quoi=ordreTour", true);
+                        xmlhttpa.send();
+                    } else {
+                        listeTour = listeTourDb
+                        listeTour = listeTour.replace(/'/g, '"');
+                        listeTour = JSON.parse(listeTour);
+                    }
+                    afficherOrdreTour()
+                    setTimeout(() => {
+                        changementDeTour()
+                    }, 2000);
+                }
+            };
+            xmlhttpz.open("GET", "avoirInfoCombat.php?idPlayer=" + idPlayerCombat + "&quoi=ordreTour", true);
+            xmlhttpz.send();
+        }
+    }
+}
+function afficherOrdreTour(){
+    document.getElementsByClassName("ordreTour")[0].innerHTML = ""
+    for (var i = 0; i < listeTour.length; i++) {
+        var newDivTour = document.createElement("div")
+        newDivTour.className = "ordreTourCase"
+        if (typeof (listeTour[i]) == "object") {
+            newDivTour.innerHTML = listeTour[i].firstChild.src.split("/").slice(-1).join("/").split('.').slice(0,-1).join("")
+        } else {
+            newDivTour.innerHTML = listeTour[i]
+        }
+        document.getElementsByClassName("ordreTour")[0].style.visibility = 'visible'
+        document.getElementsByClassName("ordreTour")[0].appendChild(newDivTour)
+    }
+}
+function changementDeTour(){
+    var listeNewTour = []
+    var lastElement = ""
+    for(var i = 0; i < listeTour.length;i++){
+        if(i == 0){
+            lastElement = listeTour[i]
+        }else{
+            listeNewTour.push(listeTour[i])
+        }
+    }
+    listeNewTour.push(lastElement)
+    listeTour = listeNewTour
+    afficherOrdreTour()
+}
+function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+
+
+
 
 if (navigator.userAgent.match(/(android|iphone|blackberry|symbian|symbianos|symbos|netfront|model-orange|javaplatform|iemobile|windows phone|samsung|htc|opera mobile|opera mobi|opera mini|presto|huawei|blazer|bolt|doris|fennec|gobrowser|iris|maemo browser|mib|cldc|minimo|semc-browser|skyfire|teashark|teleca|uzard|uzardweb|meego|nokia|bb10|playbook)/gi)) {
     window.location.replace('mobile.php')
@@ -56,148 +224,167 @@ setTimeout(() => {
 dejaPose = false
 
 function destroy(objet) {
-    if (objet == null) {
-        setInterval(() => {
-            recupMapDb(selectMap, "objetsMap")
-            setTimeout(() => {
-                objetsMap = objetsMap.replace(/'/g, '"');
-                objetsMap = JSON.parse(objetsMap);
-                for (var i = 0; i < objetsMap.length; i++) {
-                    //ici modifier temps entre objet jobs
-                    if ((parseInt(objetsMap[i][1]) / 1000) + 60 < Date.now()/1000) {
-                        objet = document.getElementsByClassName("objetJob")[objetsMap[i][0]]
-                        objetsMap.splice(i, 1)
-                        modifAMap(selectMap, "objetsMap", objetsMap)
-                        if (dejaPose == true) {
-                            console.log("start")
-                            idObj = parseInt(objet.id.split("").slice(0, -6))
-                            objet.src = srcs[idObj]
-                            objet.className = "objetJob " + noms[idObj] + " " + classObjs[idObj]
-                            objet.style.marginLeft =  "0px"
-                            objet.style.marginTop = "0px"
-                            objet.onclick = function (){ destroy(this)}
-                        }
-                    } else {
-                        objet = document.getElementsByClassName("objetJob")[objetsMap[i][0]]
-                        idObj = parseInt(objet.id.split("").slice(0, -6))
-
-                        objet.src = srcAfterObj[idObj]
-                        objet.className = "objetJob " + srcAfterObj[idObj].split("/")[1].split(".")[0]
-                        objet.style.marginLeft = Xaft[idObj] + "0px"
-                        objet.style.marginTop = Yaft[idObj] + "0px"
-                    }
-                }
-                dejaPose = true
-            }, 500);
-        }, 1000);
-    } else {
-        idObj = parseInt(objet.id.split("").slice(0, -6))
-        aObj = XObj[idObj]
-        bObj = YObj[idObj]
-        loot = LootJobs[idObj]
-        srcAfter = srcAfterObj[idObj]
-        if (aObj <= a && a - aObj <= 1 && bObj <= b && b - bObj <= 1) {
-            suiteObj()
-        }
-        //haut
-        else if (aObj > a && aObj - a < 1 && bObj >= b && bObj - b <= 1) {
-            suiteObj()
-        }
-
-        //droite
-        else if (aObj >= a && aObj - a <= 1 && bObj <= b && b - bObj <= 1) {
-            suiteObj()
-        }
-        //centre
-        else if (aObj == a && b == bObj) {
-            suiteObj()
-        }
-        //gauche
-        else if (aObj <= a + 1 && a - aObj <= 1 && bObj >= b && bObj - b <= 1) {
-            suiteObj()
-        }
-
-        function suiteObj() {
-            if (objet.className.split(" ")[2] == "wood" && itemSelect == "W_Axe001.png" || objet.className.split(" ")[2] == "plant" && itemSelect == "W_Spear008.png" || objet.className.split(" ")[2] == "none") {
-                objet.src = srcAfter
-                objet.onclick = ""
-                objet.className = "objetJob " + srcAfter.split("/")[1].split(".")[0]
-                objet.style.marginLeft = Xaft[idObj] + "0px"
-                objet.style.marginTop = Yaft[idObj] + "0px"
-                addXp(xpObjJob[idObj])
-                addItem(loot.split("/")[1].split(".")[0], loot, aObj, bObj)
-                ajoutMapDb(selectMap)
+    if (mapCombat == false) {
+        if (objet == null) {
+            setInterval(() => {
                 recupMapDb(selectMap, "objetsMap")
                 setTimeout(() => {
-                    var objetAAdd = ""
-                    for (var i = 0; i < document.getElementsByClassName("objetJob").length; i++) {
-                        if (document.getElementsByClassName("objetJob")[i] == objet) {
-                            objetAAdd = i
-                        }
-                    }
                     if (objetsMap != "") {
                         objetsMap = objetsMap.replace(/'/g, '"');
                         objetsMap = JSON.parse(objetsMap);
-                        objetsMap.push([objetAAdd, Date.now()])
-                    } else {
-                        objetsMap = [
-                            [objetAAdd, Date.now()]
-                        ]
+                        for (var i = 0; i < objetsMap.length; i++) {
+                            //ici modifier temps entre objet jobs
+                            if ((parseInt(objetsMap[i][1]) / 1000) + 60 < Date.now() / 1000) {
+                                objet = document.getElementsByClassName("objetJob")[objetsMap[i][0]]
+                                objetsMap.splice(i, 1)
+                                modifAMap(selectMap, "objetsMap", objetsMap)
+                                if (dejaPose == true) {
+                                    idObj = parseInt(objet.id.split("").slice(0, -6))
+                                    objet.src = srcs[idObj]
+                                    objet.className = "objetJob " + noms[idObj] + " " + classObjs[idObj]
+                                    objet.style.marginLeft = "0px"
+                                    objet.style.marginTop = "0px"
+                                    objet.onclick = function () {
+                                        destroy(this)
+                                    }
+                                }
+                            } else {
+                                objet = document.getElementsByClassName("objetJob")[objetsMap[i][0]]
+                                idObj = parseInt(objet.id.split("").slice(0, -6))
+
+                                objet.src = srcAfterObj[idObj]
+                                objet.className = "objetJob " + srcAfterObj[idObj].split("/")[1].split(".")[0]
+                                objet.style.marginLeft = Xaft[idObj] + "0px"
+                                objet.style.marginTop = Yaft[idObj] + "0px"
+                            }
+                        }
                     }
-                    modifAMap(selectMap, "objetsMap", objetsMap)
-                }, 200);
+                    dejaPose = true
+                }, 500);
+            }, 1000);
+        } else {
+            idObj = parseInt(objet.id.split("").slice(0, -6))
+            aObj = XObj[idObj]
+            bObj = YObj[idObj]
+            loot = LootJobs[idObj]
+            srcAfter = srcAfterObj[idObj]
+            if (aObj <= a && a - aObj <= 1 && bObj <= b && b - bObj <= 1) {
+                suiteObj()
+            }
+            //haut
+            else if (aObj > a && aObj - a < 1 && bObj >= b && bObj - b <= 1) {
+                suiteObj()
+            }
+
+            //droite
+            else if (aObj >= a && aObj - a <= 1 && bObj <= b && b - bObj <= 1) {
+                suiteObj()
+            }
+            //centre
+            else if (aObj == a && b == bObj) {
+                suiteObj()
+            }
+            //gauche
+            else if (aObj <= a + 1 && a - aObj <= 1 && bObj >= b && bObj - b <= 1) {
+                suiteObj()
+            }
+
+            function suiteObj() {
+                if (objet.className.split(" ")[2] == "wood" && itemSelect == "W_Axe001.png" || objet.className.split(" ")[2] == "plant" && itemSelect == "W_Spear008.png" || objet.className.split(" ")[2] == "none") {
+                    objet.src = srcAfter
+                    objet.onclick = ""
+                    objet.className = "objetJob " + srcAfter.split("/")[1].split(".")[0]
+                    objet.style.marginLeft = Xaft[idObj] + "0px"
+                    objet.style.marginTop = Yaft[idObj] + "0px"
+                    addXp(xpObjJob[idObj])
+                    addItem(loot.split("/")[1].split(".")[0], loot, aObj, bObj)
+                    ajoutMapDb(selectMap)
+                    recupMapDb(selectMap, "objetsMap")
+                    setTimeout(() => {
+                        var objetAAdd = ""
+                        for (var i = 0; i < document.getElementsByClassName("objetJob").length; i++) {
+                            if (document.getElementsByClassName("objetJob")[i] == objet) {
+                                objetAAdd = i
+                            }
+                        }
+                        if (objetsMap != "") {
+                            objetsMap = objetsMap.replace(/'/g, '"');
+                            objetsMap = JSON.parse(objetsMap);
+                            objetsMap.push([objetAAdd, Date.now()])
+                        } else {
+                            objetsMap = [
+                                [objetAAdd, Date.now()]
+                            ]
+                        }
+                        modifAMap(selectMap, "objetsMap", objetsMap)
+                    }, 200);
+                }
             }
         }
     }
 }
 canBrokeWood = false
 compteurObjJobs = 0;
-classObjs = []; noms = []; srcs = []; Xs = []; Ys = []; srcAfters = []; XOffs = []; YOffs = []; Xafters = []; Yafters = []; loots = []; xps = [];
-function addObjectJob(classObj, nom, src, X, Y, srcAfter, XOff, YOff, Xafter, Yafter, loot, xp) {
-    var objet = document.createElement("div");
-    XObj.push(XOff)
-    xpObjJob.push(xp)
-    LootJobs.push(loot)
-    YObj.push(YOff)
-    Xaft.push(Xafter)
-    Yaft.push(Yafter)
+classObjs = [];
+noms = [];
+srcs = [];
+Xs = [];
+Ys = [];
+srcAfters = [];
+XOffs = [];
+YOffs = [];
+Xafters = [];
+Yafters = [];
+loots = [];
+xps = [];
 
-    classObjs.push(classObj)
-    noms.push(nom)
-    srcs.push(src)
-    Xs.push(X)
-    Ys.push(Y)
-    srcAfters.push(srcAfter)
-    XOffs.push(XOff)
-    YOffs.push(YOff)
-    Xafters.push(Xafter)
-    Yafters.push(Yafter)
-    loots.push(loot)
-    xps.push(xp)
-    srcAfterObj.push(srcAfter)
-    objet.className = "parent" + nom + " objet objetJobParent"
-    objet.style.marginLeft = X + "px"
-    objet.style.marginTop = Y + "px"
-    setTimeout(function () {
-        if (document.getElementById(tailleMapMin + " 0 " + tailleMapMin)) {
-            document.getElementById(tailleMapMin + " 0 " + tailleMapMin).appendChild(objet);
+function addObjectJob(classObj, nom, src, X, Y, srcAfter, XOff, YOff, Xafter, Yafter, loot, xp) {
+    if (mapCombat == false) {
+        var objet = document.createElement("div");
+        XObj.push(XOff)
+        xpObjJob.push(xp)
+        LootJobs.push(loot)
+        YObj.push(YOff)
+        Xaft.push(Xafter)
+        Yaft.push(Yafter)
+
+        classObjs.push(classObj)
+        noms.push(nom)
+        srcs.push(src)
+        Xs.push(X)
+        Ys.push(Y)
+        srcAfters.push(srcAfter)
+        XOffs.push(XOff)
+        YOffs.push(YOff)
+        Xafters.push(Xafter)
+        Yafters.push(Yafter)
+        loots.push(loot)
+        xps.push(xp)
+        srcAfterObj.push(srcAfter)
+        objet.className = "parent" + nom + " objet objetJobParent"
+        objet.style.marginLeft = X + "px"
+        objet.style.marginTop = Y + "px"
+        setTimeout(function () {
+            if (document.getElementById(tailleMapMin + " 0 " + tailleMapMin)) {
+                document.getElementById(tailleMapMin + " 0 " + tailleMapMin).appendChild(objet);
+            }
+            if (document.getElementById(tailleMapMin + " 2 " + tailleMapMin)) {
+                document.getElementById(tailleMapMin + " 2 " + tailleMapMin).appendChild(objet);
+            }
+            if (document.getElementById(tailleMapMin + " 1 " + tailleMapMin)) {
+                document.getElementById(tailleMapMin + " 1 " + tailleMapMin).appendChild(objet);
+            }
+        }, 200);
+        var objetEnfant = document.createElement("img");
+        objetEnfant.className = "objetJob " + nom + " " + classObj
+        objetEnfant.src = src;
+        objetEnfant.id = compteurObjJobs + "ObjJob"
+        objetEnfant.onclick = function () {
+            destroy(this)
         }
-        if (document.getElementById(tailleMapMin + " 2 " + tailleMapMin)) {
-            document.getElementById(tailleMapMin + " 2 " + tailleMapMin).appendChild(objet);
-        }
-        if (document.getElementById(tailleMapMin + " 1 " + tailleMapMin)) {
-            document.getElementById(tailleMapMin + " 1 " + tailleMapMin).appendChild(objet);
-        }
-    }, 200);
-    var objetEnfant = document.createElement("img");
-    objetEnfant.className = "objetJob " + nom + " " + classObj
-    objetEnfant.src = src;
-    objetEnfant.id = compteurObjJobs + "ObjJob"
-    objetEnfant.onclick = function () {
-        destroy(this)
+        objet.appendChild(objetEnfant);
+        compteurObjJobs += 1
     }
-    objet.appendChild(objetEnfant);
-    compteurObjJobs += 1
 }
 
 function addObject(nom, src, X, Y) {
@@ -394,7 +581,11 @@ setTimeout(() => {
 
 setInterval(() => {
     removeAllPlayers()
-    openWin('joueursAutres.php')
+    if (mapCombat == false) {
+        openWin('joueursAutres.php')
+    } else {
+        openWin('joueursAutresCombat.php?idPlayer=' + idPlayerCombat)
+    }
     listPlayers = listPlayers.split("$$$$")
     listePlayerPos = []
     listePlayerName = []
@@ -416,17 +607,19 @@ setInterval(() => {
 
 
 function addPlayer(pos, pseudo) {
-    var parent = document.createElement("div")
-    parent.className = "Thepnj persoOnline"
-    document.getElementById(pos).appendChild(parent)
-    var div = document.createElement("img")
-    div.src = "img/srill_face.png"
-    div.className = "perso P" + pseudo
-    parent.appendChild(div)
-    var div = document.createElement("div")
-    div.className = "pseudo"
-    div.innerHTML = pseudo
-    parent.appendChild(div)
+    if (document.getElementById(pos)) {
+        var parent = document.createElement("div")
+        parent.className = "Thepnj persoOnline"
+        document.getElementById(pos).appendChild(parent)
+        var div = document.createElement("img")
+        div.src = "img/srill_face.png"
+        div.className = "perso P" + pseudo
+        parent.appendChild(div)
+        var div = document.createElement("div")
+        div.className = "pseudo"
+        div.innerHTML = pseudo
+        parent.appendChild(div)
+    }
 }
 
 function removeAllPlayers() {
@@ -447,7 +640,7 @@ function openWin(lien) {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            if (lien == "joueursAutres.php") {
+            if (lien == "joueursAutres.php" || lien.split('?')[0] == "joueursAutresCombat.php") {
                 listPlayers = this.responseText
             }
         }
@@ -700,15 +893,6 @@ document.addEventListener('keydown', function (e) {
     }
 });
 
-
-setTimeout(() => {
-    openWin("position.php?pos='" + (a + " 0 " + b) + "'")
-}, 200);
-//l� ou le perso commence
-perso1 = document.getElementsByClassName("personnage")[0];
-if (document.getElementById(a + " 0 " + b)) {
-    document.getElementById(a + " 0 " + b).appendChild(perso1);
-}
 
 function hideDialogue() {
     if (document.getElementsByClassName("pnje")[0]) {

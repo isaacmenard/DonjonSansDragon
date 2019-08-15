@@ -3,19 +3,41 @@ mechantLoot = []
 mechantXp = []
 mechantAttaques = []
 mechantVieOrigine = []
-function mechantCreation(am, bm, vue, vieMechant, id, deltaTime, loot, xp, attaque,src) {
+mechantPlaceOk = false
+function mechantCreation(am, bm, vue, vieMechant, id, deltaTime, loot, xp, attaque, src, listeOtherMechants) {
     var Imgmechant = document.createElement("img");
+    if (listeOtherMechants) {
+        listeOtherMechants.unshift([am, bm, vue, vieMechant, id, deltaTime, loot, xp, attaque, src])
+    } else {
+        listeOtherMechants = [
+            [am, bm, vue, vieMechant, id, deltaTime, loot, xp, attaque, src]
+        ]
+    }
+    listeDesMechants.unshift([am, bm, vue, vieMechant, id, deltaTime, loot, xp, attaque, src])
+    if (mapCombat == false) {
+        Imgmechant.onclick = function () {
+            lancementCombat(this, convertirUnDoubleTableau(listeOtherMechants))
+        }
+    }else{
+        if(mechantPlaceOk == false){
+            for(var i = 1; i < listeOtherMechants.length;i++){
+                mechantCreation(listeOtherMechants[i][0],listeOtherMechants[i][1],listeOtherMechants[i][2],listeOtherMechants[i][3],listeOtherMechants[i][4],listeOtherMechants[i][5],listeOtherMechants[i][6],listeOtherMechants[i][7],listeOtherMechants[i][8],listeOtherMechants[i][9])
+            }
+            mechantPlaceOk = true
+        }
+    }
     Imgmechant.src = src
     Imgmechant.className = "mechant"
     var Divmechant = document.createElement("div");
     Divmechant.className = "TheMechant"
+    listeDesNomMechants.unshift(Divmechant)
     var progresseVie = document.createElement("div")
     progresseVie.className = ' progresseVieMechant '
-    progresseVie.id=id+"Pm"
+    progresseVie.id = id + "Pm"
     document.body.appendChild(Divmechant)
-    document.getElementsByClassName("TheMechant")[id].appendChild(Imgmechant)
-    document.getElementsByClassName("TheMechant")[id].appendChild(progresseVie)
-    mechant = document.getElementsByClassName("TheMechant")[id];
+    Divmechant.appendChild(Imgmechant)
+    Divmechant.appendChild(progresseVie)
+    mechant = Divmechant;
     mechant.id = id + "M"
     document.getElementById(am + " " + 0 + " " + bm).appendChild(mechant);
     mechantAm.push(am)
@@ -28,6 +50,75 @@ function mechantCreation(am, bm, vue, vieMechant, id, deltaTime, loot, xp, attaq
     mechantLoot.push(loot)
     mechantXp.push(xp)
     mechantAttaques.push(attaque)
+    var dejaPlace = false
+    if (mapCombat == false) {
+        setInterval(() => {
+            recupMapDb(selectMap, "mechantsMap")
+            setTimeout(() => {
+                if (mechantsMap != "") {
+                    var mechantAAdd = ""
+                    for (var i = 0; i < document.getElementsByClassName("mechant").length; i++) {
+                        if (document.getElementsByClassName("mechant")[i] == Imgmechant) {
+                            mechantAAdd = i
+                        }
+                    }
+                    for (var i = 0; i < mechantsMap.length; i++) {
+                        //ici modifier temps entre méchants respawn
+                        if ((parseInt(mechantsMap[i][1]) / 1000) + 30 < Date.now() / 1000 && mechantsMap[i][0] == mechantAAdd) {
+                            mechantsMap.splice(i, 1)
+                            modifAMap(selectMap, "mechantsMap", mechantsMap)
+                            if (dejaPlace == true) {
+                                Imgmechant.className = "mechant"
+                            }
+                        } else if (mechantsMap[i][0] == mechantAAdd) {
+                            Imgmechant.className = "mechant bordRed"
+                        }
+                    }
+                    dejaPlace = true
+                }
+            }, 500);
+
+        }, 1000);
+    }
+}
+
+function lancementCombat(mechantObj, listeOtherMechants) {
+    var nbAlea = Math.round(Math.random() * (999999999 - 100000000) + 100000000)
+    recupMapDb(selectMap, "mechantsMap")
+    setTimeout(() => {
+        var mechantAAdd = ""
+        for (var i = 0; i < document.getElementsByClassName("mechant").length; i++) {
+            if (document.getElementsByClassName("mechant")[i] == mechantObj) {
+                mechantAAdd = i
+            }
+        }
+        if (mechantsMap != "") {
+            var ajout = true
+            for (var i = 0; i < mechantsMap.length; i++) {
+                if (mechantsMap[i][0] == mechantAAdd) {
+                    ajout = false
+                    lancementCombatValide(mechantsMap[i][2], listeOtherMechants)
+                    return true
+                }
+            }
+            if (ajout == true) {
+                mechantsMap.push([mechantAAdd, Date.now(), nbAlea])
+            }
+        } else {
+            mechantsMap = [
+                [mechantAAdd, Date.now(), nbAlea]
+            ]
+        }
+        modifAMap(selectMap, "mechantsMap", mechantsMap)
+        lancementCombatValide(nbAlea, listeOtherMechants)
+    }, 200);
+}
+
+function lancementCombatValide(clefCombat, listeOtherMechants) {
+    ajoutMapDbCombat(selectMap, clefCombat, listeOtherMechants)
+    setTimeout(() => {
+        window.location = "combat.php?idPlayer=" + clefCombat
+    }, 500);
 }
 
 function getMechant(id) {
@@ -56,8 +147,8 @@ function mechant() {
             }
         }
         if (deadheuu == false) {
-            mechantVue(parseInt(am), parseInt(bm), parseInt(vue), parseInt(vieMechant), parseInt(deltaTime), parseInt(i));
-            mechantAttaque(am, bm, getMechant(i).split(" ").slice(7, 8))
+            // mechantVue(parseInt(am), parseInt(bm), parseInt(vue), parseInt(vieMechant), parseInt(deltaTime), parseInt(i));
+            // mechantAttaque(am, bm, getMechant(i).split(" ").slice(7, 8))
         }
     }
 }
@@ -65,10 +156,10 @@ function mechant() {
 function KoMechant(am, bm, idM, degat) {
     idM = idM.split("").slice(0, -1);
     mechantVie[idM] = parseInt(mechantVie[idM]) - degat;
-    document.getElementById(idM+"Pm").style.width = (mechantVie[idM] * 50 / mechantVieOrigine[idM])+"px"
+    document.getElementById(idM + "Pm").style.width = (mechantVie[idM] * 50 / mechantVieOrigine[idM]) + "px"
     if ((mechantVie[idM]) <= 0) {
         mechantDead.push(parseInt(idM))
-        document.getElementById((am) + " " + 0 + " " + (bm)).removeChild(document.getElementsByClassName("TheMechant")[idM+"M"]);
+        document.getElementById((am) + " " + 0 + " " + (bm)).removeChild(document.getElementsByClassName("TheMechant")[idM + "M"]);
         addXp(getMechant(parseInt(idM)).split(" ").slice(6, 7));
         addItem(mechantLoot[parseInt(idM)][0], mechantLoot[parseInt(idM)][1], am, bm);
     }
