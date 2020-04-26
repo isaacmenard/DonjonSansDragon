@@ -2,31 +2,12 @@
 mb_internal_encoding('UTF-8');
 setlocale(LC_CTYPE, 'fr_FR.UTF-8');
 header('Content-type: text/html; charset=UTF-8'); 
-?>
-<!DOCTYPE html>
 
-<html>
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html" ; charset=UTF-8\">
-    <script>
-        stats = null;
-        colision = [];
-        antiColision = []
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="turbolinks.js" data-turbolinks-eval="false"></script>
-    <link rel="SHORTCUT ICON" href="img/logo.ico" />
-    <link href="https://fonts.googleapis.com/css?family=Acme&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
-    <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <div class="ocean">
-        <div id="particles-js"></div> <!-- stats - count particles --> <span class="js-count-particles"></span>
-    </div>
-    <?php 
 	session_start();
 
 	include("../include.php");
+
     if(isset($_SESSION['id'])) {
         $requser = $bdd->prepare("SELECT * FROM membres WHERE id = ?");
         $requser->execute(array($_SESSION['id']));
@@ -38,67 +19,90 @@ header('Content-type: text/html; charset=UTF-8');
 	   $requser = $bdd->prepare('SELECT * FROM membres WHERE id = '.$_SESSION['id'].'');
 	   $requser->execute(array($getid));
 	   $userinfo = $requser->fetch();
-        echo "<script>selectMap = ".$userinfo['monde'].";"; 
-        echo "pet=".$userinfo['pet'].";";
-        echo "pseudoPlayer='".$userinfo['login']."';;mapCombat=false;";
-        echo "money=".$userinfo['money'].";";
-        echo "Lavie=".$userinfo['vie'].";";
-        if(isset($_GET['directionNow'])){
-            echo "directionUrl='".$_GET['directionNow']."';";
-        }else{
-            echo "directionUrl='null';";
-        }
-		echo "slot=".$userinfo['slot'].";";
-		if($userinfo['quete'] != ""){
-			echo "quete=".$userinfo['quete'].";";
-		}
-		else{
-			echo "quete=[];";
-		}
-		echo "xpJ=".$userinfo['xp'].";listePlayerPos=[];listePlayerName=[];listeMap=[]";
-		echo "</script>";
-		
+ ?>
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" ; charset="UTF-8"\>
+    <script>
+		listePlayerPos = []
+        stats = null;
+        colision = [];
+        antiColision = []
+		idPErso = <?php echo($_SESSION['id']); ?>
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link rel="SHORTCUT ICON" href="img/logo.ico" />
+	<script type="text/javascript" src="pathfinding-browser.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Acme&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+    <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <?php 
 	?>
-    <?php
-    $nb_modifs = $bdd->exec('UPDATE membres SET combat = null WHERE login = "'.$userinfo['login'].'"' );
-  $temps_session = 3600;
-  $temps_actuel = date("U");
-$update_ip = $bdd->prepare('UPDATE membres SET time = ? WHERE login = ?');
-$update_ip->execute(array($temps_actuel,$userinfo['login']));
-$session_delete_time = $temps_actuel - $temps_session;
-$del_ip = $bdd->prepare('UPDATE membres SET time = -1 WHERE time < ?');
-$del_ip->execute(array($session_delete_time));
-$show_user_nbr = $bdd->query('SELECT * FROM membres WHERE time != -1 AND monde = "'.$userinfo['monde'].'"');
-while ($user_nbr = $show_user_nbr->fetch())
-if($user_nbr['login'] != $userinfo['login']){
-{
-?>
 
- <script>setTimeout(function () {listePlayerPos.push(<?php echo $user_nbr['position'] ?>);listePlayerName.push('<?php echo $user_nbr['login'] ?>')},200)</script> 
-
-<?php }} 
-
-
-$show_map_nbr = $bdd->query('SELECT * FROM map');
-while ($map_nbr = $show_map_nbr->fetch()){
-?>
-
- <script>setTimeout(function () {listeMap.push(<?php echo $map_nbr['idClient'] ?>)},200)</script> 
-
-<?php } ?>
     <title>Donjon sans Dragon</title>
     <div href="#personnage"></div>
     <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
+	<?php
+	$temps_session = 3600;
+$temps_actuel = date("U");
+	if($userinfo['time'] - $temps_actuel < $temps_session *-1 && $userinfo['combat'] != -1){
+		  $del_ip = $bdd->prepare('UPDATE combat SET start = 1 WHERE id = '.$_SESSION['combat']);
+		  $del_ip->execute();
+		  $del_ip = $bdd->prepare('UPDATE membres SET combat = -1 WHERE  id = '.$_SESSION['id']);
+		  $del_ip->execute();
+		  $_SESSION['combat'] = -1;
+	}
+	$monde = 0	;
+
+$update_ip = $bdd->prepare('UPDATE membres SET time = ? WHERE id = ?');
+$update_ip->execute(array($temps_actuel,$userinfo['id']));
+$session_delete_time = $temps_actuel - $temps_session;
+$del_ip = $bdd->prepare('UPDATE membres SET time = -1 WHERE time < ?');
+$del_ip->execute(array($session_delete_time));
+$show_user_nbr = $bdd->query('SELECT * FROM membres WHERE time != "-1"');
+while ($user_nbr = $show_user_nbr->fetch())
+{
+?>
+
+ <script>
+	 listePlayerPos.push([<?php echo $user_nbr['position'] ?>,'<?php echo $user_nbr['login'] ?>'])
+</script> 
+
+<?php }
+echo("<script>combat = ".$userinfo['combat'].";posActuY = (".$userinfo['position'].").split(' ')[2]
+posActuX = (".$userinfo['position'].").split(' ')[0]
+
+
+</script>")
+?>
+
+
+
 
 <body>
+	<div id="coin"></div>
 <p id="textAjax"></p>
-    <table class="table">
-        <tbody class="tbody">
+    <table  class="table">
+        <tbody   id="map" class="tbody">
         </tbody>
 
     </table>
+	<div id="lifeMonster"></div>
+	<div id="salon" style="visibility: hidden;">
+		<div id="salonText" ></div>
+		<div class="bottom">
+			<p id="textPanelSalon"></p>
+			<a href="#" id="ready" class="btn green" onClick="ready()">I'm READY !</a>
+			<a href="#" class="btn red"  onClick="leave()">LEAVE !</a>
+		</div>
+	</div>
     <div class="tile hide">
         <div></div>
     </div>
@@ -107,124 +111,13 @@ while ($map_nbr = $show_map_nbr->fetch()){
     <div id="map">
 
     </div>
-    <div class="IconMenu"
-        onclick="if(menuOpen == 0){document.getElementsByClassName('Menu')[0].style.visibility = 'visible';menuOpen = 1}else{document.getElementsByClassName('Menu')[0].style.visibility = 'hidden';menuOpen = 0}">
 
-    </div>
-    <div class="craft">
-        <div class="croix" onclick="tableDeCraft()">X</div>
-        <div class="gaucheInventaireCraft">
-            <div class="planCraft">
-
-            </div>
-            <div class="listePlanCraft">
-
-            </div>
-        </div>
-        <div class="droiteInventaireCraft">
-
-        </div>
-    </div>
-    <div class="shop">
-        <div class="croix" onclick="interfaceShop()">X</div>
-        <div class="gaucheInventaireShop">
-            <div class="listePlanShop">
-
-            </div>
-            <div class="listeAchatShop">
-
-            </div>
-        </div>
-        <div class="droiteInventaireShop">
-
-        </div>
-    </div>
-    <div class="pet">
-        <div class="croix" onclick="petInterface()">X</div>
-        <div class="gauchePet">
-            <div class="petImg">
-
-            </div>
-            <div class="petInfo">
-                <div class="petInfoCanEat">
-
-                </div>
-                <div class="progress">
-                    <div class="progress-bar w-75 progressPet  progressXp" role="progressbar" aria-valuenow="75" aria-valuemin="0"
-                        aria-valuemax="100">
-                        <a><strong id="1XpPet"></strong> xp / <strong id="2XpPet"></strong> xp | level <strong
-                                id="0XpPet"></strong></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="petInventaire">
-
-        </div>
-    </div>
-    <img src="img/arrowMap.png" id="arrowMap" onclick="changementDeMap()">
-    <div class="Menu">
-        <div class="croix"
-            onclick="if(menuOpen == 0){document.getElementsByClassName('Menu')[0].style.visibility = 'visible';menuOpen = 1}else{document.getElementsByClassName('Menu')[0].style.visibility = 'hidden';menuOpen = 0}">
-            X</div>
-        <br>
-        <p class="titreMenu">
-            Donjon sans Dragon
-        </p>
-        <br>
-        <p class="interactionMenu" onclick="openWin('monde.php?map=1');setTimeout(closeWinMonde, 2000);">RETOUR AU MONDE
-            1</p>
-        <p class="interactionMenu" onclick="openWin('monde.php?map=4');setTimeout(closeWinMonde, 2000);">Boss final</p>
-        <p class="interactionMenu" onclick="openWin('vie.php?vie=5');setTimeout(closeWinMonde, 2000);">+5 vie</p>
-        <br>
-        <img src="img/logo.png" class="logoMenu" />
-    </div>
-    <div class="InvMore">
-        <div class="croix" onclick="MoreInventaire()">X</div>
-        <br>
-        <p class="titreMenu">
-            Slots :
-        </p>
-        <div id="invMore">
-        </div>
-    </div>
     <div class="personnage" id="personnage">
         <div class="pseudo" style="color:white">YOU</div>
         <img src="img/srill_face.png" class="perso" />
     </div>
-    <div id="dialogue">
-
-    </div>
-    <div class="mobile" style="visibility:hidden">
-        <div class="deplacement">
-            <div class="fleche fH dep"></div>
-            <div class="fleche fB dep"></div>
-            <div class="fleche fG dep"></div>
-            <div class="fleche fD dep"></div>
-        </div>
-
-        <div class="attaque">
-            <div class="fleche fH att"></div>
-            <div class="fleche fB att"></div>
-            <div class="fleche fG att"></div>
-            <div class="fleche fD att"></div>
-        </div>
-    </div>
-    <div class="inventaire">
-        <div id="vies"> </div>
-        <div id="slot"> </div>
-        <div id="money"><img src="img/coin.png" class="coinInv"><a class="money"></a> </div>
-        <div class="progress">
-            <div class="progress-bar w-75 progressVie" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                <a><strong id="1Vie"></strong>  / <strong id="2Vie"></strong> | vie </a>
-            </div>
-        </div>
-        <div class="progress">
-            <div class="progress-bar w-75 progressXp" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                <a><strong id="1Xp"></strong> xp / <strong id="2Xp"></strong> xp | level <strong id="0Xp"></strong></a>
-            </div>
-        </div>
-    </div>
+    	<script src="monster.js" charset="utf-8" data-turbolinks-track="reload"></script>
+    
     <?php
     
 $nb_fichier = 0;
@@ -243,18 +136,11 @@ if($dossier = opendir('./mondeSuptilites'))
  
 	closedir($dossier);
 }
-?> <script src="mapcrea.js" charset="utf-8" data-turbolinks-track="reload"></script>
-    <script src="mechant.js" data-turbolinks-track="reload"></script>
-    <script src="mondeTp.js" data-turbolinks-track="reload"></script>
-    <script src="pnj.js" charset="utf-8" data-turbolinks-track="reload"></script>
-    <script src="script.js" charset="utf-8" data-turbolinks-track="reload"></script>
-    <script src="pet.js" charset="utf-8" data-turbolinks-track="reload"></script>
-    <script src="shopList.js" charset="utf-8" data-turbolinks-track="reload"></script>
-    <script src="inventaire.js" charset="utf-8" data-turbolinks-track="reload"></script>
-    <script src="listePlan.js" charset="utf-8" data-turbolinks-track="reload"></script>
-
-
-
+?> 
+	<script>selectMap = 0</script>
+	<script src="script.js" charset="utf-8" data-turbolinks-track="reload"></script>
+	<script src="mapcrea.js" charset="utf-8" data-turbolinks-track="reload"></script>
+   
     <style>
         .tile>div.tile-0 {
             background-image: url("img/tile/aaaa.png");

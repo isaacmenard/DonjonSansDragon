@@ -3,15 +3,6 @@
     height: 100px;
     transition: 1s;
 }
-#tableau{
-    transform: rotate(45deg);
-    margin-left: 200px;
-    margin-top: 200px;
-    margin-bottom: 200px;
-}
-#tableau div{
-    transform: rotate(-45deg);
-}
 html {
     box-sizing: border-box;
 }
@@ -21,8 +12,8 @@ div, body, p, a {
 }
 
 td,tr {
-    width: 100px;
-    height: 100px;
+	width: 40px;
+	height: 40px;
 }
 
 .palette {
@@ -34,8 +25,8 @@ td,tr {
 
 
 .palette {
-    width: 100px;
-    height: 100px;
+    width: 30px;
+    height: 30px;
     background-size : contain;
     background-repeat: no-repeat;
 }
