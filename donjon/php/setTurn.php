@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include( "../include.php" );
+include( "../../include.php" );
 $requser = $bdd->prepare( 'SELECT * FROM combat WHERE idMonster = ' . $_SESSION[ 'combat' ] . ' AND start = 0' );
 $requser->execute();
 $infoCombat = $requser->fetch();

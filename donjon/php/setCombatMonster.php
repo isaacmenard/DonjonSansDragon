@@ -6,7 +6,7 @@ if(isset($_GET['combat']) == 1){
 }else{
 	$combat = -1;
 }
-  include( "../include.php" );
+  include( "../../include.php" );
   $del_ip = $bdd->prepare('UPDATE membres SET combat = ? WHERE id = '.$_SESSION['id']);
 	$del_ip->execute(array($combat));
 ?>

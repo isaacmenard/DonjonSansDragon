@@ -3,7 +3,7 @@ mb_internal_encoding( 'UTF-8' );
 setlocale( LC_CTYPE, 'fr_FR.UTF-8' );
 header( 'Content-type: text/html; charset=UTF-8' );
 session_start();
-include( "../include.php" );
+include( "../../include.php" );
 $count = 0;
 $getid = intval( isset( $_GET[ 'id' ] ) );
 $requser = $bdd->prepare( 'SELECT * FROM membres WHERE id = ' . $_SESSION[ 'id' ] . '' );

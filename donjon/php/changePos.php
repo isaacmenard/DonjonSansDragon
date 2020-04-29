@@ -2,7 +2,7 @@
 if (isset($_GET['pos'])) // On a le slot et l'item'
 {	$item = $_GET['pos'];
 	session_start();
-   include("../include.php");
+   include("../../include.php");
    $getid = intval(isset($_GET['id']));
    $requser = $bdd->prepare('SELECT * FROM membres WHERE id = '.$_SESSION['id'].'');
    $requser->execute(array($getid));

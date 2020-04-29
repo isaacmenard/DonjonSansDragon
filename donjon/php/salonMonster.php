@@ -6,7 +6,7 @@ if ( isset( $_GET[ 'id' ] ) && isset( $_GET[ 'statue' ] ) ) // On a le slot et l
   $_SESSION[ 'map' ] = $map;
   $notReady = false;
   session_start();
-  include( "../include.php" );
+  include( "../../include.php" );
   $getid = intval( isset( $_GET[ 'id' ] ) );
   $requser = $bdd->prepare( 'SELECT * FROM combat WHERE idMonster = ' . $_GET[ 'id' ] . ' AND start = 0' );
   $requser->execute( array( $getid ) );

@@ -138,6 +138,35 @@ body {
     image-rendering: pixelated;
 }
 
+#inventory{
+	transform: none;
+	position: fixed;
+	top:0;
+	left: 0;
+	width: 40%;
+	height: 100%;
+	background-color: rgba(10,10,10,0.72);
+}
+
+#inventory table,#inventory tbody,#inventory tr{
+	position: relative;
+	transform: none;
+}
+#inventory tr{
+	width: 300px;
+	height: 100px;
+	border : solid 1px white;
+	transform: none;
+	position: relative;
+	display: flex;
+}
+#inventory td{
+	width: 100px;
+	height: 100px;
+		border : solid 1px white;
+	transform: none;
+}
+
 @import url(https://fonts.googleapis.com/css?family=Raleway:700,800);
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
@@ -154,7 +183,7 @@ body {
     transition: 0s;
     z-index: 30000;
     transform: translate3d(-25.8px, -76px, 0px);
-    background-image: url(img/tpDonjon.png);
+    background-image: url(../img/tpDonjon.png);
     background-size: 100%;
 }
 

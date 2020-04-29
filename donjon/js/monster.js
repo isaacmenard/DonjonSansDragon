@@ -1,5 +1,3 @@
-  monsterList = []
-  readyVar = false
 
   function generateMonster(src, vie, dammage, range, pos) {
     var monster = []
@@ -33,12 +31,12 @@
             document.getElementById("salon").style.visibility = "visible"
           }
         };
-        xmlhttp.open("GET", "salonMonster.php?id=" + id + "&statue=" + 0+"&life="+vie, true);
+        xmlhttp.open("GET", "php/salonMonster.php?id=" + id + "&statue=" + 0+"&life="+vie, true);
         xmlhttp.send();
 
         if (document.getElementById("canGo")) {
           var xmlhttp = new XMLHttpRequest();
-          xmlhttp.open("GET", "setCombatMonster.php?combat=" + 1, true);
+          xmlhttp.open("GET", "php/setCombatMonster.php?combat=" + 1, true);
           xmlhttp.send();
           xmlhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -49,7 +47,7 @@
       }, 1000)
       setTimeout(function () {
         var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", "readySalonMonster.php?statue=" + 0, true);
+        xmlhttp.open("GET", "php/readySalonMonster.php?statue=" + 0, true);
         xmlhttp.send();
       }, 1000)
       readyVar = false
@@ -66,14 +64,14 @@
         document.getElementById("textPanelSalon").innerHTML = "Cliquez sur \" I'm not ready \" pour commencer ! "
         document.getElementById("ready").innerHTML = "I'm not READY"
         var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", "readySalonMonster.php?statue=" + "-1", true);
+        xmlhttp.open("GET", "php/readySalonMonster.php?statue=" + "-1", true);
         xmlhttp.send();
         readyVar = true
       } else {
         document.getElementById("textPanelSalon").innerHTML = "En attente des autres joueurs "
         document.getElementById("ready").innerHTML = "I'm READY !"
         var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", "readySalonMonster.php?statue=" + 1, true);
+        xmlhttp.open("GET", "php/readySalonMonster.php?statue=" + 1, true);
         xmlhttp.send();
         readyVar = false
       }
@@ -82,22 +80,23 @@
     function leave() {
       clearInterval(interval)
       var xmlhttp = new XMLHttpRequest();
-      xmlhttp.open("GET", "leaveSalonMonster.php", true);
+      xmlhttp.open("GET", "php/leaveSalonMonster.php", true);
       xmlhttp.send();
       document.getElementById("salon").style.visibility = "hidden"
     }
 
 
   } else {
+	deplacement = "tp"
     document.getElementById("textPanelSalon").innerHTML = "CHOISIR VOTRE EMPLACEMENT"
     document.getElementById("ready").innerHTML = "FAIT !"
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "readySalonMonster.php?statue=" + "-1", true);
+    xmlhttp.open("GET", "php/readySalonMonster.php?statue=" + "-1", true);
     xmlhttp.send();
 
     function leave() {
       var xmlhttp = new XMLHttpRequest();
-      xmlhttp.open("GET", "leaveSalonMonster.php", true);
+      xmlhttp.open("GET", "php/leaveSalonMonster.php", true);
       xmlhttp.send();
       document.getElementById("salon").style.visibility = "hidden"
       xmlhttp.onreadystatechange = function () {
@@ -117,7 +116,7 @@
           document.getElementById("salon").style.visibility = "visible"
         }
       };
-      xmlhttp.open("GET", "salonMonster.php?id=" + combat + "&statue=" + "1", true);
+      xmlhttp.open("GET", "php/salonMonster.php?id=" + combat + "&statue=" + "1", true);
       xmlhttp.send();
       if (document.getElementById("canGo")) {
 		  clearInterval(interval)
@@ -132,14 +131,14 @@
         document.getElementById("textPanelSalon").innerHTML = "CHOISIR VOTRE EMPLACEMENT"
         document.getElementById("ready").innerHTML = "FAIT !"
         var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", "readySalonMonster.php?statue=" + "-1", true);
+        xmlhttp.open("GET", "php/readySalonMonster.php?statue=" + "-1", true);
         xmlhttp.send();
         readyVar = true
       } else {
         document.getElementById("textPanelSalon").innerHTML = "En attente des autres joueurs "
         document.getElementById("ready").innerHTML = "ATTEND J'AI CHANGé D'AVIS !"
         var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", "readySalonMonster.php?statue=" + 1, true);
+        xmlhttp.open("GET", "php/readySalonMonster.php?statue=" + 1, true);
         xmlhttp.send();
         readyVar = false
       }
@@ -148,12 +147,13 @@
 
   function startFight() {
     setTurn()
+	  deplacement = "null"
   }
 
   function setTurn() {
 	  
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "setTurn.php", true);
+    xmlhttp.open("GET", "php/setTurn.php", true);
     xmlhttp.send();
     xmlhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
@@ -163,22 +163,12 @@
     };
 
     function next(turn) {
-      document.getElementById("textPanelSalon").innerHTML = "C'est votre Tour"
+      document.getElementById("textPanelSalon").innerHTML = turn
       document.getElementById("ready").innerHTML = "FINI !"
 		
 		interval = setInterval(function () {
-				refreshLife()
-		  var xmlhttp = new XMLHttpRequest();
-		  xmlhttp.onreadystatechange = function () {
-			if (this.readyState == 4 && this.status == 200) {
-			  listeJoueurs =  (this.responseText)
-				listeJoueurs= listeJoueurs.split("</p>").map(x => x.split("--")[0])
-			  document.getElementById("salonText").innerHTML =  listeJoueurs
-			  document.getElementById("salon").style.visibility = "visible"
-			}
-		  };
-		  xmlhttp.open("GET", "salonMonster.php?id=" + combat + "&statue=" + "1", true);
-		  xmlhttp.send();
+			refreshLife()
+		  
 		}, 1000)
     }
 	  function refreshLife(){
@@ -190,7 +180,7 @@
 				document.getElementById("lifeMonster").innerHTML = lifeMonster+" PV"
 			}
 		  };
-		  xmlhttp.open("GET", "lifeSalonMonster.php", true);
+		  xmlhttp.open("GET", "php/lifeSalonMonster.php", true);
 		  xmlhttp.send();
 	  }
   }

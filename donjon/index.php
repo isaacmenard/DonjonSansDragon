@@ -1,147 +1,155 @@
 <?php
-mb_internal_encoding('UTF-8');
-setlocale(LC_CTYPE, 'fr_FR.UTF-8');
-header('Content-type: text/html; charset=UTF-8'); 
+mb_internal_encoding( 'UTF-8' );
+setlocale( LC_CTYPE, 'fr_FR.UTF-8' );
+header( 'Content-type: text/html; charset=UTF-8' );
 
 
-	session_start();
+session_start();
 
-	include("../include.php");
+include( "../include.php" );
 
-    if(isset($_SESSION['id'])) {
-        $requser = $bdd->prepare("SELECT * FROM membres WHERE id = ?");
-        $requser->execute(array($_SESSION['id']));
-        $user = $requser->fetch();
-    }else{
-        header('Location: ../connexion.php');
-    }
-	   $getid = intval(isset($_GET['id']));
-	   $requser = $bdd->prepare('SELECT * FROM membres WHERE id = '.$_SESSION['id'].'');
-	   $requser->execute(array($getid));
-	   $userinfo = $requser->fetch();
- ?>
+if ( isset( $_SESSION[ 'id' ] ) ) {
+  $requser = $bdd->prepare( "SELECT * FROM membres WHERE id = ?" );
+  $requser->execute( array( $_SESSION[ 'id' ] ) );
+  $user = $requser->fetch();
+} else {
+  header( 'Location: ../connexion.php' );
+}
+$getid = intval( isset( $_GET[ 'id' ] ) );
+$requser = $bdd->prepare( 'SELECT * FROM membres WHERE id = ' . $_SESSION[ 'id' ] . '' );
+$requser->execute( array( $getid ) );
+$userinfo = $requser->fetch();
+?>
 
 <!DOCTYPE html>
 
 <html>
-
 <head>
-    <meta http-equiv="Content-Type" content="text/html" ; charset="UTF-8"\>
-    <script>
+<meta http-equiv="Content-Type" content="text/html" ; charset="UTF-8"\>
+<script>
 		listePlayerPos = []
         stats = null;
         colision = [];
         antiColision = []
 		idPErso = <?php echo($_SESSION['id']); ?>
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </script> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="SHORTCUT ICON" href="img/logo.ico" />
+<script type="text/javascript" src="js/pathfinding-browser.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Acme&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+<script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<?php
+?>
+<title>Donjon sans Dragon</title>
+<div href="#personnage"></div>
 
-    <link rel="SHORTCUT ICON" href="img/logo.ico" />
-	<script type="text/javascript" src="pathfinding-browser.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Acme&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
-    <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <?php 
-	?>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/inventory.scss">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head><?php
+$temps_session = 3600;
+$temps_actuel = date( "U" );
+if ( $userinfo[ 'time' ] - $temps_actuel < $temps_session * -1 && $userinfo[ 'combat' ] != -1 ) {
+  $del_ip = $bdd->prepare( 'DELETE FROM comabtPlayers WHERE idPlayer = ' . $_SESSION[ 'id' ] );
+  $del_ip->execute();
+  $del_ip = $bdd->prepare( 'UPDATE membres SET combat = -1 WHERE  id = ' . $_SESSION[ 'id' ] );
+  $del_ip->execute();
+  $_SESSION[ 'combat' ] = -1;
+  echo( "<script>combat = -1;posActuY = (" . $userinfo[ 'position' ] . ").split(' ')[2]
+			posActuX = (" . $userinfo[ 'position' ] . ").split(' ')[0]
 
-    <title>Donjon sans Dragon</title>
-    <div href="#personnage"></div>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-</head>
-	<?php
-	$temps_session = 3600;
-$temps_actuel = date("U");
-	if($userinfo['time'] - $temps_actuel < $temps_session *-1 && $userinfo['combat'] != -1){
-		  $del_ip = $bdd->prepare('UPDATE combat SET start = 1 WHERE id = '.$_SESSION['combat']);
-		  $del_ip->execute();
-		  $del_ip = $bdd->prepare('UPDATE membres SET combat = -1 WHERE  id = '.$_SESSION['id']);
-		  $del_ip->execute();
-		  $_SESSION['combat'] = -1;
-	}
-	$monde = 0	;
 
-$update_ip = $bdd->prepare('UPDATE membres SET time = ? WHERE id = ?');
-$update_ip->execute(array($temps_actuel,$userinfo['id']));
+</script>" );
+} else {
+  echo( "<script>combat = " . $userinfo[ 'combat' ] . ";posActuY = (" . $userinfo[ 'position' ] . ").split(' ')[2]
+posActuX = (" . $userinfo[ 'position' ] . ").split(' ')[0]
+
+
+</script>" );
+}
+$monde = 0;
+
+$update_ip = $bdd->prepare( 'UPDATE membres SET time = ? WHERE id = ?' );
+$update_ip->execute( array( $temps_actuel, $userinfo[ 'id' ] ) );
 $session_delete_time = $temps_actuel - $temps_session;
-$del_ip = $bdd->prepare('UPDATE membres SET time = -1 WHERE time < ?');
-$del_ip->execute(array($session_delete_time));
-$show_user_nbr = $bdd->query('SELECT * FROM membres WHERE time != "-1"');
-while ($user_nbr = $show_user_nbr->fetch())
-{
-?>
-
- <script>
+$del_ip = $bdd->prepare( 'UPDATE membres SET time = -1 WHERE time < ?' );
+$del_ip->execute( array( $session_delete_time ) );
+$show_user_nbr = $bdd->query( 'SELECT * FROM membres WHERE time != "-1"' );
+while ( $user_nbr = $show_user_nbr->fetch() ) {
+  ?>
+<script>
 	 listePlayerPos.push([<?php echo $user_nbr['position'] ?>,'<?php echo $user_nbr['login'] ?>'])
-</script> 
+</script>
+<?php
+}
 
-<?php }
-echo("<script>combat = ".$userinfo['combat'].";posActuY = (".$userinfo['position'].").split(' ')[2]
-posActuX = (".$userinfo['position'].").split(' ')[0]
-
-
-</script>")
 ?>
-
-
-
 
 <body>
-	<div id="coin"></div>
+<div id="coin"></div>
 <p id="textAjax"></p>
-    <table  class="table">
-        <tbody   id="map" class="tbody">
-        </tbody>
+<table  class="table">
+  <tbody   id="map" class="tbody">
+  </tbody>
+</table>
+<div id="lifeMonster" style="visibility: hidden"></div>
+<div id="salon" style="visibility: hidden;">
+  <div id="salonText" ></div>
+  <div class="bottom">
+    <p id="textPanelSalon"></p>
+    <a href="#" id="ready" class="btn green" onClick="ready()">I'm READY !</a> <a href="#" class="btn red"  onClick="leave()">LEAVE !</a> </div>
+</div>
+<div class="tile hide">
+  <div></div>
+</div>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<div id="map"> </div>
+<div id="inventory">
+  <table>
+    <tr>
+      <td id="drag1" ondrop="drop(event)" ondragover="allowDrop(event,this)"><div id="enlt1" ondragstart="drag(event)" style="width: 100%;height: 100%" draggable="true">a</div></td>
+      <td id="drag2" ondrop="drop(event)" ondragover="allowDrop(event,this)"><div id="enlt2" ondragstart="drag(event)" style="width: 100%;height: 100%" draggable="true">b</div></td>
+      <td id="drag3" ondrop="drop(event)" ondragover="allowDrop(event,this)"><div id="enlt3" ondragstart="drag(event)" style="width: 100%;height: 100%" draggable="true">c</div></td>
+    </tr>
+    <tr>
+      <td id="drag4" ondrop="drop(event)" ondragover="allowDrop(event,this)"><div id="enlt4" ondragstart="drag(event)" style="width: 100%;height: 100%" draggable="true">d</div></td>
+      <td id="drag5" ondrop="drop(event)" ondragover="allowDrop(event,this)"><div id="enlt5" ondragstart="drag(event)" style="width: 100%;height: 100%" draggable="true">e</div></td>
+      <td id="drag6" ondrop="drop(event)" ondragover="allowDrop(event,this)"><div id="enlt6" ondragstart="drag(event)" style="width: 100%;height: 100%" draggable="true">f</div></td>
+    </tr>
+    <tr>
+      <td id="drag7" ondrop="drop(event)" ondragover="allowDrop(event,this)"><div id="enlt7" ondragstart="drag(event)" style="width: 100%;height: 100%" draggable="true">f</div></td>
+      <td id="drag8" ondrop="drop(event)" ondragover="allowDrop(event,this)"><div id="enlt8" ondragstart="drag(event)" style="width: 100%;height: 100%" draggable="true">g</div></td>
+      <td id="drag9" ondrop="drop(event)" ondragover="allowDrop(event,this)"><div id="enlt9" ondragstart="drag(event)" style="width: 100%;height: 100%" draggable="true">h</div></td>
+    </tr>
+  </table>
+</div>
+<div class="personnage" id="personnage">
+  <div class="pseudo" style="color:white">YOU</div>
+  <img src="img/srill_face.png" class="perso" /> </div>
+<script src="js/monster.js" charset="utf-8" data-turbolinks-track="reload"></script>
+<?php
 
-    </table>
-	<div id="lifeMonster"></div>
-	<div id="salon" style="visibility: hidden;">
-		<div id="salonText" ></div>
-		<div class="bottom">
-			<p id="textPanelSalon"></p>
-			<a href="#" id="ready" class="btn green" onClick="ready()">I'm READY !</a>
-			<a href="#" class="btn red"  onClick="leave()">LEAVE !</a>
-		</div>
-	</div>
-    <div class="tile hide">
-        <div></div>
-    </div>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-
-    <div id="map">
-
-    </div>
-
-    <div class="personnage" id="personnage">
-        <div class="pseudo" style="color:white">YOU</div>
-        <img src="img/srill_face.png" class="perso" />
-    </div>
-    	<script src="monster.js" charset="utf-8" data-turbolinks-track="reload"></script>
-    
-    <?php
-    
 $nb_fichier = 0;
-if($dossier = opendir('./mondeSuptilites'))
-{
-	while(false !== ($fichier = readdir($dossier)))
-	{
-		if($fichier != '.' && $fichier != '..' && $fichier != 'index.php')
-		{
-			$nb_fichier++; // On incr�mente le compteur de 1
-            echo '<script src="./mondeSuptilites/' . $fichier.' " charset="utf-8">';
-            echo '</script>';
-		} // On ferme le if (qui permet de ne pas afficher index.php, etc.)
- 
-	} // On termine la boucle
- 
-	closedir($dossier);
+if ( $dossier = opendir( './mondeSuptilites' ) ) {
+  while ( false !== ( $fichier = readdir( $dossier ) ) ) {
+    if ( $fichier != '.' && $fichier != '..' && $fichier != 'index.php' ) {
+      $nb_fichier++; // On incr�mente le compteur de 1
+      echo '<script src="./mondeSuptilites/' . $fichier . ' " charset="utf-8">';
+      echo '</script>';
+    } // On ferme le if (qui permet de ne pas afficher index.php, etc.)
+
+  } // On termine la boucle
+
+  closedir( $dossier );
 }
-?> 
-	<script>selectMap = 0</script>
-	<script src="script.js" charset="utf-8" data-turbolinks-track="reload"></script>
-	<script src="mapcrea.js" charset="utf-8" data-turbolinks-track="reload"></script>
-   
-    <style>
+?>
+<script>selectMap = 0</script> 
+<script src="js/variables.js" charset="utf-8" data-turbolinks-track="reload"></script> 
+<script src="js/inventaire.js" charset="utf-8" data-turbolinks-track="reload"></script> 
+<script src="js/script.js" charset="utf-8" data-turbolinks-track="reload"></script> 
+<script src="js/mapcrea.js" charset="utf-8" data-turbolinks-track="reload"></script>
+<style>
         .tile>div.tile-0 {
             background-image: url("img/tile/aaaa.png");
         }
@@ -630,8 +638,5 @@ if($dossier = opendir('./mondeSuptilites'))
             background-image: url("img/tile/Wood_05.png");
         }
     </style>
-
 </body>
-
-
 </html>
