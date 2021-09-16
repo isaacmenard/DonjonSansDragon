@@ -8,6 +8,8 @@ $password_options = [ 'algo' => PASSWORD_DEFAULT, 'options' => [ 'cost' => 12 ] 
 # la connexion � la base de donn�es
 
 
+
+	
 try
 {
 $bdd = new PDO('mysql:host=localhost;dbname=dsd', 'root', '');

@@ -7,6 +7,7 @@
     $nbligne = $requete->fetch();
     ini_set("default_charset", "UTF-8");
     header('Content-type: text/html; charset=UTF-8');
+    echo(getenv('mdp'));
 ?>
 
 <head>
@@ -16,7 +17,7 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
   <link href="css/mdb.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css"
     integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -60,7 +61,7 @@
         </div>
       </div>
     </div>
-    <!-- 
+    <!--
         <div id="cards">
             <figure class="card card--ice">
                 <div class="card__image-container">
